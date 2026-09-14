@@ -1,0 +1,50 @@
+{
+  "seed": 42,
+  "simulated_rewards": true,
+  "xi_matrix_file": "../Model calibration/Xi_matrix.json",
+  "gravity_mean": 9.81,
+  "ou_substeps": 5,
+  "system_dynamics_parameters": {
+    "n_octopi": 20,
+    "n_classes": 4,
+    "gamma_learn": 20,
+    "gamma_break": 10,
+    "gamma_req": 10,
+    "gamma_heter": 0.5,
+    "gamma_grav": 0.001,
+    "gamma_sync": 1,
+    "gamma_epis": 1
+  },
+  "hyper_parameters": {
+    "temperature": 0.001,
+    "scaling_constant": 1
+  },
+  "fitness_margin_bounds": {
+    "Cheetah": [-10, 20],
+    "Ant": [-10, 20],
+    "Leg": [-10, 20],
+    "Humanoid": [-10, 20]
+  },
+  "policy_shapes": {
+    "Cheetah": [17, 6, 64],
+    "Ant": [105, 8, 64],
+    "Leg": [11, 3, 64],
+    "Humanoid": [348, 17, 256]
+  },
+  "holistic": {
+    "n_sobol_points": 100,
+    "n_repetitions_per_point": 10,
+    "horizon": 100
+  },
+  "reductionist": {
+    "class_name": "Cheetah",
+    "n_sobol_points": 100,
+    "n_repetitions_per_point": 10,
+    "horizon": 50
+  },
+  "front": {
+    "n_points": 200,
+    "reference_padding_fraction": 0.05
+  },
+  "output_file": "result.pkl"
+}

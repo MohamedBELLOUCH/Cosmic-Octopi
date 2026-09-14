@@ -1,0 +1,36 @@
+{
+  "seed": 42,
+  "system_dynamics_parameters": {
+    "n_octopi": 40,
+    "n_classes": 4,
+    "gamma_learn": 20,
+    "gamma_break": 30,
+    "gamma_req": 10,
+    "gamma_heter": 0.001,
+    "gamma_grav": 0.001,
+    "gamma_sync": 0.9,
+    "gamma_epis": 1
+  },
+  "horizon": 100,
+  "fitness_margins": [0, 10],
+  "hyper_parameters": {
+    "temperature": 0.001,
+    "scaling_constant": 1
+  },
+  "gravity_mean": 9.8,
+  "environment_ids": {
+    "cheetah": "HalfCheetah-v5",
+    "ant": "Ant-v5",
+    "hopper": "Hopper-v5",
+    "humanoid": "Humanoid-v5"
+  },
+  "simulated_rewards": true,
+  "xi_matrix_file": "../Model calibration/Xi_matrix.json",
+  "n_parallel": 1,
+  "plot": {
+    "class_index": 2,
+    "display_horizon": 30,
+    "disc_sizes": [70, 50]
+  },
+  "output_file": "result.pkl"
+}

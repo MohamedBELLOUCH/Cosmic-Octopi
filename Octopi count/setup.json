@@ -1,0 +1,16 @@
+{
+  "seed": 42,
+  "class_name": "Ant",
+  "simulated_rewards": true,
+  "xi_matrix_file": "../Model calibration/Xi_matrix.json",
+  "earth_gravity": 9.81,
+  "initial_global_fitness": 0,
+  "initial_contributor_count": 1,
+  "episodes_per_round": 5,
+  "n_episodes": 400,
+  "n_repetitions": 10,
+  "ou_substeps": 5,
+  "gamma_grav": 10,
+  "n_octopi_values": [10, 20, 30],
+  "output_file": "result.pkl"
+}

@@ -1,0 +1,24 @@
+{
+  "seed": 42,
+  "horizon": 20,
+  "base_parameters": {
+    "n_octopi": 10,
+    "n_classes": 4,
+    "gamma_learn": 20,
+    "gamma_break": 30,
+    "gamma_req": 10,
+    "gamma_grav": 0.001,
+    "gamma_epis": 1
+  },
+  "scenarios": [
+    {
+      "gamma_heter": 0.1,
+      "gamma_sync": 1
+    },
+    {
+      "gamma_heter": 8,
+      "gamma_sync": 0.2
+    }
+  ],
+  "output_file": "result.pkl"
+}
