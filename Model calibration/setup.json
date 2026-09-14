@@ -1,0 +1,44 @@
+{
+  "seed": 42,
+  "class_name": "Humanoid",
+  "simulated_rewards": true,
+  "xi_matrix_file": "Xi_matrix.json",
+  "offsets_file": "offsets.json",
+  "n_episodes": 1500,
+  "pre_aggregation_fitness_half_width": 50,
+  "gravity_mean": 9.81,
+  "gravity_variance": 10,
+  "ou_substeps": 5,
+  "ou_fit_bounds": {
+    "mean_reversion_rate": [1e-7, 2],
+    "long_term_cumulative_reward": [1e-3, 10000],
+    "sigma": [1e-5, 1000]
+  },
+  "metric_error": {
+    "agent_counts": [2, 4, 6],
+    "wet_experiment_counts": [2, 3, 4, 5, 6, 7, 8, 9, 10],
+    "n_scenarios": 10,
+    "ridge_alpha": 1000,
+    "ridge_alpha_per_sample": 2,
+    "bootstrap_replicates": 500,
+    "fitness_margin_bounds": [-5, 10],
+    "horizon": 50,
+    "policy_shape": [348, 17, 256],
+    "hyper_parameters": {
+      "temperature": 0.5,
+      "scaling_constant": 1
+    },
+    "system_dynamics_parameters": {
+      "n_octopi": 40,
+      "n_classes": 4,
+      "gamma_learn": 20,
+      "gamma_break": 10,
+      "gamma_req": 10,
+      "gamma_heter": 0.5,
+      "gamma_grav": 10,
+      "gamma_sync": 1,
+      "gamma_epis": 1
+    }
+  },
+  "output_file": "result.pkl"
+}
