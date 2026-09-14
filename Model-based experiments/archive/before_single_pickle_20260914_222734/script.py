@@ -1,7 +1,7 @@
 """Run all model-based experiments from the adjacent, self-contained setup.json.
 
 Launch later from any directory:
-    python -B "<project>/Model-based experiments/script.py"
+    python "<project>/Model-based experiments/script.py"
 An alternative configuration can be selected with --setup PATH.
 
 This orchestrator calls the existing MORBO and qNParEGO run_condition functions;
@@ -9,32 +9,23 @@ it does not implement simulation, acquisition, scalarization, or hypervolume.
 Each independent run starts a fresh optimization with a distinct seed. Seeds
 are paired across methods and conditions within that run for comparison.
 
-The only persistent project output is model_based_results.pkl beside this script.
-Per-experiment checkpoints use cleaned-up system temporary files. The console
-progress bar shows completed experiments and the current optimization step.
-Rerunning resumes compatible checkpoints in the combined pickle.
+Results are checkpointed by the existing runners, separately for every run,
+algorithm, approach, and experiment. Rerunning resumes compatible checkpoints.
 The original single-run result files and configuration files are never changed.
 The notebook continues to show those original results until updated separately.
 """
 
 import argparse
-from contextlib import contextmanager, nullcontext, redirect_stdout
 from copy import deepcopy
 import hashlib
 import importlib
 import importlib.util
-import io
 import json
 import math
 import os
 from pathlib import Path
 import pickle
 import sys
-import tempfile
-import time
-
-sys.dont_write_bytecode = True
-os.environ["PYTHONDONTWRITEBYTECODE"] = "1"
 
 
 EXPERIMENT_DIR = Path(__file__).resolve().parent
@@ -67,11 +58,9 @@ def validate_setup(config):
     if (type(config["base_seed"]) is not int
             or not 0 <= config["base_seed"] <= final_seed < 2**32):
         raise ValueError("Run seeds must be distinct integers in [0, 2**32)")
-    filename = Path(config["output_file"])
-    if filename.name != str(filename) or filename.suffix != ".pkl":
-        raise ValueError("output_file must be a pickle filename beside this script")
-    if (EXPERIMENT_DIR / filename).resolve().parent != EXPERIMENT_DIR.resolve():
-        raise ValueError("output_file must stay inside Model-based experiments")
+    output = (EXPERIMENT_DIR / config["output_directory"]).resolve()
+    if output == EXPERIMENT_DIR or not output.is_relative_to(EXPERIMENT_DIR):
+        raise ValueError("output_directory must be a subdirectory of Model-based experiments")
     if set(config["hyperparameters"]) != {"MORBO", "qNParEGO"}:
         raise ValueError("Supply hyperparameters for MORBO and qNParEGO")
     if set(config["approaches"]) != {"holistic", "reductionist"}:
@@ -212,7 +201,7 @@ def build_setup(config, approach, experiment, seed):
 
 
 def run_experiment(config, backends, fingerprints, run_number, algorithm, approach,
-                   experiment, xi_matrices, model_sizes, output):
+                   experiment, xi_matrices, model_sizes):
     """Provide inline settings and isolated checkpoints to the existing runners."""
     import numpy as np
 
@@ -220,6 +209,9 @@ def run_experiment(config, backends, fingerprints, run_number, algorithm, approa
     setup = build_setup(config, approach, experiment, seed)
     hp = deepcopy(config["hyperparameters"][algorithm])
     hp["dimension"] = setup[approach]["horizon"]
+    output = (EXPERIMENT_DIR / config["output_directory"]
+              / f"run_{run_number:02d}_seed_{seed}" / algorithm
+              / f"result_{approach}_{experiment}.pkl")
     metadata = {
         "schema_version": 2, "profile": "full", "suite_schema_version": 1,
         "algorithm": algorithm, "approach": approach, "experiment": experiment,
@@ -240,10 +232,10 @@ def run_experiment(config, backends, fingerprints, run_number, algorithm, approa
         if (any(result.get(key) != value for key, value in metadata.items())
                 or any(not np.array_equal(result.get("xi_matrices", {}).get(name), xi_matrices[name])
                        for name in CLASS_NAMES)):
-            raise ValueError(f"Checkpoint settings/code differ: {output}. Choose a new output_file.")
+            raise ValueError(f"Checkpoint settings/code differ: {output}. Choose a new output_directory.")
         if result["complete"]:
             print(f"Already complete: {output}", flush=True)
-            return result
+            return
     else:
         output.parent.mkdir(parents=True, exist_ok=True)
         result = {**metadata, "xi_matrices": xi_matrices, "runs": {}, "complete": False}
@@ -265,151 +257,6 @@ def run_experiment(config, backends, fingerprints, run_number, algorithm, approa
     result["complete"] = True
     save_result(output, result)
     print(f"Saved {output}", flush=True)
-    return result
-
-
-def save_bundle(path, result):
-    """Atomically replace the sole output, staging outside the project."""
-    with tempfile.TemporaryDirectory(prefix="cosmic_model_based_save_") as directory:
-        temporary = Path(directory) / "bundle.pkl"
-        with temporary.open("wb") as file:
-            pickle.dump(result, file, protocol=pickle.HIGHEST_PROTOCOL)
-            file.flush()
-            os.fsync(file.fileno())
-        for attempt in range(7):
-            try:
-                temporary.replace(path)
-                return
-            except PermissionError:
-                if attempt == 6:
-                    raise
-                time.sleep(0.05 * 2**attempt)
-
-
-class BatchProgress:
-    """ASCII CMD bar with experiment totals and current BO step."""
-
-    def __init__(self, config, bundle):
-        from tqdm import tqdm
-
-        self.config = config
-        total = (config["n_independent_runs"] * len(config["hyperparameters"])
-                 * len(config["approaches"]) * len(config["experiments"]))
-        completed = sum(record["complete"] for record in bundle["experiments"].values())
-        self.bar = tqdm(total=total, initial=completed, desc="Experiments",
-                        unit="exp", ascii=True, dynamic_ncols=True,
-                        mininterval=0.2, file=sys.stderr,
-                        bar_format="{desc} {percentage:3.0f}%|{bar}| {n_fmt}/{total_fmt} "
-                                   "[{elapsed}<{remaining}]{postfix}")
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, *exc):
-        self.bar.close()
-
-    def start(self, number, algorithm, approach, experiment, saved):
-        self.bar.set_description_str(f"Run {number}/{self.config['n_independent_runs']} "
-                                     f"{algorithm} {approach[0].upper()}-{experiment[:4]}")
-        if saved is None:
-            self.bar.set_postfix_str("initializing")
-        else:
-            self.observe(saved)
-
-    def observe(self, result):
-        runs = result.get("runs", {})
-        if not runs:
-            return
-        key = next(reversed(runs))
-        trajectory = runs[key]
-        form, condition = key.split("/", 1)
-        label = f"{form}/{condition.rsplit('=', 1)[-1]}"
-        hp = result["hyperparameters"]
-        candidates = len(trajectory.get("X_unit", []))
-        if candidates < hp["n_initial_points"]:
-            status = f"init {candidates}/{hp['n_initial_points']}"
-        else:
-            steps = len(trajectory.get("direction_angle_history", []))
-            status = f"step {steps}/{hp['n_iterations']}"
-        self.bar.set_postfix_str(f"{label} {status}")
-
-    @contextmanager
-    def reporting(self, backends):
-        originals = {name: backend.save_result for name, backend in backends.items()}
-        try:
-            for name, backend in backends.items():
-                def save_and_report(path, result, original=originals[name]):
-                    original(path, result)
-                    self.observe(result)
-                backend.save_result = save_and_report
-            with redirect_stdout(io.StringIO()):
-                yield
-        finally:
-            for name, backend in backends.items():
-                backend.save_result = originals[name]
-
-    def finish(self):
-        self.bar.set_postfix_str("saved", refresh=False)
-        self.bar.update(1)
-        self.bar.refresh()
-
-
-def run_suite(config, backends, xi_matrices, model_sizes, show_progress=False):
-    """Store all runs in one pickle, without touching the individual results."""
-    output = (EXPERIMENT_DIR / config["output_file"]).resolve()
-    fingerprints = source_fingerprints(backends)
-    metadata = {"schema_version": 1, "kind": "model_based_suite", "setup": config,
-                "source_sha256": fingerprints}
-    if output.exists():
-        with output.open("rb") as file:
-            bundle = pickle.load(file)
-        if any(bundle.get(key) != value for key, value in metadata.items()):
-            raise ValueError(f"Settings/code differ from {output}; choose a new output_file.")
-        if bundle["complete"]:
-            print(f"Already complete: {output}", flush=True)
-            return bundle
-    else:
-        bundle = {**metadata, "experiments": {}, "complete": False}
-        save_bundle(output, bundle)
-
-    with BatchProgress(config, bundle) if show_progress else nullcontext() as progress:
-        for number in range(1, config["n_independent_runs"] + 1):
-            seed = config["base_seed"] + (number - 1) * config["seed_increment"]
-            for algorithm in config["hyperparameters"]:
-                for approach in config["approaches"]:
-                    for experiment in config["experiments"]:
-                        key = f"run_{number:02d}_seed_{seed}/{algorithm}/{approach}/{experiment}"
-                        saved = bundle["experiments"].get(key)
-                        if saved is not None and saved["complete"]:
-                            continue
-                        if progress:
-                            progress.start(number, algorithm, approach, experiment, saved)
-                        with tempfile.TemporaryDirectory(prefix="cosmic_model_based_run_") as directory:
-                            checkpoint = Path(directory) / "checkpoint.pkl"
-                            if saved is not None:
-                                with checkpoint.open("wb") as file:
-                                    pickle.dump(saved, file, protocol=pickle.HIGHEST_PROTOCOL)
-                            try:
-                                with progress.reporting(backends) if progress else nullcontext():
-                                    result = run_experiment(config, backends, fingerprints, number,
-                                                            algorithm, approach, experiment,
-                                                            xi_matrices, model_sizes, checkpoint)
-                            except (Exception, KeyboardInterrupt):
-                                if checkpoint.exists():
-                                    with checkpoint.open("rb") as file:
-                                        bundle["experiments"][key] = pickle.load(file)
-                                    save_bundle(output, bundle)
-                                raise
-                            if not result["complete"]:
-                                raise RuntimeError(f"Incomplete experiment returned: {key}")
-                            bundle["experiments"][key] = result
-                            save_bundle(output, bundle)
-                            if progress:
-                                progress.finish()
-    bundle["complete"] = True
-    save_bundle(output, bundle)
-    print(f"All model-based independent runs saved in {output}", flush=True)
-    return bundle
 
 
 def main():
@@ -436,7 +283,14 @@ def main():
         base.get_model_size_in_kb(base.Network(*config["common_setup"]["policy_shapes"][name]).float())
         for name in CLASS_NAMES
     ])
-    run_suite(config, backends, xi_matrices, model_sizes, show_progress=True)
+    fingerprints = source_fingerprints(backends)
+    for run_number in range(1, config["n_independent_runs"] + 1):
+        for algorithm in config["hyperparameters"]:
+            for approach in config["approaches"]:
+                for experiment in config["experiments"]:
+                    run_experiment(config, backends, fingerprints, run_number, algorithm,
+                                   approach, experiment, xi_matrices, model_sizes)
+    print("All model-based experiments are complete.", flush=True)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,174 @@
+{
+  "seed": 42,
+  "simulated_rewards": true,
+  "xi_matrix_file": "../Model calibration/Xi_matrix.json",
+  "output_file": "result_holistic_gravity.pkl",
+  "gravity_variances": [
+    1,
+    5
+  ],
+  "formulations": [
+    "RTS",
+    "STR"
+  ],
+  "reference_costs": [
+    2200000,
+    310
+  ],
+  "objective_names": [
+    "total_overhead",
+    "total_instability"
+  ],
+  "objective_units": [
+    "KiB",
+    "dimensionless"
+  ],
+  "objective_normalization": "divide_each_cost_by_its_reference_cost",
+  "gravity_mean": 9.81,
+  "ou_substeps": 5,
+  "system_dynamics_parameters": {
+    "n_octopi": 40,
+    "n_classes": 4,
+    "gamma_learn": 20,
+    "gamma_break": 10,
+    "gamma_req": 10,
+    "gamma_heter": 0.5,
+    "gamma_grav": 1,
+    "gamma_sync": 1,
+    "gamma_epis": 1
+  },
+  "hyper_parameters": {
+    "temperature": 0.001,
+    "scaling_constant": 1
+  },
+  "fitness_margin_bounds": {
+    "Cheetah": [
+      -10,
+      20
+    ],
+    "Ant": [
+      -10,
+      20
+    ],
+    "Leg": [
+      -10,
+      20
+    ],
+    "Humanoid": [
+      -10,
+      20
+    ]
+  },
+  "policy_shapes": {
+    "Cheetah": [
+      17,
+      6,
+      64
+    ],
+    "Ant": [
+      105,
+      8,
+      64
+    ],
+    "Leg": [
+      11,
+      3,
+      64
+    ],
+    "Humanoid": [
+      348,
+      17,
+      256
+    ]
+  },
+  "holistic": {
+    "horizon": 100,
+    "margin_parameterization": "normalized_sequence"
+  },
+  "implementation": "Selective Pressure Allocation Section 6.3.2, Eqs. 26 and 49-52; Gaussian exploration from Yahyaa et al. (2014), Section 4.2.",
+  "n_independent_runs": 1,
+  "bandit": {
+    "n_arms": 10,
+    "arm_interval": [
+      0,
+      1
+    ],
+    "arm_discretization": "linspace_inclusive",
+    "n_scalarization_directions": 5,
+    "direction_rule": "uniform_angle_midpoint_quadrature",
+    "direction_endpoint_epsilon": 0.001,
+    "n_online_iterations": 150,
+    "initialization": "round_robin_full_passes",
+    "initial_pulls_per_pair": 2,
+    "initialization_note": "Repeat the entire Eq. 43 arm-direction schedule twice: 100 initialization requests, then 50 adaptive KG requests.",
+    "cost_reference": [
+      -0.01,
+      -0.01
+    ],
+    "cost_reference_note": "Fixed lower reference in normalized cost coordinates, strictly below nonnegative observations (Eq. 24). Distinct from the upper total-cost hypervolume reference.",
+    "observation_normalization": "increment_divided_by_maximum_possible_increment",
+    "observation_bounds_note": "Overhead: M times the largest float32 class policy payload in KiB. Instability: 1. Observations are normalized costs, not one-minus-cost rewards.",
+    "scalarization": "max_positive_cost_minus_reference_divided_by_direction",
+    "statistics_scope": "arm_and_direction",
+    "sample_variance_ddof": 1,
+    "standard_error": "sample_standard_deviation_divided_by_sqrt_pair_count",
+    "kg_index": "se * (phi(q) - q * Phi(-q)); q = abs(mean - minimum_other_arm_mean) / se",
+    "exploration_scale": "remaining_global_iterations_times_n_arms_times_n_objectives",
+    "exploration_coefficient": 1.0,
+    "exploration_note": "B = (T-k)*K*D*v from the original scalarized KG exploration bound; k is the upcoming one-based global request. D=2 in both variants. The final request has zero bonus.",
+    "zero_variance_rule": "zero_knowledge_gradient_without_artificial_variance_floor",
+    "tie_breaking": "smallest_arm_index",
+    "recommendation": "union_of_one_empirical_exploitation_maximizer_per_observed_scalarizer",
+    "rts_rule": "argmax -s(mean_cost_vector - componentwise_KG_bonus)",
+    "str_rule": "argmax -mean_scalarized_cost + scalar_KG_bonus"
+  },
+  "evaluation": {
+    "workers": 4,
+    "seed": 20260914,
+    "n_random_sequences": 16,
+    "include_constant_sequences": true,
+    "n_realizations_per_sequence": 2,
+    "hypervolume_directions": 128,
+    "direction_endpoint_epsilon": 0.001,
+    "checkpoint_every": 1,
+    "sampling_rule": "common_scrambled_sobol_uniform_draws_over_recommended_arms",
+    "note": "Approximate the exponential set of all horizon-length sequences over the currently recommended arms using 16 sampled sequences and all constant sequences; deduplicate. Reuse identical held-out scenario seeds and Sobol draws across subsets, formulations, and gravity levels. Cache repeated subsets. Evaluation observations never update the bandit.",
+    "hypervolume_note": "Empirical RTS/STR polar hypervolume of the sampled sequence set, using the same fixed total-cost reference as MORBO/qNParEGO. Plot current estimates, without a cumulative maximum."
+  },
+  "torch_num_threads": 1,
+  "approach": "holistic",
+  "experiment": "gravity",
+  "algorithm": "Scalarized KG",
+  "sweep": {
+    "parameter": "gamma_grav",
+    "values": [
+      1,
+      5
+    ],
+    "symbol": "grav"
+  },
+  "horizon_note": "150 online training requests are necessary because KG needs 2*10*5=100 initialization requests. Held-out evaluation sequences retain length 100 and the original total-cost reference, matching holistic UCB/MORBO/qNParEGO.",
+  "comparison_note": "KG follows the paper cost-minimization max-length scalarization. Existing UCB uses min-length scalarization of one-minus-cost rewards. Their optimizer conventions differ; this pilot is not a controlled ranking. UCB results are preserved.",
+  "sources": {
+    "adapted_paper": {
+      "filename": "Selective_Pressure_Allocation_paper_10_ (10).pdf",
+      "section": "6.3.2",
+      "equations": [
+        26,
+        49,
+        50,
+        51,
+        52
+      ],
+      "sha256": "f38b9ebce8e62f30b8b7c28564112b692c70596a824db90e8d25ce188418d224"
+    },
+    "original_paper": {
+      "title": "Knowledge Gradient for Multi-objective Multi-armed Bandit Algorithms",
+      "authors": "Yahyaa, Drugan and Manderick",
+      "year": 2014,
+      "doi": "10.5220/0004796600740083",
+      "url": "https://www.scitepress.org/PublishedPapers/2014/47966/47966.pdf",
+      "section": "4.2"
+    }
+  }
+}

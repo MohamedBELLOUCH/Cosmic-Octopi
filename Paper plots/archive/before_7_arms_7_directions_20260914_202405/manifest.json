@@ -1,0 +1,142 @@
+{
+  "Scalarized UCB\\bandits.ipynb": {
+    "sha256": "ef784d0204a96df6816ddda573361ab02e21e2f1d1acea7f9fd382294a16cd16",
+    "archive": "Scalarized UCB\\archive\\before_7_arms_7_directions_20260914_202405\\bandits.ipynb"
+  },
+  "Scalarized UCB\\experiment_runner.py": {
+    "sha256": "dd514be280aa4df7775aed5b441e8ffe360c26aa6153589540be4126f05e09ed",
+    "archive": "Scalarized UCB\\archive\\before_7_arms_7_directions_20260914_202405\\experiment_runner.py"
+  },
+  "Scalarized UCB\\holistic_environment.py": {
+    "sha256": "8d21aa1112cdac4869a12c7559290ed6f52b67ef2e4b62f4ffbc68e05ec1baa6",
+    "archive": "Scalarized UCB\\archive\\before_7_arms_7_directions_20260914_202405\\holistic_environment.py"
+  },
+  "Scalarized UCB\\online_environment.py": {
+    "sha256": "b4b461ae777a6d293864c93b40421479d40ac73b9cb88dc1090b99da794ed625",
+    "archive": "Scalarized UCB\\archive\\before_7_arms_7_directions_20260914_202405\\online_environment.py"
+  },
+  "Scalarized UCB\\README.md": {
+    "sha256": "969279eeea1547d8a71754b17b66f75969f5e4c4591de530e449b73d0c6c4cc4",
+    "archive": "Scalarized UCB\\archive\\before_7_arms_7_directions_20260914_202405\\README.md"
+  },
+  "Scalarized UCB\\result_holistic_gravity.pkl": {
+    "sha256": "ff9ab6eac8ba9313782077ca848d7a4ade8253c24e94c7d108a1215498792845",
+    "archive": "Scalarized UCB\\archive\\before_7_arms_7_directions_20260914_202405\\result_holistic_gravity.pkl"
+  },
+  "Scalarized UCB\\result_holistic_heterogeneity.pkl": {
+    "sha256": "dc5e88c3ec692d5363f738290af28ff09f56b7acb18826b17e4ddc717637bf92",
+    "archive": "Scalarized UCB\\archive\\before_7_arms_7_directions_20260914_202405\\result_holistic_heterogeneity.pkl"
+  },
+  "Scalarized UCB\\result_holistic_synchronization.pkl": {
+    "sha256": "f7914e549377492fcbb0aa7a1d187e5def7f841c2fb9e201d0b33f17493ae9a0",
+    "archive": "Scalarized UCB\\archive\\before_7_arms_7_directions_20260914_202405\\result_holistic_synchronization.pkl"
+  },
+  "Scalarized UCB\\result_reductionist_gravity.pkl": {
+    "sha256": "8b44238962ea3ea129801b8d84e3b5a596a711b73e473f3ee9ca96fbb661b8f9",
+    "archive": "Scalarized UCB\\archive\\before_7_arms_7_directions_20260914_202405\\result_reductionist_gravity.pkl"
+  },
+  "Scalarized UCB\\result_reductionist_heterogeneity.pkl": {
+    "sha256": "8ee0f3940da384252f4bc9db0909bf83fe5433c6c7759df76b564b7219f05297",
+    "archive": "Scalarized UCB\\archive\\before_7_arms_7_directions_20260914_202405\\result_reductionist_heterogeneity.pkl"
+  },
+  "Scalarized UCB\\result_reductionist_synchronization.pkl": {
+    "sha256": "f7293be55385d24bdb421f340cf1fec96cb0a761b643302d02606fa9cdc0d995",
+    "archive": "Scalarized UCB\\archive\\before_7_arms_7_directions_20260914_202405\\result_reductionist_synchronization.pkl"
+  },
+  "Scalarized UCB\\RTS_Scalarized_UCB.py": {
+    "sha256": "ce990f7a8ce93407603b5e8e95c45214a95b479d475ddebd3ca979d36ebf7230",
+    "archive": "Scalarized UCB\\archive\\before_7_arms_7_directions_20260914_202405\\RTS_Scalarized_UCB.py"
+  },
+  "Scalarized UCB\\script_holistic_gravity.py": {
+    "sha256": "cd1f76107b67016ed08cd16be6d8be36153a02f621d994c88cb10f336ad5d578",
+    "archive": "Scalarized UCB\\archive\\before_7_arms_7_directions_20260914_202405\\script_holistic_gravity.py"
+  },
+  "Scalarized UCB\\script_holistic_heterogeneity.py": {
+    "sha256": "4009a8d37f0f47b61b113e90d589dea14e5492e6a583f000da587f1e94b45abf",
+    "archive": "Scalarized UCB\\archive\\before_7_arms_7_directions_20260914_202405\\script_holistic_heterogeneity.py"
+  },
+  "Scalarized UCB\\script_holistic_synchronization.py": {
+    "sha256": "e2935f7e3c3f22d1e8b04453036a63b0467686ce0de4539e51a9302ff9961064",
+    "archive": "Scalarized UCB\\archive\\before_7_arms_7_directions_20260914_202405\\script_holistic_synchronization.py"
+  },
+  "Scalarized UCB\\script_reductionist_gravity.py": {
+    "sha256": "82a37f9eee9cc7c0f5391d7acd5ed2ab034eaa880c8b6e2638bab72db3486df4",
+    "archive": "Scalarized UCB\\archive\\before_7_arms_7_directions_20260914_202405\\script_reductionist_gravity.py"
+  },
+  "Scalarized UCB\\script_reductionist_heterogeneity.py": {
+    "sha256": "c68e913c57eda7968c962137e732bec94a259488ec2de8d8347fc699c0df0948",
+    "archive": "Scalarized UCB\\archive\\before_7_arms_7_directions_20260914_202405\\script_reductionist_heterogeneity.py"
+  },
+  "Scalarized UCB\\script_reductionist_synchronization.py": {
+    "sha256": "b553d778d3d98f19f260185e4b86f13f7bb93c665ff68b77924ec30eee9c7fe7",
+    "archive": "Scalarized UCB\\archive\\before_7_arms_7_directions_20260914_202405\\script_reductionist_synchronization.py"
+  },
+  "Scalarized UCB\\setup_holistic_gravity.json": {
+    "sha256": "13aaf19f05c10774c808b95da2020ecd5ebd5fe60cb018f59b8bf79930100b32",
+    "archive": "Scalarized UCB\\archive\\before_7_arms_7_directions_20260914_202405\\setup_holistic_gravity.json"
+  },
+  "Scalarized UCB\\setup_holistic_heterogeneity.json": {
+    "sha256": "5ababa487570b9baa144c61efca6e725bda9b05c0b6933ebfc0357a4a50596e1",
+    "archive": "Scalarized UCB\\archive\\before_7_arms_7_directions_20260914_202405\\setup_holistic_heterogeneity.json"
+  },
+  "Scalarized UCB\\setup_holistic_synchronization.json": {
+    "sha256": "82f9356a79b5796766baac1e47d33a24de416df30263477f42ccd34b9ad99d10",
+    "archive": "Scalarized UCB\\archive\\before_7_arms_7_directions_20260914_202405\\setup_holistic_synchronization.json"
+  },
+  "Scalarized UCB\\setup_reductionist_gravity.json": {
+    "sha256": "e219c636b576daaf25d55d3234fc9c02f4f4545ad7bbfcc2f58d71badd80cfcc",
+    "archive": "Scalarized UCB\\archive\\before_7_arms_7_directions_20260914_202405\\setup_reductionist_gravity.json"
+  },
+  "Scalarized UCB\\setup_reductionist_heterogeneity.json": {
+    "sha256": "5306640d8263c0961b3336dce0a4ffb0139ed8096c539de676c3288c16a00578",
+    "archive": "Scalarized UCB\\archive\\before_7_arms_7_directions_20260914_202405\\setup_reductionist_heterogeneity.json"
+  },
+  "Scalarized UCB\\setup_reductionist_synchronization.json": {
+    "sha256": "92bf25bcfcf47976dcb34e236e7b086ab6db6b5b93cf71ceecb37e22db2772b1",
+    "archive": "Scalarized UCB\\archive\\before_7_arms_7_directions_20260914_202405\\setup_reductionist_synchronization.json"
+  },
+  "Scalarized UCB\\STR_Scalarized_UCB.py": {
+    "sha256": "8afa1e7ecf5d2420706e6d85ff1778b8102a2bad580978deab58af63f5ad5074",
+    "archive": "Scalarized UCB\\archive\\before_7_arms_7_directions_20260914_202405\\STR_Scalarized_UCB.py"
+  },
+  "Scalarized UCB\\test_experiment_runner.py": {
+    "sha256": "d47b97757d80bb4b2bc6ea41b14985eb3e385ffbb30d561f91697c70c2ef8d29",
+    "archive": "Scalarized UCB\\archive\\before_7_arms_7_directions_20260914_202405\\test_experiment_runner.py"
+  },
+  "Scalarized UCB\\test_scalarized_ucb.py": {
+    "sha256": "c95b2ae6017cbd14a488c947748455d67632910ac0dc531b6521f644f40818d7",
+    "archive": "Scalarized UCB\\archive\\before_7_arms_7_directions_20260914_202405\\test_scalarized_ucb.py"
+  },
+  "Scalarized Knowledge Gradient\\README.md": {
+    "sha256": "3db01f852c3cdf71d96b1d1db981363e8383090c0fe654ffff162b6b981365ff",
+    "archive": "Scalarized Knowledge Gradient\\archive\\before_7_arms_7_directions_20260914_202405\\README.md"
+  },
+  "Scalarized Knowledge Gradient\\result_holistic_gravity.pkl": {
+    "sha256": "6e6362e04320e8766eacc3e291926c5c2af873a0b869c1c7e21d61b287c779e4",
+    "archive": "Scalarized Knowledge Gradient\\archive\\before_7_arms_7_directions_20260914_202405\\result_holistic_gravity.pkl"
+  },
+  "Scalarized Knowledge Gradient\\RTS_Scalarized_KG.py": {
+    "sha256": "8b954cc996e672c9f934021c929b4317fbb9231d41bc823ed0b3dcfc2ed8acb9",
+    "archive": "Scalarized Knowledge Gradient\\archive\\before_7_arms_7_directions_20260914_202405\\RTS_Scalarized_KG.py"
+  },
+  "Scalarized Knowledge Gradient\\script_holistic_gravity.py": {
+    "sha256": "a43b05ae2edf73fb18348a7ec5260edf7098cf7e4eb61bb464b3e9b491ddd2c8",
+    "archive": "Scalarized Knowledge Gradient\\archive\\before_7_arms_7_directions_20260914_202405\\script_holistic_gravity.py"
+  },
+  "Scalarized Knowledge Gradient\\setup_holistic_gravity.json": {
+    "sha256": "02a3de90d5646695858cd6498412542bc1508a3dc0f991f480a69ba1848c2abd",
+    "archive": "Scalarized Knowledge Gradient\\archive\\before_7_arms_7_directions_20260914_202405\\setup_holistic_gravity.json"
+  },
+  "Scalarized Knowledge Gradient\\STR_Scalarized_KG.py": {
+    "sha256": "1735c836fd668c958424fa49a73b95e20f7335838b74bbbf377a80cc37abb927",
+    "archive": "Scalarized Knowledge Gradient\\archive\\before_7_arms_7_directions_20260914_202405\\STR_Scalarized_KG.py"
+  },
+  "Scalarized Knowledge Gradient\\test_scalarized_kg.py": {
+    "sha256": "6611b22c21ccf4ee902f1276fba4e28ab1b0b73296e0d9ba3e6e69e94bc2b7fa",
+    "archive": "Scalarized Knowledge Gradient\\archive\\before_7_arms_7_directions_20260914_202405\\test_scalarized_kg.py"
+  },
+  "Paper plots\\Model-free hypervolume results.ipynb": {
+    "sha256": "31c6190a2d3ac15a8439e01be1bd495e77989be6568197c112924cb3dac305f6",
+    "archive": "Paper plots\\archive\\before_7_arms_7_directions_20260914_202405\\Model-free hypervolume results.ipynb"
+  }
+}

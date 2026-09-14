@@ -1,0 +1,134 @@
+{
+  "seed": 42,
+  "simulated_rewards": true,
+  "xi_matrix_file": "../Model calibration/Xi_matrix.json",
+  "formulations": [
+    "RTS",
+    "STR"
+  ],
+  "reference_costs": [
+    2200000,
+    310
+  ],
+  "objective_names": [
+    "total_overhead",
+    "total_instability"
+  ],
+  "objective_units": [
+    "KiB",
+    "dimensionless"
+  ],
+  "objective_normalization": "divide_each_cost_by_its_reference_cost",
+  "gravity_mean": 9.81,
+  "ou_substeps": 5,
+  "system_dynamics_parameters": {
+    "n_octopi": 40,
+    "n_classes": 4,
+    "gamma_learn": 20,
+    "gamma_break": 10,
+    "gamma_req": 10,
+    "gamma_heter": 0.1,
+    "gamma_grav": 0.1,
+    "gamma_sync": 1,
+    "gamma_epis": 1
+  },
+  "hyper_parameters": {
+    "temperature": 0.001,
+    "scaling_constant": 1
+  },
+  "fitness_margin_bounds": {
+    "Cheetah": [
+      -10,
+      20
+    ],
+    "Ant": [
+      -10,
+      20
+    ],
+    "Leg": [
+      -10,
+      20
+    ],
+    "Humanoid": [
+      -10,
+      20
+    ]
+  },
+  "policy_shapes": {
+    "Cheetah": [
+      17,
+      6,
+      64
+    ],
+    "Ant": [
+      105,
+      8,
+      64
+    ],
+    "Leg": [
+      11,
+      3,
+      64
+    ],
+    "Humanoid": [
+      348,
+      17,
+      256
+    ]
+  },
+  "holistic": {
+    "horizon": 100,
+    "margin_parameterization": "normalized_sequence"
+  },
+  "sweep": {
+    "parameter": "gamma_heter",
+    "values": [
+      0.1,
+      0.8
+    ],
+    "symbol": "heter"
+  },
+  "approach": "holistic",
+  "experiment": "heterogeneity",
+  "output_file": "result_holistic_heterogeneity.pkl",
+  "implementation": "Online scalarized UCB adapted from bandits.ipynb; Eq. 43 initialization and Eqs. 46-48 scalarizer-specific statistics.",
+  "n_independent_runs": 1,
+  "bandit": {
+    "n_arms": 10,
+    "arm_interval": [
+      0,
+      1
+    ],
+    "arm_discretization": "linspace_inclusive",
+    "n_scalarization_directions": 5,
+    "direction_rule": "uniform_angle_midpoint_quadrature",
+    "direction_endpoint_epsilon": 0.001,
+    "initialization": "round_robin",
+    "exploration_coefficient": 2.0,
+    "rts_mean_scope": "scalarizer",
+    "reward_reference": [
+      0.0,
+      0.0
+    ],
+    "observation_normalization": "one_minus_increment_divided_by_maximum_possible_increment",
+    "observation_bounds_note": "Overhead bound is M times the largest float32 class policy size in KiB; instability bound is 1. These bounds normalize online observations only. Total-cost hypervolumes use reference_costs.",
+    "recommendation": "union_of_one_empirical_exploitation_maximizer_per_observed_scalarizer",
+    "initialization_note": "100 online requests: 10 arms times 5 directions = 50 initialization requests, followed by 50 adaptive UCB requests. Each pull receives one online cost increment.",
+    "n_online_iterations": 100
+  },
+  "evaluation": {
+    "workers": 2,
+    "seed": 20260914,
+    "n_random_sequences": 16,
+    "include_constant_sequences": true,
+    "n_realizations_per_sequence": 2,
+    "hypervolume_directions": 128,
+    "direction_endpoint_epsilon": 0.001,
+    "checkpoint_every": 1,
+    "sampling_rule": "common_scrambled_sobol_uniform_draws_over_recommended_arms",
+    "note": "Approximate the exponential set of all horizon-length sequences over the currently recommended arms using 16 sampled sequences and all constant sequences; deduplicate. Reuse identical held-out scenario seeds and Sobol draws across subsets, formulations, and gravity levels. Cache repeated subsets. Evaluation observations never update the bandit.",
+    "hypervolume_note": "Empirical RTS/STR polar hypervolume of the sampled sequence set, using the same fixed total-cost reference as MORBO/qNParEGO. Plot current estimates, without a cumulative maximum."
+  },
+  "torch_num_threads": 1,
+  "horizon_note": "UCB trains for 100 global requests. Held-out sequences have length 100, matching this approach in MORBO/qNParEGO. Online training and held-out evaluation are separate budgets."
+}

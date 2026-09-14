@@ -1,0 +1,66 @@
+{
+  "Scalarized UCB\\experiment_runner.py": {
+    "sha256": "43a878a23287cf0bf7bb93e8b207790dd5c5ed168aa99f985245b70590fb968d",
+    "archive": "Model-free experiments\\archive\\before_every_5_20260914_220413\\Scalarized UCB\\experiment_runner.py"
+  },
+  "Scalarized Knowledge Gradient\\kg_runner.py": {
+    "sha256": "92cbcb3101d7177a121ed4d355cf86d0b91169ab4535f5b2711f7c1615d7ba01",
+    "archive": "Model-free experiments\\archive\\before_every_5_20260914_220413\\Scalarized Knowledge Gradient\\kg_runner.py"
+  },
+  "Model-free experiments\\setup.json": {
+    "sha256": "479f131f59cbddb86f0f67e6e63886b87ee3d1f8955360653115e239ace03a96",
+    "archive": "Model-free experiments\\archive\\before_every_5_20260914_220413\\Model-free experiments\\setup.json"
+  },
+  "Model-free experiments\\README.md": {
+    "sha256": "1330f97920bf4ef2901e12418a188f5a9923146f1a159b6ae2e9846e55f94e9d",
+    "archive": "Model-free experiments\\archive\\before_every_5_20260914_220413\\Model-free experiments\\README.md"
+  },
+  "Scalarized UCB\\result_holistic_gravity.pkl": {
+    "sha256": "95fa8f0ea8c641606e854761b75a690a3e4b5e21733760757579db0a746e2134",
+    "archive": "Model-free experiments\\archive\\before_every_5_20260914_220413\\Scalarized UCB\\result_holistic_gravity.pkl"
+  },
+  "Scalarized UCB\\result_holistic_heterogeneity.pkl": {
+    "sha256": "374b9b42f18308e0e7e551dd9558523e73c3c3eb1c8039dab0cfbe24d459636e",
+    "archive": "Model-free experiments\\archive\\before_every_5_20260914_220413\\Scalarized UCB\\result_holistic_heterogeneity.pkl"
+  },
+  "Scalarized UCB\\result_holistic_synchronization.pkl": {
+    "sha256": "9855e6e014a41a1abdee41ca577e0aabff846833e8acd74602f5cdc280dbd35b",
+    "archive": "Model-free experiments\\archive\\before_every_5_20260914_220413\\Scalarized UCB\\result_holistic_synchronization.pkl"
+  },
+  "Scalarized UCB\\result_reductionist_gravity.pkl": {
+    "sha256": "5fd968eb4143ceeb08edc612beb1344e9243c09cdb30f09c969e85e2582be0f6",
+    "archive": "Model-free experiments\\archive\\before_every_5_20260914_220413\\Scalarized UCB\\result_reductionist_gravity.pkl"
+  },
+  "Scalarized UCB\\result_reductionist_heterogeneity.pkl": {
+    "sha256": "49fda28febe68385b387f20381347b4577118b6d34891195b12e13a435326c1a",
+    "archive": "Model-free experiments\\archive\\before_every_5_20260914_220413\\Scalarized UCB\\result_reductionist_heterogeneity.pkl"
+  },
+  "Scalarized UCB\\result_reductionist_synchronization.pkl": {
+    "sha256": "099f603ba8eb656ec844a89c7c8c8331d113d9b35a2b2b48c254960d8b6863c3",
+    "archive": "Model-free experiments\\archive\\before_every_5_20260914_220413\\Scalarized UCB\\result_reductionist_synchronization.pkl"
+  },
+  "Scalarized Knowledge Gradient\\result_holistic_gravity.pkl": {
+    "sha256": "e1ae4fc19fb50b0308df9aa09b87bd55945d8822d12082a5b3cfd58431960d1d",
+    "archive": "Model-free experiments\\archive\\before_every_5_20260914_220413\\Scalarized Knowledge Gradient\\result_holistic_gravity.pkl"
+  },
+  "Scalarized Knowledge Gradient\\result_holistic_heterogeneity.pkl": {
+    "sha256": "3be8e95f069e3780da2faf5e533450cc6d0d08f654981d0cdf4132f83c676fb4",
+    "archive": "Model-free experiments\\archive\\before_every_5_20260914_220413\\Scalarized Knowledge Gradient\\result_holistic_heterogeneity.pkl"
+  },
+  "Scalarized Knowledge Gradient\\result_holistic_synchronization.pkl": {
+    "sha256": "4e11cffca22bbb6dd682c8b032766fe795af5c451a850fc25809f9b274b69ac7",
+    "archive": "Model-free experiments\\archive\\before_every_5_20260914_220413\\Scalarized Knowledge Gradient\\result_holistic_synchronization.pkl"
+  },
+  "Scalarized Knowledge Gradient\\result_reductionist_gravity.pkl": {
+    "sha256": "3b233a8f4e23042f7a15e9b1864db7fdb7d94308287a3a3171c1c4ec58b6d399",
+    "archive": "Model-free experiments\\archive\\before_every_5_20260914_220413\\Scalarized Knowledge Gradient\\result_reductionist_gravity.pkl"
+  },
+  "Scalarized Knowledge Gradient\\result_reductionist_heterogeneity.pkl": {
+    "sha256": "29d17b87dc560c920ab77cf7865876621a0a34f64f90fa4a3e7603560a77dc81",
+    "archive": "Model-free experiments\\archive\\before_every_5_20260914_220413\\Scalarized Knowledge Gradient\\result_reductionist_heterogeneity.pkl"
+  },
+  "Scalarized Knowledge Gradient\\result_reductionist_synchronization.pkl": {
+    "sha256": "bcd1c30ed0a455669d31c411be311a50c6d4c1fc252585f594eb48a91dc304e9",
+    "archive": "Model-free experiments\\archive\\before_every_5_20260914_220413\\Scalarized Knowledge Gradient\\result_reductionist_synchronization.pkl"
+  }
+}

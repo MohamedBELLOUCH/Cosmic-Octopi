@@ -7,8 +7,8 @@
   "seed_note": "Run r (one-based) uses base_seed + (r - 1) * seed_increment. Distinct runs restart optimization independently; the same run seed is paired across algorithms, approaches, formulations, and sweep levels.",
   "realizations_note": "Independent optimization runs are separate from the 2 simulated objective realizations per candidate in common_setup.",
   "configuration_note": "All experiment settings, optimizer hyperparameters, and Xi matrices are embedded here. No other setup, hyperparameters, calibration JSON, or prior result file is read. Dimension is derived from each approach horizon. Existing Python implementations are reused.",
-  "output_file": "model_based_results.pkl",
-  "output_note": "Run sequentially with CMD progress and resume support. The only persistent project output is model_based_results.pkl beside the script. Per-experiment checkpoint and atomic-save staging files use the system temporary directory and are cleaned up. Existing MORBO/qNParEGO results, setups, notebooks, and source files are not modified.",
+  "output_directory": "results",
+  "output_note": "Each launch runs sequentially and resumes matching checkpoints under results/run_XX_seed_SEED/ALGORITHM/result_APPROACH_EXPERIMENT.pkl. Existing single-run results in MORBO and qNParEGO are not inputs or outputs.",
   "torch_num_threads": 3,
   "common_setup": {
     "simulated_rewards": true,

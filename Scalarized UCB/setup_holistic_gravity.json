@@ -1,0 +1,142 @@
+{
+  "seed": 42,
+  "simulated_rewards": true,
+  "xi_matrix_file": "../Model calibration/Xi_matrix.json",
+  "output_file": "result_holistic_gravity.pkl",
+  "gravity_variances": [
+    1,
+    5
+  ],
+  "formulations": [
+    "RTS",
+    "STR"
+  ],
+  "reference_costs": [
+    2200000,
+    310
+  ],
+  "objective_names": [
+    "total_overhead",
+    "total_instability"
+  ],
+  "objective_units": [
+    "KiB",
+    "dimensionless"
+  ],
+  "objective_normalization": "divide_each_cost_by_its_reference_cost",
+  "gravity_mean": 9.81,
+  "ou_substeps": 5,
+  "system_dynamics_parameters": {
+    "n_octopi": 40,
+    "n_classes": 4,
+    "gamma_learn": 20,
+    "gamma_break": 10,
+    "gamma_req": 10,
+    "gamma_heter": 0.5,
+    "gamma_grav": 1,
+    "gamma_sync": 1,
+    "gamma_epis": 1
+  },
+  "hyper_parameters": {
+    "temperature": 0.001,
+    "scaling_constant": 1
+  },
+  "fitness_margin_bounds": {
+    "Cheetah": [
+      -10,
+      20
+    ],
+    "Ant": [
+      -10,
+      20
+    ],
+    "Leg": [
+      -10,
+      20
+    ],
+    "Humanoid": [
+      -10,
+      20
+    ]
+  },
+  "policy_shapes": {
+    "Cheetah": [
+      17,
+      6,
+      64
+    ],
+    "Ant": [
+      105,
+      8,
+      64
+    ],
+    "Leg": [
+      11,
+      3,
+      64
+    ],
+    "Humanoid": [
+      348,
+      17,
+      256
+    ]
+  },
+  "holistic": {
+    "horizon": 100,
+    "margin_parameterization": "normalized_sequence"
+  },
+  "implementation": "RTS/STR scalarized UCB with paper Eqs. 26, 43-48; negative max-length scalarization of normalized costs, matching KG.",
+  "n_independent_runs": 1,
+  "bandit": {
+    "n_arms": 7,
+    "arm_interval": [
+      0.0,
+      1.0
+    ],
+    "arm_discretization": "linspace_inclusive",
+    "n_scalarization_directions": 7,
+    "direction_rule": "uniform_angle_midpoint_quadrature",
+    "direction_endpoint_epsilon": 0.001,
+    "initialization": "round_robin",
+    "exploration_coefficient": 2.0,
+    "rts_mean_scope": "scalarizer",
+    "observation_normalization": "increment_divided_by_maximum_possible_increment",
+    "observation_bounds_note": "Overhead is bounded by M times the largest class payload (holistic) or target class payload (reductionist); instability is bounded by 1. Divide increments by these bounds to obtain normalized costs.",
+    "recommendation": "union_of_one_empirical_exploitation_maximizer_per_observed_scalarizer",
+    "initialization_note": "7 arms times 7 directions = 49 initialization requests, followed by 101 adaptive UCB requests in the common 150-request online budget.",
+    "n_online_iterations": 150,
+    "observation_mode": "cost",
+    "cost_reference": [
+      -0.01,
+      -0.01
+    ],
+    "cost_reference_note": "Fixed lower reference for normalized costs, strictly below zero, shared with KG. Separate from the upper total-cost hypervolume reference."
+  },
+  "evaluation": {
+    "workers": 4,
+    "seed": 20260914,
+    "n_random_sequences": 16,
+    "include_constant_sequences": true,
+    "n_realizations_per_sequence": 2,
+    "hypervolume_directions": 128,
+    "direction_endpoint_epsilon": 0.001,
+    "checkpoint_every": 1,
+    "sampling_rule": "common_scrambled_sobol_uniform_draws_over_recommended_arms",
+    "note": "Approximate the sequence set over recommended arms with 16 common Sobol draws and all constant sequences; remove duplicates. Use two held-out scenario seeds, paired across algorithms, formulations, and sweep levels. Evaluation never updates the bandit.",
+    "hypervolume_note": "Empirical RTS/STR polar hypervolume of the sampled sequence set, using the same fixed total-cost reference as MORBO/qNParEGO. Plot current estimates, without a cumulative maximum."
+  },
+  "torch_num_threads": 1,
+  "approach": "holistic",
+  "experiment": "gravity",
+  "algorithm": "Scalarized UCB",
+  "sweep": {
+    "parameter": "gamma_grav",
+    "values": [
+      1,
+      5
+    ],
+    "symbol": "grav"
+  },
+  "horizon_note": "Common online training budget: 150 requests. Held-out sequence horizon: 100, matching this approach in MORBO/qNParEGO. Holistic requests span all classes; reductionist requests belong to Cheetah.",
+  "comparison_note": "UCB and KG share normalized cost observations, lower reference [-0.01,-0.01], directions, arm grid, online budget, evaluation horizon, and upper hypervolume reference. Their required initialization lengths differ."
+}

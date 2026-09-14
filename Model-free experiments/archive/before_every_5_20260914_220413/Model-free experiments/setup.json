@@ -1,0 +1,363 @@
+{
+  "schema_version": 1,
+  "description": "All Scalarized UCB and Scalarized KG experiments: holistic and Cheetah reductionist; gravity, synchronization, request-rate heterogeneity; separate RTS and STR.",
+  "n_independent_runs": 10,
+  "base_seed": 42,
+  "seed_increment": 1,
+  "evaluation_base_seed": 20260914,
+  "evaluation_seed_increment": 1,
+  "seed_note": "Run r uses base_seed+(r-1)*seed_increment for fresh online trajectories, and evaluation_base_seed+(r-1)*evaluation_seed_increment for fresh held-out scenarios and Sobol designs. Seeds are paired across algorithms and sweep conditions within a run; independent runs share no simulation or evaluation cache.",
+  "output_directory": "results",
+  "torch_num_threads": 1,
+  "execution_note": "Run sequentially by independent run, algorithm, approach, experiment. Each existing script uses four held-out worker processes and resumes its own compatible checkpoint. This configuration has not been run.",
+  "configuration_note": "All setup values and Xi matrices are embedded here. The batch calls existing experiment scripts with generated setup JSON files; it does not read their adjacent setups, calibration JSON, or current result files.",
+  "budget_note": "150 online requests for both algorithms. UCB initializes 49 arm-direction pairs and has 101 adaptive requests; KG initializes twice (98 requests) and has 52 adaptive requests. Held-out horizons remain 100 holistic and 50 reductionist.",
+  "common_setup": {
+    "simulated_rewards": true,
+    "formulations": [
+      "RTS",
+      "STR"
+    ],
+    "objective_names": [
+      "total_overhead",
+      "total_instability"
+    ],
+    "objective_units": [
+      "KiB",
+      "dimensionless"
+    ],
+    "objective_normalization": "divide_each_cost_by_its_reference_cost",
+    "gravity_mean": 9.81,
+    "ou_substeps": 5,
+    "hyper_parameters": {
+      "temperature": 0.001,
+      "scaling_constant": 1
+    },
+    "fitness_margin_bounds": {
+      "Cheetah": [
+        -10,
+        20
+      ],
+      "Ant": [
+        -10,
+        20
+      ],
+      "Leg": [
+        -10,
+        20
+      ],
+      "Humanoid": [
+        -10,
+        20
+      ]
+    },
+    "policy_shapes": {
+      "Cheetah": [
+        17,
+        6,
+        64
+      ],
+      "Ant": [
+        105,
+        8,
+        64
+      ],
+      "Leg": [
+        11,
+        3,
+        64
+      ],
+      "Humanoid": [
+        348,
+        17,
+        256
+      ]
+    }
+  },
+  "common_bandit": {
+    "n_arms": 7,
+    "n_scalarization_directions": 7,
+    "n_online_iterations": 150,
+    "arm_discretization": "linspace_inclusive",
+    "direction_rule": "uniform_angle_midpoint_quadrature",
+    "direction_endpoint_epsilon": 0.001,
+    "cost_reference": [
+      -0.01,
+      -0.01
+    ],
+    "observation_normalization": "increment_divided_by_maximum_possible_increment",
+    "recommendation": "union_of_one_empirical_exploitation_maximizer_per_observed_scalarizer"
+  },
+  "algorithms": {
+    "UCB": {
+      "script_directory": "Scalarized UCB",
+      "implementation": "RTS/STR scalarized UCB with paper Eqs. 26, 43-48; negative max-length scalarization of normalized costs, matching KG.",
+      "bandit": {
+        "initialization": "round_robin",
+        "exploration_coefficient": 2.0,
+        "rts_mean_scope": "scalarizer",
+        "initialization_note": "7 arms times 7 directions = 49 initialization requests, followed by 101 adaptive UCB requests in the common 150-request online budget.",
+        "observation_mode": "cost",
+        "cost_reference_note": "Fixed lower reference for normalized costs, strictly below zero, shared with KG. Separate from the upper total-cost hypervolume reference."
+      }
+    },
+    "KG": {
+      "script_directory": "Scalarized Knowledge Gradient",
+      "implementation": "Selective Pressure Allocation Section 6.3.2, Eqs. 26 and 49-52; Gaussian exploration from Yahyaa et al. (2014), Section 4.2.",
+      "bandit": {
+        "initialization": "round_robin_full_passes",
+        "initial_pulls_per_pair": 2,
+        "initialization_note": "Two full passes of 7 arms times 7 directions = 98 initialization requests, followed by 52 adaptive KG requests.",
+        "cost_reference_note": "Fixed lower reference in normalized cost coordinates, strictly below nonnegative observations (Eq. 24). Distinct from the upper total-cost hypervolume reference.",
+        "scalarization": "max_positive_cost_minus_reference_divided_by_direction",
+        "statistics_scope": "arm_and_direction",
+        "sample_variance_ddof": 1,
+        "standard_error": "sample_standard_deviation_divided_by_sqrt_pair_count",
+        "kg_index": "se * (phi(q) - q * Phi(-q)); q = abs(mean - minimum_other_arm_mean) / se",
+        "exploration_scale": "remaining_global_iterations_times_n_arms_times_n_objectives",
+        "exploration_coefficient": 1.0,
+        "exploration_note": "B=(T-k)*K*D*v; K=7, D=2, T=150. k is the upcoming one-based online request; the final request has zero bonus.",
+        "zero_variance_rule": "zero_knowledge_gradient_without_artificial_variance_floor",
+        "tie_breaking": "smallest_arm_index",
+        "rts_rule": "argmax -s(mean_cost_vector - componentwise_KG_bonus)",
+        "str_rule": "argmax -mean_scalarized_cost + scalar_KG_bonus"
+      },
+      "sources": {
+        "adapted_paper": {
+          "filename": "Selective_Pressure_Allocation_paper_10_ (10).pdf",
+          "section": "6.3.2",
+          "equations": [
+            26,
+            49,
+            50,
+            51,
+            52
+          ],
+          "sha256": "f38b9ebce8e62f30b8b7c28564112b692c70596a824db90e8d25ce188418d224"
+        },
+        "original_paper": {
+          "title": "Knowledge Gradient for Multi-objective Multi-armed Bandit Algorithms",
+          "authors": "Yahyaa, Drugan and Manderick",
+          "year": 2014,
+          "doi": "10.5220/0004796600740083",
+          "url": "https://www.scitepress.org/PublishedPapers/2014/47966/47966.pdf",
+          "section": "4.2"
+        }
+      }
+    }
+  },
+  "approaches": {
+    "holistic": {
+      "holistic": {
+        "horizon": 100,
+        "margin_parameterization": "normalized_sequence"
+      },
+      "reference_costs": [
+        2200000,
+        310
+      ],
+      "arm_interval": [
+        0.0,
+        1.0
+      ]
+    },
+    "reductionist": {
+      "reductionist": {
+        "class_name": "Cheetah",
+        "horizon": 50
+      },
+      "reference_costs": [
+        90497.578125,
+        85
+      ],
+      "arm_interval": [
+        -10,
+        20
+      ]
+    }
+  },
+  "experiments": {
+    "gravity": {
+      "system_dynamics_parameters": {
+        "n_octopi": 40,
+        "n_classes": 4,
+        "gamma_learn": 20,
+        "gamma_break": 10,
+        "gamma_req": 10,
+        "gamma_heter": 0.5,
+        "gamma_grav": 1,
+        "gamma_sync": 1,
+        "gamma_epis": 1
+      },
+      "sweep": {
+        "parameter": "gamma_grav",
+        "values": [
+          1,
+          5
+        ],
+        "symbol": "grav"
+      }
+    },
+    "synchronization": {
+      "system_dynamics_parameters": {
+        "n_octopi": 40,
+        "n_classes": 4,
+        "gamma_learn": 20,
+        "gamma_break": 10,
+        "gamma_req": 10,
+        "gamma_heter": 0.5,
+        "gamma_grav": 0.1,
+        "gamma_sync": 1,
+        "gamma_epis": 1
+      },
+      "sweep": {
+        "parameter": "gamma_sync",
+        "values": [
+          1,
+          0.8
+        ],
+        "symbol": "sync"
+      }
+    },
+    "heterogeneity": {
+      "system_dynamics_parameters": {
+        "n_octopi": 40,
+        "n_classes": 4,
+        "gamma_learn": 20,
+        "gamma_break": 10,
+        "gamma_req": 10,
+        "gamma_heter": 0.1,
+        "gamma_grav": 0.1,
+        "gamma_sync": 1,
+        "gamma_epis": 1
+      },
+      "sweep": {
+        "parameter": "gamma_heter",
+        "values": [
+          0.1,
+          0.8
+        ],
+        "symbol": "heter"
+      }
+    }
+  },
+  "evaluation": {
+    "workers": 4,
+    "n_random_sequences": 16,
+    "include_constant_sequences": true,
+    "n_realizations_per_sequence": 2,
+    "hypervolume_directions": 128,
+    "direction_endpoint_epsilon": 0.001,
+    "checkpoint_every": 1,
+    "sampling_rule": "common_scrambled_sobol_uniform_draws_over_recommended_arms",
+    "note": "Approximate the sequence set over recommended arms with 16 common Sobol draws and all constant sequences; remove duplicates. Use two held-out scenario seeds, paired across algorithms, formulations, and sweep levels. Evaluation never updates the bandit.",
+    "hypervolume_note": "Empirical RTS/STR polar hypervolume of the sampled sequence set, using the same fixed total-cost reference as MORBO/qNParEGO. Plot current estimates, without a cumulative maximum."
+  },
+  "Xi_matrices": {
+    "Cheetah": [
+      [
+        0.9,
+        0,
+        0,
+        0
+      ],
+      [
+        0.2,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0.01,
+        0.01,
+        0.01
+      ],
+      [
+        20,
+        -9.210340371976184,
+        5.298317366548036,
+        -2.3025850929940455
+      ]
+    ],
+    "Ant": [
+      [
+        0.9,
+        0,
+        0,
+        0
+      ],
+      [
+        0.2,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0.01,
+        0.01,
+        0.01
+      ],
+      [
+        20,
+        -9.210340371976184,
+        5.298317366548036,
+        -2.3025850929940455
+      ]
+    ],
+    "Leg": [
+      [
+        0.9,
+        0,
+        0,
+        0
+      ],
+      [
+        0.2,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0.01,
+        0.01,
+        0.01
+      ],
+      [
+        20,
+        -9.210340371976184,
+        5.298317366548036,
+        -2.3025850929940455
+      ]
+    ],
+    "Humanoid": [
+      [
+        0.9,
+        0,
+        0,
+        0
+      ],
+      [
+        0.2,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0.01,
+        0.01,
+        0.01
+      ],
+      [
+        20,
+        -9.210340371976184,
+        5.298317366548036,
+        -2.3025850929940455
+      ]
+    ]
+  },
+  "comparison_note": "Same cost scalarization and lower reference for UCB and KG; same arms, directions, online budgets, physical normalization bounds, held-out horizons, scenarios, and upper hypervolume references. Initialization lengths differ by algorithm. Empirical results describe these settings and do not prove a method fails generally."
+}

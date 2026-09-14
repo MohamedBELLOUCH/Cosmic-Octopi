@@ -1,0 +1,179 @@
+{
+  "seed": 42,
+  "simulated_rewards": true,
+  "xi_matrix_file": "../Model calibration/Xi_matrix.json",
+  "gravity_variances": [
+    1,
+    5
+  ],
+  "formulations": [
+    "RTS",
+    "STR"
+  ],
+  "reference_costs": [
+    90497.578125,
+    85
+  ],
+  "objective_names": [
+    "total_overhead",
+    "total_instability"
+  ],
+  "objective_units": [
+    "KiB",
+    "dimensionless"
+  ],
+  "objective_normalization": "divide_each_cost_by_its_reference_cost",
+  "gravity_mean": 9.81,
+  "ou_substeps": 5,
+  "system_dynamics_parameters": {
+    "n_octopi": 40,
+    "n_classes": 4,
+    "gamma_learn": 20,
+    "gamma_break": 10,
+    "gamma_req": 10,
+    "gamma_heter": 0.5,
+    "gamma_grav": 1,
+    "gamma_sync": 1,
+    "gamma_epis": 1
+  },
+  "hyper_parameters": {
+    "temperature": 0.001,
+    "scaling_constant": 1
+  },
+  "fitness_margin_bounds": {
+    "Cheetah": [
+      -10,
+      20
+    ],
+    "Ant": [
+      -10,
+      20
+    ],
+    "Leg": [
+      -10,
+      20
+    ],
+    "Humanoid": [
+      -10,
+      20
+    ]
+  },
+  "policy_shapes": {
+    "Cheetah": [
+      17,
+      6,
+      64
+    ],
+    "Ant": [
+      105,
+      8,
+      64
+    ],
+    "Leg": [
+      11,
+      3,
+      64
+    ],
+    "Humanoid": [
+      348,
+      17,
+      256
+    ]
+  },
+  "reductionist": {
+    "class_name": "Cheetah",
+    "horizon": 50
+  },
+  "paper_reference_costs": [
+    4000,
+    85
+  ],
+  "reference_costs_note": "Overhead is 1.01 times M times the Cheetah horizon times the float32 policy size in KiB. Instability keeps the paper reference of 85. The reference is fixed across RTS/STR, gravity variances, and optimization steps.",
+  "approach": "reductionist",
+  "experiment": "gravity",
+  "output_file": "result_reductionist_gravity.pkl",
+  "implementation": "Selective Pressure Allocation Section 6.3.2, Eqs. 26 and 49-52; Gaussian exploration from Yahyaa et al. (2014), Section 4.2.",
+  "n_independent_runs": 1,
+  "sweep": {
+    "parameter": "gamma_grav",
+    "values": [
+      1,
+      5
+    ],
+    "symbol": "grav"
+  },
+  "bandit": {
+    "n_arms": 7,
+    "arm_interval": [
+      -10,
+      20
+    ],
+    "arm_discretization": "linspace_inclusive",
+    "n_scalarization_directions": 7,
+    "direction_rule": "uniform_angle_midpoint_quadrature",
+    "direction_endpoint_epsilon": 0.001,
+    "n_online_iterations": 150,
+    "initialization": "round_robin_full_passes",
+    "initial_pulls_per_pair": 2,
+    "initialization_note": "Two full passes of 7 arms times 7 directions = 98 initialization requests, followed by 52 adaptive KG requests.",
+    "cost_reference": [
+      -0.01,
+      -0.01
+    ],
+    "cost_reference_note": "Fixed lower reference in normalized cost coordinates, strictly below nonnegative observations (Eq. 24). Distinct from the upper total-cost hypervolume reference.",
+    "observation_normalization": "increment_divided_by_maximum_possible_increment",
+    "observation_bounds_note": "Overhead is bounded by M times the largest class payload (holistic) or target class payload (reductionist); instability is bounded by 1. Divide increments by these bounds to obtain normalized costs.",
+    "scalarization": "max_positive_cost_minus_reference_divided_by_direction",
+    "statistics_scope": "arm_and_direction",
+    "sample_variance_ddof": 1,
+    "standard_error": "sample_standard_deviation_divided_by_sqrt_pair_count",
+    "kg_index": "se * (phi(q) - q * Phi(-q)); q = abs(mean - minimum_other_arm_mean) / se",
+    "exploration_scale": "remaining_global_iterations_times_n_arms_times_n_objectives",
+    "exploration_coefficient": 1.0,
+    "exploration_note": "B=(T-k)*K*D*v; K=7, D=2, T=150. k is the upcoming one-based online request; the final request has zero bonus.",
+    "zero_variance_rule": "zero_knowledge_gradient_without_artificial_variance_floor",
+    "tie_breaking": "smallest_arm_index",
+    "recommendation": "union_of_one_empirical_exploitation_maximizer_per_observed_scalarizer",
+    "rts_rule": "argmax -s(mean_cost_vector - componentwise_KG_bonus)",
+    "str_rule": "argmax -mean_scalarized_cost + scalar_KG_bonus"
+  },
+  "evaluation": {
+    "workers": 4,
+    "seed": 20260914,
+    "n_random_sequences": 16,
+    "include_constant_sequences": true,
+    "n_realizations_per_sequence": 2,
+    "hypervolume_directions": 128,
+    "direction_endpoint_epsilon": 0.001,
+    "checkpoint_every": 1,
+    "sampling_rule": "common_scrambled_sobol_uniform_draws_over_recommended_arms",
+    "note": "Approximate the sequence set over recommended arms with 16 common Sobol draws and all constant sequences; remove duplicates. Use two held-out scenario seeds, paired across algorithms, formulations, and sweep levels. Evaluation never updates the bandit.",
+    "hypervolume_note": "Empirical RTS/STR polar hypervolume of the sampled sequence set, using the same fixed total-cost reference as MORBO/qNParEGO. Plot current estimates, without a cumulative maximum."
+  },
+  "torch_num_threads": 1,
+  "horizon_note": "Common online training budget: 150 requests. Held-out sequence horizon: 50, matching this approach in MORBO/qNParEGO. Holistic requests span all classes; reductionist requests belong to Cheetah.",
+  "algorithm": "Scalarized KG",
+  "comparison_note": "UCB and KG share normalized cost observations, lower reference [-0.01,-0.01], directions, arm grid, online budget, evaluation horizon, and upper hypervolume reference. Their required initialization lengths differ.",
+  "sources": {
+    "adapted_paper": {
+      "filename": "Selective_Pressure_Allocation_paper_10_ (10).pdf",
+      "section": "6.3.2",
+      "equations": [
+        26,
+        49,
+        50,
+        51,
+        52
+      ],
+      "sha256": "f38b9ebce8e62f30b8b7c28564112b692c70596a824db90e8d25ce188418d224"
+    },
+    "original_paper": {
+      "title": "Knowledge Gradient for Multi-objective Multi-armed Bandit Algorithms",
+      "authors": "Yahyaa, Drugan and Manderick",
+      "year": 2014,
+      "doi": "10.5220/0004796600740083",
+      "url": "https://www.scitepress.org/PublishedPapers/2014/47966/47966.pdf",
+      "section": "4.2"
+    }
+  }
+}
