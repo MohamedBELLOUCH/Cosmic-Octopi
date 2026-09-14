@@ -87,8 +87,27 @@ def evaluate_sequence(setup, xi_matrices, model_sizes, margins, mode, seed):
     temperature = setup["hyper_parameters"]["temperature"]
     scaling_constant = setup["hyper_parameters"]["scaling_constant"]
 
+    margins = np.asarray(margins, dtype=float)
+    normalized_sequence = (
+        mode == "holistic"
+        and experiment.get("margin_parameterization", "per_class") == "normalized_sequence"
+    )
+    if normalized_sequence:
+        if margins.shape != (experiment["horizon"],) or not np.all(
+            np.isfinite(margins) & (margins >= 0) & (margins <= 1)
+        ):
+            raise ValueError("Expected one normalized value in [0, 1] per global iteration")
+    elif mode == "holistic" and margins.shape != (n_classes,):
+        raise ValueError("Expected one fitness margin per class")
     for iteration_number, (class_index, k) in enumerate(oracle_iterations):
-        margin = margins[class_index] if mode == "holistic" else margins[k]
+        if normalized_sequence:
+            # The model-based formulation chooses x_p in [0, 1] at every
+            # global iteration, then maps it to the active class's margin.
+            low, high = setup["fitness_margin_bounds"][CLASS_NAMES[class_index]]
+            unit_margin = margins[iteration_number]
+            margin = low + unit_margin * (high - low)
+        else:
+            margin = margins[class_index] if mode == "holistic" else margins[k]
         instant = global_instants[class_index][k]
         candidates = [
             i for i in range(n_octopi) if candidacies[i][class_index][k] == 1

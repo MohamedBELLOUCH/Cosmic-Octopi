@@ -1,0 +1,337 @@
+{
+  "schema_version": 1,
+  "description": "All current MORBO and qNParEGO adaptations: holistic and Cheetah reductionist, separate RTS/STR, gravity, synchronization, and request heterogeneity.",
+  "n_independent_runs": 10,
+  "base_seed": 42,
+  "seed_increment": 1,
+  "seed_note": "Run r (one-based) uses base_seed + (r - 1) * seed_increment. Distinct runs restart optimization independently; the same run seed is paired across algorithms, approaches, formulations, and sweep levels.",
+  "realizations_note": "Independent optimization runs are separate from the 2 simulated objective realizations per candidate in common_setup.",
+  "configuration_note": "All experiment settings, optimizer hyperparameters, and Xi matrices are embedded here. No other setup, hyperparameters, calibration JSON, or prior result file is read. Dimension is derived from each approach horizon. Existing Python implementations are reused.",
+  "output_directory": "results",
+  "output_note": "Each launch runs sequentially and resumes matching checkpoints under results/run_XX_seed_SEED/ALGORITHM/result_APPROACH_EXPERIMENT.pkl. Existing single-run results in MORBO and qNParEGO are not inputs or outputs.",
+  "torch_num_threads": 3,
+  "common_setup": {
+    "simulated_rewards": true,
+    "formulations": [
+      "RTS",
+      "STR"
+    ],
+    "n_realizations_per_candidate": 2,
+    "objective_names": [
+      "total_overhead",
+      "total_instability"
+    ],
+    "objective_units": [
+      "KiB",
+      "dimensionless"
+    ],
+    "objective_normalization": "divide_each_cost_by_its_reference_cost",
+    "gravity_mean": 9.81,
+    "ou_substeps": 5,
+    "hyper_parameters": {
+      "temperature": 0.001,
+      "scaling_constant": 1
+    },
+    "fitness_margin_bounds": {
+      "Cheetah": [
+        -10,
+        20
+      ],
+      "Ant": [
+        -10,
+        20
+      ],
+      "Leg": [
+        -10,
+        20
+      ],
+      "Humanoid": [
+        -10,
+        20
+      ]
+    },
+    "policy_shapes": {
+      "Cheetah": [
+        17,
+        6,
+        64
+      ],
+      "Ant": [
+        105,
+        8,
+        64
+      ],
+      "Leg": [
+        11,
+        3,
+        64
+      ],
+      "Humanoid": [
+        348,
+        17,
+        256
+      ]
+    }
+  },
+  "approaches": {
+    "holistic": {
+      "holistic": {
+        "horizon": 100,
+        "margin_parameterization": "normalized_sequence"
+      },
+      "reference_costs": [
+        2200000,
+        310
+      ]
+    },
+    "reductionist": {
+      "reductionist": {
+        "class_name": "Cheetah",
+        "horizon": 50
+      },
+      "reference_costs": [
+        90497.578125,
+        85
+      ],
+      "paper_reference_costs": [
+        4000,
+        85
+      ],
+      "reference_costs_note": "Overhead is 1.01 times M times the Cheetah horizon times the float32 policy size in KiB. Instability keeps the paper reference of 85. These numerical reference costs are fixed across algorithms, independent runs, RTS/STR, all parameter sweeps, and optimization steps."
+    }
+  },
+  "experiments": {
+    "gravity": {
+      "system_dynamics_parameters": {
+        "n_octopi": 40,
+        "n_classes": 4,
+        "gamma_learn": 20,
+        "gamma_break": 10,
+        "gamma_req": 10,
+        "gamma_heter": 0.5,
+        "gamma_grav": 1,
+        "gamma_sync": 1,
+        "gamma_epis": 1
+      },
+      "sweep": {
+        "parameter": "gamma_grav",
+        "values": [
+          1,
+          5
+        ],
+        "symbol": "grav"
+      }
+    },
+    "synchronization": {
+      "system_dynamics_parameters": {
+        "n_octopi": 40,
+        "n_classes": 4,
+        "gamma_learn": 20,
+        "gamma_break": 10,
+        "gamma_req": 10,
+        "gamma_heter": 0.5,
+        "gamma_grav": 0.1,
+        "gamma_sync": 1,
+        "gamma_epis": 1
+      },
+      "sweep": {
+        "parameter": "gamma_sync",
+        "values": [
+          1,
+          0.8
+        ],
+        "symbol": "sync"
+      }
+    },
+    "heterogeneity": {
+      "system_dynamics_parameters": {
+        "n_octopi": 40,
+        "n_classes": 4,
+        "gamma_learn": 20,
+        "gamma_break": 10,
+        "gamma_req": 10,
+        "gamma_heter": 0.1,
+        "gamma_grav": 0.1,
+        "gamma_sync": 1,
+        "gamma_epis": 1
+      },
+      "sweep": {
+        "parameter": "gamma_heter",
+        "values": [
+          0.1,
+          0.8
+        ],
+        "symbol": "heter"
+      }
+    }
+  },
+  "Xi_matrices": {
+    "Cheetah": [
+      [
+        0.9,
+        0,
+        0,
+        0
+      ],
+      [
+        0.2,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0.01,
+        0.01,
+        0.01
+      ],
+      [
+        20,
+        -9.210340371976184,
+        5.298317366548036,
+        -2.3025850929940455
+      ]
+    ],
+    "Ant": [
+      [
+        0.9,
+        0,
+        0,
+        0
+      ],
+      [
+        0.2,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0.01,
+        0.01,
+        0.01
+      ],
+      [
+        20,
+        -9.210340371976184,
+        5.298317366548036,
+        -2.3025850929940455
+      ]
+    ],
+    "Leg": [
+      [
+        0.9,
+        0,
+        0,
+        0
+      ],
+      [
+        0.2,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0.01,
+        0.01,
+        0.01
+      ],
+      [
+        20,
+        -9.210340371976184,
+        5.298317366548036,
+        -2.3025850929940455
+      ]
+    ],
+    "Humanoid": [
+      [
+        0.9,
+        0,
+        0,
+        0
+      ],
+      [
+        0.2,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0.01,
+        0.01,
+        0.01
+      ],
+      [
+        20,
+        -9.210340371976184,
+        5.298317366548036,
+        -2.3025850929940455
+      ]
+    ]
+  },
+  "hyperparameters": {
+    "MORBO": {
+      "implementation": "single-trust-region adaptation of MORBO_success.ipynb",
+      "dtype": "float64",
+      "device": "cpu",
+      "initial_design": "scrambled_sobol",
+      "n_initial_points": 8,
+      "batch_size": 4,
+      "n_iterations": 20,
+      "surrogate": "SingleTaskGP",
+      "surrogate_fit": "ExactMarginalLogLikelihood",
+      "toy_notebook_acquisition": "qLogNoisyExpectedHypervolumeImprovement",
+      "rts_str_acquisition": "qLogNoisyExpectedImprovement",
+      "mc_samples": 128,
+      "prune_baseline": true,
+      "acquisition_num_restarts": 8,
+      "acquisition_raw_samples": 256,
+      "acquisition_batch_limit": 5,
+      "acquisition_maxiter": 100,
+      "trust_region_length_initial": 0.8,
+      "trust_region_length_minimum": 0.01,
+      "trust_region_length_maximum": 1.6,
+      "trust_region_success_multiplier": 1.5,
+      "trust_region_failure_multiplier": 0.7,
+      "trust_region_center_old_weight": 0.7,
+      "trust_region_center_new_weight": 0.3,
+      "hypervolume_directions": 128,
+      "hypervolume_direction_rule": "uniform_angle_midpoint_quadrature",
+      "reference_point_policy": "fixed_reference_costs_from_setup",
+      "direction_endpoint_epsilon": 0.001
+    },
+    "qNParEGO": {
+      "implementation": "global sequential-batch RTS/STR adaptation of qLogParEGO_success.ipynb",
+      "dtype": "float64",
+      "device": "cpu",
+      "initial_design": "scrambled_sobol",
+      "n_initial_points": 8,
+      "batch_size": 4,
+      "n_iterations": 20,
+      "surrogate": "SingleTaskGP",
+      "surrogate_fit": "ExactMarginalLogLikelihood",
+      "toy_notebook_acquisition": "qLogNParEGO",
+      "rts_str_acquisition": "qLogNoisyExpectedImprovement",
+      "mc_samples": 128,
+      "prune_baseline": true,
+      "acquisition_num_restarts": 8,
+      "acquisition_raw_samples": 256,
+      "acquisition_batch_limit": 5,
+      "acquisition_maxiter": 100,
+      "hypervolume_directions": 128,
+      "hypervolume_direction_rule": "uniform_angle_midpoint_quadrature",
+      "reference_point_policy": "fixed_reference_costs_from_setup",
+      "direction_endpoint_epsilon": 0.001,
+      "toy_n_initial_points": 128,
+      "search_domain": "global_unit_cube",
+      "batch_optimization": "optimize_acqf_list",
+      "direction_policy": "one shared direction per batch, paired with MORBO",
+      "budget_note": "8 initial points instead of the toy 128, matching MORBO; 20 steps of 4 candidates",
+      "toy_scalarization": "augmented Chebyshev inside qLogNParEGO",
+      "rts_str_scalarization": "reference-normalized length, shared with MORBO",
+      "surrogate_targets": "empirical RTS or STR scores for the current direction"
+    }
+  }
+}

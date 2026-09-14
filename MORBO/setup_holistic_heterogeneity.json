@@ -1,0 +1,94 @@
+{
+  "seed": 42,
+  "simulated_rewards": true,
+  "xi_matrix_file": "../Model calibration/Xi_matrix.json",
+  "hyperparameters_file": "hyperparameters.json",
+  "output_file": "result_holistic_heterogeneity.pkl",
+  "formulations": [
+    "RTS",
+    "STR"
+  ],
+  "n_realizations_per_candidate": 2,
+  "reference_costs": [
+    2200000,
+    310
+  ],
+  "objective_names": [
+    "total_overhead",
+    "total_instability"
+  ],
+  "objective_units": [
+    "KiB",
+    "dimensionless"
+  ],
+  "objective_normalization": "divide_each_cost_by_its_reference_cost",
+  "gravity_mean": 9.81,
+  "ou_substeps": 5,
+  "system_dynamics_parameters": {
+    "n_octopi": 40,
+    "n_classes": 4,
+    "gamma_learn": 20,
+    "gamma_break": 10,
+    "gamma_req": 10,
+    "gamma_heter": 0.1,
+    "gamma_grav": 0.1,
+    "gamma_sync": 1,
+    "gamma_epis": 1
+  },
+  "hyper_parameters": {
+    "temperature": 0.001,
+    "scaling_constant": 1
+  },
+  "fitness_margin_bounds": {
+    "Cheetah": [
+      -10,
+      20
+    ],
+    "Ant": [
+      -10,
+      20
+    ],
+    "Leg": [
+      -10,
+      20
+    ],
+    "Humanoid": [
+      -10,
+      20
+    ]
+  },
+  "policy_shapes": {
+    "Cheetah": [
+      17,
+      6,
+      64
+    ],
+    "Ant": [
+      105,
+      8,
+      64
+    ],
+    "Leg": [
+      11,
+      3,
+      64
+    ],
+    "Humanoid": [
+      348,
+      17,
+      256
+    ]
+  },
+  "holistic": {
+    "horizon": 100,
+    "margin_parameterization": "normalized_sequence"
+  },
+  "sweep": {
+    "parameter": "gamma_heter",
+    "values": [
+      0.1,
+      0.8
+    ],
+    "symbol": "heter"
+  }
+}

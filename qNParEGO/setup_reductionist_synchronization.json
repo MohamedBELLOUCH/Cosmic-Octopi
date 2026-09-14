@@ -1,0 +1,100 @@
+{
+  "seed": 42,
+  "simulated_rewards": true,
+  "xi_matrix_file": "../Model calibration/Xi_matrix.json",
+  "hyperparameters_file": "hyperparameters.json",
+  "output_file": "results_reductionist_synchronization.pkl",
+  "formulations": [
+    "RTS",
+    "STR"
+  ],
+  "n_realizations_per_candidate": 2,
+  "reference_costs": [
+    90497.578125,
+    85
+  ],
+  "objective_names": [
+    "total_overhead",
+    "total_instability"
+  ],
+  "objective_units": [
+    "KiB",
+    "dimensionless"
+  ],
+  "objective_normalization": "divide_each_cost_by_its_reference_cost",
+  "gravity_mean": 9.81,
+  "ou_substeps": 5,
+  "system_dynamics_parameters": {
+    "n_octopi": 40,
+    "n_classes": 4,
+    "gamma_learn": 20,
+    "gamma_break": 10,
+    "gamma_req": 10,
+    "gamma_heter": 0.5,
+    "gamma_grav": 0.1,
+    "gamma_sync": 1,
+    "gamma_epis": 1
+  },
+  "hyper_parameters": {
+    "temperature": 0.001,
+    "scaling_constant": 1
+  },
+  "fitness_margin_bounds": {
+    "Cheetah": [
+      -10,
+      20
+    ],
+    "Ant": [
+      -10,
+      20
+    ],
+    "Leg": [
+      -10,
+      20
+    ],
+    "Humanoid": [
+      -10,
+      20
+    ]
+  },
+  "policy_shapes": {
+    "Cheetah": [
+      17,
+      6,
+      64
+    ],
+    "Ant": [
+      105,
+      8,
+      64
+    ],
+    "Leg": [
+      11,
+      3,
+      64
+    ],
+    "Humanoid": [
+      348,
+      17,
+      256
+    ]
+  },
+  "reductionist": {
+    "class_name": "Cheetah",
+    "horizon": 50
+  },
+  "paper_reference_costs": [
+    4000,
+    85
+  ],
+  "reference_costs_note": "Overhead is 1.01 times M times the Cheetah horizon times the float32 policy size in KiB. Instability keeps the paper reference of 85. The reference is fixed across RTS/STR, synchronization levels, and optimization steps.",
+  "sweep": {
+    "parameter": "gamma_sync",
+    "values": [
+      1,
+      0.8
+    ],
+    "symbol": "sync"
+  },
+  "morbo_result_file": "../MORBO/results_reductionist_synchronization.pkl"
+}
