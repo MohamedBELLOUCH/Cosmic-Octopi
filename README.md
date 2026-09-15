@@ -54,10 +54,10 @@ $$
 
 Here, $\gamma_{\text{heter}} \geq 0$ is a parameter, and for any $\mathcal{M}' \in \mathscr{M}$, $w_{\mathcal{M}'} > 0$ is a constant chosen arbitrarily subject to the ordering constraint $w_{\text{"Leg"}} \leq w_{\text{"Cheetah"}} \leq w_{\text{"Ant"}} \leq w_{\text{"Humanoid"}}$.
 
-A smaller $\gamma_{\text{heter}}$ yields a more uniform distribution of request inter-arrival times across marionettes. As $\gamma_{\text{heter}}$ increases, the distribution becomes more heterogeneous, with requests concentrating progressively on the humanoid marionette, followed by the leg, the ant, and finally the cheetah.
-
 ### Synchronization
 Upon receiving a request, an octopus responds with probability $\gamma_{\text{sync}} \in (0,1]$. Sending its local "knowledge" to the Galactic Oracle requires opening a wormhole, which consumes immense energy.
+
+### Objective
 
 The objective is to apply Selective Pressure Allocation to minimize wormhole openings without hindering the octopi's exchange of "knowledge" for cooperation.
 
