@@ -10,7 +10,7 @@
 ![PyTorch](https://img.shields.io/badge/PyTorch-PPO-EE4C2C?logo=pytorch&logoColor=white)
 ![MuJoCo](https://img.shields.io/badge/Environments-MuJoCo-8250df)
 
-[Paper abstract and contributions](#paper-abstract-and-contributions) · [Cosmic Octopi](#cosmic-octopi-case-study) · [Installation](#installation) · [Run experiments](#run-experiments)
+[Paper abstract and contributions](#paper-abstract-and-contributions) · [Cosmic Octopi](#cosmic-octopi-case-study) · [Repository structure](#repository-structure) · [Installation](#installation) · [Run experiments](#run-experiments)
 
 </div>
 
@@ -56,6 +56,21 @@ Finally, upon receiving a request, an octopus responds with probability $\gamma_
 
 The objective is to apply Selective Pressure Allocation to minimize wormhole openings without hindering the octopi's exchange of "knowledge" for cooperation.
 
+## Repository structure
+
+The repository contains the simulator, experiment scripts, saved results, and plotting notebooks. Experiment settings are stored in JSON files so they can be adjusted before running a script.
+
+| Folder | Contents |
+|---|---|
+| [Cosmic Octopi](Cosmic%20Octopi/) | Octopus agents, Galactic Oracle, and shared simulation code (paper Sections 7.1 and 7.2) |
+| [Model calibration](Model%20calibration/) | Cumulative-reward model coefficients and calibration experiments |
+| [MORBO](MORBO/) / [qNParEGO](qNParEGO/) | Bayesian optimization algorithms and their experiment scripts |
+| [Scalarized UCB](Scalarized%20UCB/) / [Scalarized Knowledge Gradient](Scalarized%20Knowledge%20Gradient/) | Bandit algorithms and their experiment scripts |
+| [Model-based experiments](Model-based%20experiments/) / [Model-free experiments](Model-free%20experiments/) | Batch scripts for repeated independent runs |
+| [Model-based baseline](Model-based%20baseline/) / [Model-free baseline](Model-free%20baseline/) | Reference methods used to compare algorithm performance |
+| [Compression coexistence](Compression%20coexistence/) | Experiments combining model quantization with Selective Pressure Allocation |
+| [Paper plots](Paper%20plots/) | Notebooks that visualize saved experiment results |
+
 ## Installation
 
 Install Git LFS, then run from Windows CMD:
@@ -72,69 +87,55 @@ Use the `.venv` interpreter for the notebooks. CUDA dependencies are provided in
 
 ## Run experiments
 
-The mapping follows the subsections of **Section 7: Experiments: Cosmic Octopi**. Run the linked Python files from the repository root, using their corresponding setup JSON files. For example:
+The experiments study the trade-off between communication overhead and learning-performance instability. **Holistic** experiments consider all four marionette classes together; **reductionist** experiments focus on one class.
+
+Each linked script reads its corresponding JSON setup file and saves the experiment results. After installation, run a script from the repository root. For example, to investigate how temperature affects overhead and instability:
 
 ```bat
 .venv\Scripts\python.exe -B "Temperature\script.py"
 ```
 
-**7.1 Cosmic Octopi** and **7.2 Implementation details** describe the shared simulator implemented in [octopus.py](Cosmic%20Octopi/octopus.py) and [oracle.py](Cosmic%20Octopi/oracle.py); they have no standalone experiment runners.
+### Preliminaries and ablations
 
-### 7.3 Preliminaries and ablations
+These experiments examine the effects of individual parameters, visualize the trade-offs between objectives, and assess cumulative-reward model calibration.
 
-| Paper subsection | Experiment runner |
+| Experiment (paper section) | Script |
 |---|---|
-| 7.3.1 Synchronization and request heterogeneity | [Synchronization and request rates/script.py](Synchronization%20and%20request%20rates/script.py) |
-| 7.3.2 Planet gravity and number of octopi | [Planet gravity/script.py](Planet%20gravity/script.py) and [Octopi count/script.py](Octopi%20count/script.py) |
-| 7.3.3 Fitness margins | [Fitness margins/script.py](Fitness%20margins/script.py) |
-| 7.3.4 Temperature | [Temperature/script.py](Temperature/script.py) |
-| 7.3.5 Robust Pareto fronts | [Pareto fronts/script.py](Pareto%20fronts/script.py) |
-| 7.3.6 Model calibration | [Model calibration/script.py](Model%20calibration/script.py) |
+| Synchronization and request heterogeneity (7.3.1) | [Synchronization and request rates/script.py](Synchronization%20and%20request%20rates/script.py) |
+| Planet gravity and number of octopi (7.3.2) | [Planet gravity/script.py](Planet%20gravity/script.py) and [Octopi count/script.py](Octopi%20count/script.py) |
+| Fitness margins (7.3.3) | [Fitness margins/script.py](Fitness%20margins/script.py) |
+| Temperature (7.3.4) | [Temperature/script.py](Temperature/script.py) |
+| Robust Pareto fronts (7.3.5) | [Pareto fronts/script.py](Pareto%20fronts/script.py) |
+| Model calibration (7.3.6) | [Model calibration/script.py](Model%20calibration/script.py) |
 
-### 7.4 Model-based approach
+### Model-based approach
 
-Each algorithm link opens the corresponding runner for both RTS and STR.
+MORBO and qNParEGO use Bayesian optimization to search for fitness-margin sequences. Each script evaluates **Robustify-then-Scalarize (RTS)** and **Scalarize-then-Robustify (STR)**: two formulations that differ in whether robustness to uncertain outcomes is applied before or after the objectives are combined.
 
-| Paper subsection | Holistic runners | Reductionist runners |
+| Experiment (paper section) | Holistic scripts | Reductionist scripts |
 |---|---|---|
-| 7.4.1 Gravity | [MORBO](MORBO/script_holistic_gravity.py), [qNParEGO](qNParEGO/script_holistic_gravity.py) | [MORBO](MORBO/script_reductionist_gravity.py), [qNParEGO](qNParEGO/script_reductionist_gravity.py) |
-| 7.4.2 Synchronization | [MORBO](MORBO/script_holistic_synchronization.py), [qNParEGO](qNParEGO/script_holistic_synchronization.py) | [MORBO](MORBO/script_reductionist_synchronization.py), [qNParEGO](qNParEGO/script_reductionist_synchronization.py) |
-| 7.4.3 Request rates | [MORBO](MORBO/script_holistic_heterogeneity.py), [qNParEGO](qNParEGO/script_holistic_heterogeneity.py) | [MORBO](MORBO/script_reductionist_heterogeneity.py), [qNParEGO](qNParEGO/script_reductionist_heterogeneity.py) |
+| Gravity (7.4.1) | [MORBO](MORBO/script_holistic_gravity.py), [qNParEGO](qNParEGO/script_holistic_gravity.py) | [MORBO](MORBO/script_reductionist_gravity.py), [qNParEGO](qNParEGO/script_reductionist_gravity.py) |
+| Synchronization (7.4.2) | [MORBO](MORBO/script_holistic_synchronization.py), [qNParEGO](qNParEGO/script_holistic_synchronization.py) | [MORBO](MORBO/script_reductionist_synchronization.py), [qNParEGO](qNParEGO/script_reductionist_synchronization.py) |
+| Request rates (7.4.3) | [MORBO](MORBO/script_holistic_heterogeneity.py), [qNParEGO](qNParEGO/script_holistic_heterogeneity.py) | [MORBO](MORBO/script_reductionist_heterogeneity.py), [qNParEGO](qNParEGO/script_reductionist_heterogeneity.py) |
 
-### 7.5 Model-free approach
+### Model-free approach
 
-Each algorithm link opens the corresponding runner for both RTS and STR.
+Scalarized UCB and Scalarized Knowledge Gradient select fitness margins one global iteration at a time, using feedback from observed overhead and instability. Each script evaluates both RTS and STR.
 
-| Paper subsection | Holistic runners | Reductionist runners |
+| Experiment (paper section) | Holistic scripts | Reductionist scripts |
 |---|---|---|
-| 7.5.1 Gravity | [Scalarized UCB](Scalarized%20UCB/script_holistic_gravity.py), [Scalarized Knowledge Gradient](Scalarized%20Knowledge%20Gradient/script_holistic_gravity.py) | [Scalarized UCB](Scalarized%20UCB/script_reductionist_gravity.py), [Scalarized Knowledge Gradient](Scalarized%20Knowledge%20Gradient/script_reductionist_gravity.py) |
-| 7.5.2 Synchronization | [Scalarized UCB](Scalarized%20UCB/script_holistic_synchronization.py), [Scalarized Knowledge Gradient](Scalarized%20Knowledge%20Gradient/script_holistic_synchronization.py) | [Scalarized UCB](Scalarized%20UCB/script_reductionist_synchronization.py), [Scalarized Knowledge Gradient](Scalarized%20Knowledge%20Gradient/script_reductionist_synchronization.py) |
-| 7.5.3 Request rates | [Scalarized UCB](Scalarized%20UCB/script_holistic_heterogeneity.py), [Scalarized Knowledge Gradient](Scalarized%20Knowledge%20Gradient/script_holistic_heterogeneity.py) | [Scalarized UCB](Scalarized%20UCB/script_reductionist_heterogeneity.py), [Scalarized Knowledge Gradient](Scalarized%20Knowledge%20Gradient/script_reductionist_heterogeneity.py) |
-
-### 7.6 Summary of hypervolume results
-
-This subsection summarizes the experiments in Sections 7.4 and 7.5 and requires no separate simulation. The corresponding results can be inspected in [Model-based hypervolume results](Paper%20plots/Model-based%20hypervolume%20results.ipynb) and [Multiple run model-free hypervolume](Paper%20plots/Multiple%20run%20model-free%20hypervolume.ipynb).
+| Gravity (7.5.1) | [Scalarized UCB](Scalarized%20UCB/script_holistic_gravity.py), [Scalarized Knowledge Gradient](Scalarized%20Knowledge%20Gradient/script_holistic_gravity.py) | [Scalarized UCB](Scalarized%20UCB/script_reductionist_gravity.py), [Scalarized Knowledge Gradient](Scalarized%20Knowledge%20Gradient/script_reductionist_gravity.py) |
+| Synchronization (7.5.2) | [Scalarized UCB](Scalarized%20UCB/script_holistic_synchronization.py), [Scalarized Knowledge Gradient](Scalarized%20Knowledge%20Gradient/script_holistic_synchronization.py) | [Scalarized UCB](Scalarized%20UCB/script_reductionist_synchronization.py), [Scalarized Knowledge Gradient](Scalarized%20Knowledge%20Gradient/script_reductionist_synchronization.py) |
+| Request rates (7.5.3) | [Scalarized UCB](Scalarized%20UCB/script_holistic_heterogeneity.py), [Scalarized Knowledge Gradient](Scalarized%20Knowledge%20Gradient/script_holistic_heterogeneity.py) | [Scalarized UCB](Scalarized%20UCB/script_reductionist_heterogeneity.py), [Scalarized Knowledge Gradient](Scalarized%20Knowledge%20Gradient/script_reductionist_heterogeneity.py) |
 
 ### Batch runners
 
-The [model-based suite](Model-based%20experiments/script.py) runs all Section 7.4 experiments, and the [model-free suite](Model-free%20experiments/script.py) runs all Section 7.5 experiments. Each uses its self-contained `setup.json`, configured for 10 independent runs.
+To run all gravity, synchronization, and request-rate experiments for both holistic and reductionist formulations, use the [model-based suite](Model-based%20experiments/script.py) or the [model-free suite](Model-free%20experiments/script.py). Each uses its own self-contained `setup.json`, configured for 10 independent runs.
 
 ```bat
 .venv\Scripts\python.exe -B "Model-based experiments\script.py"
 .venv\Scripts\python.exe -B "Model-free experiments\script.py"
 ```
-
-## Repository structure
-
-| Folder | Contents |
-|---|---|
-| [Cosmic Octopi](Cosmic%20Octopi/) | Cosmic Octopi case study and simulator |
-| [Model calibration](Model%20calibration/) | Ornstein-Uhlenbeck model calibration |
-| [MORBO](MORBO/) / [qNParEGO](qNParEGO/) | Model-based solution approaches |
-| [Scalarized UCB](Scalarized%20UCB/) / [Scalarized Knowledge Gradient](Scalarized%20Knowledge%20Gradient/) | Model-free solution approaches |
-| [Model-based baseline](Model-based%20baseline/) / [Model-free baseline](Model-free%20baseline/) | Baseline comparisons |
-| [Compression coexistence](Compression%20coexistence/) | Quantization and Selective Pressure Allocation coexistence experiments |
-| [Paper plots](Paper%20plots/) | Experiment notebooks and figures |
 
 ## License
 
