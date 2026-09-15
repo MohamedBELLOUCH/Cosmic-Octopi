@@ -94,8 +94,6 @@ Use the `.venv` interpreter for the notebooks. CUDA dependencies are provided in
 
 ## Run experiments
 
-The experiments study the trade-off between communication overhead and learning-performance instability. **Holistic** experiments consider all four marionette classes together; **reductionist** experiments focus on one class.
-
 Each linked script reads its corresponding JSON setup file and saves the experiment results. After installation, run a script from the repository root. For example, to investigate how temperature affects overhead and instability:
 
 ```bat
