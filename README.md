@@ -94,17 +94,9 @@ Use the `.venv` interpreter for the notebooks. CUDA dependencies are provided in
 
 ## Run experiments
 
-The experiments study the trade-off between communication overhead and learning-performance instability. **Holistic** experiments consider all four marionette classes together; **reductionist** experiments focus on one class.
-
-Each linked script reads its corresponding JSON setup file and saves the experiment results. After installation, run a script from the repository root. For example, to investigate how temperature affects overhead and instability:
-
-```bat
-.venv\Scripts\python.exe -B "Temperature\script.py"
-```
+The experiments conducted in each part of the paper and their corresponding scripts are listed below.
 
 ### Preliminaries and ablations
-
-These experiments examine the effects of individual parameters, visualize the trade-offs between objectives, and assess cumulative-reward model calibration.
 
 | Experiment (paper section) | Script |
 |---|---|
@@ -117,8 +109,6 @@ These experiments examine the effects of individual parameters, visualize the tr
 
 ### Model-based approach
 
-MORBO and qNParEGO use Bayesian optimization to search for fitness-margin sequences. Each script evaluates **Robustify-then-Scalarize (RTS)** and **Scalarize-then-Robustify (STR)**: two formulations that differ in whether robustness to uncertain outcomes is applied before or after the objectives are combined.
-
 | Experiment (paper section) | Holistic scripts | Reductionist scripts |
 |---|---|---|
 | Gravity (7.4.1) | [MORBO](MORBO/script_holistic_gravity.py), [qNParEGO](qNParEGO/script_holistic_gravity.py) | [MORBO](MORBO/script_reductionist_gravity.py), [qNParEGO](qNParEGO/script_reductionist_gravity.py) |
@@ -126,8 +116,6 @@ MORBO and qNParEGO use Bayesian optimization to search for fitness-margin sequen
 | Request rates (7.4.3) | [MORBO](MORBO/script_holistic_heterogeneity.py), [qNParEGO](qNParEGO/script_holistic_heterogeneity.py) | [MORBO](MORBO/script_reductionist_heterogeneity.py), [qNParEGO](qNParEGO/script_reductionist_heterogeneity.py) |
 
 ### Model-free approach
-
-Scalarized UCB and Scalarized Knowledge Gradient select fitness margins one global iteration at a time, using feedback from observed overhead and instability. Each script evaluates both RTS and STR.
 
 | Experiment (paper section) | Holistic scripts | Reductionist scripts |
 |---|---|---|
@@ -137,7 +125,7 @@ Scalarized UCB and Scalarized Knowledge Gradient select fitness margins one glob
 
 ### Batch runners
 
-To run all gravity, synchronization, and request-rate experiments for both holistic and reductionist formulations, use the [model-based suite](Model-based%20experiments/script.py) or the [model-free suite](Model-free%20experiments/script.py). Each uses its own self-contained `setup.json`, configured for 10 independent runs.
+Run from the repository root:
 
 ```bat
 .venv\Scripts\python.exe -B "Model-based experiments\script.py"
