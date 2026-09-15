@@ -1,6 +1,22 @@
-# Cosmic Octopi
+<div align="center">
 
-Implementation and experiments for **Selective Pressure Allocation: A Paradigm for Communication Efficiency in Federated Deep Reinforcement Learning**, by Mohamed Bellouch.
+# 🐙 Cosmic Octopi
+
+### Selective Pressure Allocation:
+**A Paradigm for Communication Efficiency in Federated Deep Reinforcement Learning**
+
+Implementation and experiments accompanying the paper by **Mohamed Bellouch**.
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-2ea44f.svg)](LICENSE)
+![Python](https://img.shields.io/badge/Python-3.14-3776AB?logo=python&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-PPO-EE4C2C?logo=pytorch&logoColor=white)
+![MuJoCo](https://img.shields.io/badge/Environments-MuJoCo-8250df)
+
+[Abstract](#abstract) · [Contributions](#contributions) · [Installation](#installation) · [Run experiments](#run-experiments)
+
+</div>
+
+---
 
 ## Abstract
 
