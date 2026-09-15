@@ -12,13 +12,13 @@
 
 [About the paper](#about-the-paper) · [Cosmic Octopi](#cosmic-octopi-case-study) · [Repository structure](#repository-structure) · [Installation](#installation) · [Run experiments](#run-experiments)
 
-
-
-![Cosmic Octopi illustration: octopi on distinct planets manipulating marionettes](Image/Illustration.png)
-
 </div>
 
 ---
+
+![Cosmic Octopi illustration: octopi on distinct planets manipulating marionettes](Image/Illustration.png)
+
+
 
 ## About the paper
 
