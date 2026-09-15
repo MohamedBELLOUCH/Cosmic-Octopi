@@ -36,18 +36,22 @@ Consider $M > 0$ octopi, each living on a distinct planet and manipulates four m
 
 ### Planet gravity
 The surface gravities of the planets (in m/s$^2$) are i.i.d. and sampled from the Gamma distribution
+
 $$
 \text{Gamma}\left(\frac{g^2}{\gamma_{\text{grav}}}, \frac{\gamma_{\text{grav}}}{g}\right),
 $$
+
 where $g = 9.81$ m/s$^2$ is the gravity of Earth, and $\gamma_{\text{grav}} > 0$ is a constant. The distribution is centered at $g$ and its variance is $\gamma_{\text{grav}}$. 
 
 ### Request rates
 To cooperate, the octopi exchange learning "knowledge" with a Galactic Oracle. Specifically, the Galactic Oracle regularly broadcasts requests to the octopi to gather their local "knowledge", construct a global one, and return it to them. These requests follow a marked Poisson point process (PPP). The request instants form a standard PPP with intensity $\gamma_{\text{req}} > 0$, and each request carries a mark indicating the corresponding marionette type.
 
 At a given request instant, the probability that the request is associated with the marionette $`\mathcal{M} \in \mathscr{M} \triangleq \left\lbrace\text{"Humanoid", "Ant", "Cheetah", "Leg"}\right\rbrace`$ is
+
 $$
 \frac{\exp\left(\frac{w_\mathcal{M}}{\gamma_{\text{heter}}}\right)}{\sum\limits_{\mathcal{M}' \in \mathscr{M}} \exp\left(\frac{w_{\mathcal{M}'}}{\gamma_{\text{heter}}}\right)}.
 $$
+
 Here, $\gamma_{\text{heter}} \geq 0$ is a parameter, and for any $\mathcal{M}' \in \mathscr{M}$, $w_{\mathcal{M}'} > 0$ is a constant chosen arbitrarily subject to the ordering constraint $w_{\text{"Leg"}} \leq w_{\text{"Cheetah"}} \leq w_{\text{"Ant"}} \leq w_{\text{"Humanoid"}}$.
 
 A smaller $\gamma_{\text{heter}}$ yields a more uniform distribution of request inter-arrival times across marionettes. As $\gamma_{\text{heter}}$ increases, the distribution becomes more heterogeneous, with requests concentrating progressively on the humanoid marionette, followed by the leg, the ant, and finally the cheetah.
