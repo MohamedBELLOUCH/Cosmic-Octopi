@@ -1,0 +1,128 @@
+{
+  "seed": 42,
+  "class_names": [
+    "Cheetah",
+    "Ant",
+    "Leg",
+    "Humanoid"
+  ],
+  "simulated_rewards": false,
+  "n_agents": 2,
+  "n_wet_experiments": 10,
+  "n_episodes": 1500,
+  "episode_definition": "One calibration episode is 20 PPO minibatch updates followed by the mean return of 5 evaluation episodes. An initial evaluation supplies t=0.",
+  "device": "auto",
+  "gravity_mean": 9.81,
+  "gravity_variance": 10.0,
+  "warmup_episode_bounds": [
+    1,
+    1500
+  ],
+  "subset_design": "all_nonempty",
+  "target_agent_selection": "uniform_from_subset",
+  "aggregation": "episode_weighted_federated_average",
+  "fitness_definition": "arithmetic_mean_of_contributors_mean_warmup_returns_at_zero_freshness",
+  "quantization": {
+    "bits": 8,
+    "scheme": "symmetric_per_tensor",
+    "codec_file": "utils quantized.py"
+  },
+  "environments": {
+    "Cheetah": {
+      "id": "HalfCheetah-v5",
+      "hidden_size": 64,
+      "kwargs": {
+        "ctrl_cost_weight": 0.1,
+        "reset_noise_scale": 0.1,
+        "exclude_current_positions_from_observation": true
+      }
+    },
+    "Ant": {
+      "id": "Ant-v5",
+      "hidden_size": 64,
+      "kwargs": {
+        "ctrl_cost_weight": 0.1,
+        "reset_noise_scale": 0.1,
+        "exclude_current_positions_from_observation": true
+      }
+    },
+    "Leg": {
+      "id": "Hopper-v5",
+      "hidden_size": 64,
+      "kwargs": {
+        "ctrl_cost_weight": 0.001,
+        "reset_noise_scale": 0.1,
+        "exclude_current_positions_from_observation": true
+      }
+    },
+    "Humanoid": {
+      "id": "Humanoid-v5",
+      "hidden_size": 256,
+      "kwargs": {
+        "ctrl_cost_weight": 0.01,
+        "reset_noise_scale": 0.1,
+        "exclude_current_positions_from_observation": true
+      }
+    }
+  },
+  "training": {
+    "updates_per_episode": 20,
+    "evaluation_episodes": 5,
+    "evaluation_action_mode": "sampled",
+    "reward_offset": 0.0,
+    "rollout_steps": 2048,
+    "sampler_epochs": 10,
+    "minibatch_size": 64,
+    "learning_rate": 0.0003,
+    "adam_eps": 1e-05,
+    "gamma": 0.99,
+    "gae_lambda": 0.95,
+    "cliprange": 0.2,
+    "value_loss_coefficient": 0.5,
+    "max_grad_norm": 0.5
+  },
+  "ou_fit": {
+    "dt": 1.0,
+    "method": "L-BFGS-B",
+    "tolerance": 1e-08,
+    "max_iterations": 300,
+    "initial_guess": [
+      0.01,
+      100.0,
+      1.0
+    ],
+    "bounds": {
+      "mean_reversion_rate": [
+        1e-07,
+        2.0
+      ],
+      "long_term_cumulative_reward": [
+        0.001,
+        10000.0
+      ],
+      "sigma": [
+        1e-05,
+        1000.0
+      ]
+    },
+    "require_convergence": true
+  },
+  "regression": {
+    "ridge_alpha": 1000.0,
+    "ridge_alpha_per_sample": 2.0,
+    "feature_order": [
+      "global_policy_fitness",
+      "number_contributing_agents",
+      "gravity",
+      "intercept"
+    ],
+    "target_order": [
+      "initialization",
+      "log_mean_reversion_rate",
+      "log_long_term_cumulative_reward",
+      "log_sigma"
+    ]
+  },
+  "output_matrix_file": "Xi_matrix calibrated quantized.json",
+  "output_data_file": "calibration quantized result.pkl"
+}

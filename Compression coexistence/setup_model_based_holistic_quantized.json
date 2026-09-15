@@ -1,0 +1,246 @@
+{
+  "schema_version": 1,
+  "description": "Quantized holistic MORBO and qNParEGO RTS/STR comparison with the random Pareto-threshold baseline.",
+  "configuration_note": "All numerical experiment settings, calibration matrices and optimizer settings are embedded here; the scripts reuse the existing Python simulator.",
+  "seed": 42,
+  "n_independent_runs": 1,
+  "simulated_rewards": true,
+  "torch_num_threads": 1,
+  "gravity_mean": 9.81,
+  "ou_substeps": 5,
+  "system_dynamics_parameters": {
+    "n_octopi": 40,
+    "n_classes": 4,
+    "gamma_learn": 20,
+    "gamma_break": 10,
+    "gamma_req": 10,
+    "gamma_heter": 1,
+    "gamma_grav": 1,
+    "gamma_sync": 1,
+    "gamma_epis": 1
+  },
+  "hyper_parameters": {
+    "temperature": 0.001,
+    "scaling_constant": 1
+  },
+  "fitness_margin_bounds": {
+    "Cheetah": [
+      -10,
+      20
+    ],
+    "Ant": [
+      -10,
+      20
+    ],
+    "Leg": [
+      -10,
+      20
+    ],
+    "Humanoid": [
+      -10,
+      20
+    ]
+  },
+  "policy_shapes": {
+    "Cheetah": [
+      17,
+      6,
+      64
+    ],
+    "Ant": [
+      105,
+      8,
+      64
+    ],
+    "Leg": [
+      11,
+      3,
+      64
+    ],
+    "Humanoid": [
+      348,
+      17,
+      256
+    ]
+  },
+  "holistic": {
+    "horizon": 100,
+    "margin_parameterization": "normalized_sequence"
+  },
+  "objective_names": [
+    "total_overhead",
+    "total_instability"
+  ],
+  "objective_units": [
+    "KiB",
+    "dimensionless"
+  ],
+  "objective_senses": [
+    "minimize",
+    "minimize"
+  ],
+  "reference_costs": [
+    2200000,
+    310
+  ],
+  "objective_normalization": "divide_each_cost_by_its_reference_cost",
+  "formulations": [
+    "RTS",
+    "STR"
+  ],
+  "n_realizations_per_candidate": 2,
+  "baseline": {
+    "n_grid_points": 10,
+    "grid": "linspace_inclusive",
+    "n_realizations_per_margin": 1,
+    "margin_parameterization": "one_physical_margin_shared_by_all_classes_and_iterations",
+    "scenario_seed_policy": "distinct_seed_per_grid_point_from_setup_seed",
+    "smoothing": {
+      "method": "nadaraya_watson_gaussian",
+      "bandwidth": 40,
+      "bandwidth_units": "physical_fitness_margin",
+      "kernel_formula": "weight(x, x_i) = exp(-0.5 * ((x - x_i) / bandwidth)^2)",
+      "prediction_formula": "predicted_cost(x) = sum_i weight(x, x_i) * observed_cost_i / sum_i weight(x, x_i)",
+      "note": "Smooth overhead and instability separately as functions of physical margin. Do not apply the bandwidth to objective values, grid indices, or unit-normalized margins."
+    },
+    "nsga2": {
+      "implementation": "pymoo.algorithms.moo.nsga2.NSGA2",
+      "pymoo_version": "0.6.2",
+      "pop_size": 100,
+      "n_offsprings": 100,
+      "n_generations": 200,
+      "initial_sampling": "linspace_inclusive",
+      "tournament_type": "comp_by_rank_and_crowding",
+      "crowding_function": "cd",
+      "crossover_probability": 0.9,
+      "crossover_probability_per_variable": 0.5,
+      "crossover_eta": 15,
+      "mutation_probability": 1,
+      "mutation_probability_per_variable": 1,
+      "mutation_eta": 20,
+      "eliminate_duplicates": true,
+      "seed": 42,
+      "note": "NSGA-II evaluates only the two kernel regressions. Its generations do not call the simulator. The returned set approximates the surrogate Pareto set."
+    }
+  },
+  "hyperparameters": {
+    "MORBO": {
+      "implementation": "single-trust-region adaptation of MORBO_success.ipynb",
+      "dimension": 100,
+      "dtype": "float64",
+      "device": "cpu",
+      "initial_design": "scrambled_sobol",
+      "n_initial_points": 8,
+      "batch_size": 4,
+      "n_iterations": 20,
+      "surrogate": "SingleTaskGP",
+      "surrogate_fit": "ExactMarginalLogLikelihood",
+      "toy_notebook_acquisition": "qLogNoisyExpectedHypervolumeImprovement",
+      "rts_str_acquisition": "qLogNoisyExpectedImprovement",
+      "mc_samples": 128,
+      "prune_baseline": true,
+      "acquisition_num_restarts": 8,
+      "acquisition_raw_samples": 256,
+      "acquisition_batch_limit": 5,
+      "acquisition_maxiter": 100,
+      "trust_region_length_initial": 0.8,
+      "trust_region_length_minimum": 0.01,
+      "trust_region_length_maximum": 1.6,
+      "trust_region_success_multiplier": 1.5,
+      "trust_region_failure_multiplier": 0.7,
+      "trust_region_center_old_weight": 0.7,
+      "trust_region_center_new_weight": 0.3,
+      "hypervolume_directions": 128,
+      "hypervolume_direction_rule": "uniform_angle_midpoint_quadrature",
+      "reference_point_policy": "fixed_reference_costs_from_setup",
+      "direction_endpoint_epsilon": 0.001,
+      "hypervolume_checkpoint_every": 2
+    },
+    "qNParEGO": {
+      "implementation": "global sequential-batch RTS/STR adaptation of qLogParEGO_success.ipynb",
+      "dimension": 100,
+      "dtype": "float64",
+      "device": "cpu",
+      "initial_design": "scrambled_sobol",
+      "n_initial_points": 8,
+      "batch_size": 4,
+      "n_iterations": 20,
+      "surrogate": "SingleTaskGP",
+      "surrogate_fit": "ExactMarginalLogLikelihood",
+      "toy_notebook_acquisition": "qLogNParEGO",
+      "rts_str_acquisition": "qLogNoisyExpectedImprovement",
+      "mc_samples": 128,
+      "prune_baseline": true,
+      "acquisition_num_restarts": 8,
+      "acquisition_raw_samples": 256,
+      "acquisition_batch_limit": 5,
+      "acquisition_maxiter": 100,
+      "hypervolume_directions": 128,
+      "hypervolume_direction_rule": "uniform_angle_midpoint_quadrature",
+      "reference_point_policy": "fixed_reference_costs_from_setup",
+      "direction_endpoint_epsilon": 0.001,
+      "toy_n_initial_points": 128,
+      "search_domain": "global_unit_cube",
+      "batch_optimization": "optimize_acqf_list",
+      "direction_policy": "one shared direction per batch, paired with MORBO",
+      "budget_note": "8 initial points instead of the toy 128, matching MORBO; 20 steps of 4 candidates",
+      "toy_scalarization": "augmented Chebyshev inside qLogNParEGO",
+      "rts_str_scalarization": "reference-normalized length, shared with MORBO",
+      "surrogate_targets": "empirical RTS or STR scores for the current direction",
+      "hypervolume_checkpoint_every": 2
+    }
+  },
+  "held_out_evaluation": {
+    "seed": 20260915,
+    "n_realizations_per_solution": 10,
+    "scenario_seed_policy": "same_seed_list_for_every_solution_and_algorithm",
+    "horizon_source": "holistic.horizon",
+    "reference_costs_source": "reference_costs",
+    "hypervolume_directions": 128,
+    "hypervolume_direction_rule": "uniform_angle_midpoint_quadrature",
+    "direction_endpoint_epsilon": 0.001,
+    "baseline_hypervolume_formulation": null,
+    "note": "Reserved for the later comparison notebook, not executed by the baseline search. The choice of RTS or STR for the baseline's single bar remains to be agreed."
+  },
+  "output_file": "single fitness margin Pareto set quantized.pkl",
+  "comparison_output_files": {
+    "MORBO": {
+      "RTS": "holistic RTS MORBO Pareto set quantized.pkl",
+      "STR": "holistic STR MORBO Pareto set quantized.pkl"
+    },
+    "qNParEGO": {
+      "RTS": "holistic RTS qNParEGO Pareto set quantized.pkl",
+      "STR": "holistic STR qNParEGO Pareto set quantized.pkl"
+    }
+  },
+  "output_note": "The baseline writes only output_file beside its setup. This pickle contains scalar Pareto margins, predicted objective values, raw training measurements, seeds, setup and provenance. Held-out hypervolume evaluation is a later step.",
+  "xi_matrix_file": "Xi_matrix quantized.json",
+  "quantization": {
+    "bits": 8,
+    "scheme": "symmetric_per_tensor",
+    "codec_file": "utils quantized.py",
+    "measurement_seed": 1701,
+    "payload_size_rule": "fixed_serialized_representative_model_per_class",
+    "note": "Simulated rewards have no evolving neural weights. Count complete actual int8 payloads, including metadata, from one seeded representative Network per class."
+  },
+  "standard_comparison_file": "../Model-based baseline/holistic hypervolume comparison.pkl",
+  "standard_random_baseline_file": "../Model-based baseline/holistic random threshold baseline.pkl",
+  "held_out_scenario_seeds": [
+    2385971528,
+    3193148690,
+    3937333334,
+    2534194614,
+    797263586,
+    823411603,
+    2233374801,
+    2779230037,
+    3961860411,
+    1056997447
+  ],
+  "baseline_sampling": {
+    "n_sequences": 20,
+    "seed": 20260916,
+    "rule": "independent_uniform_with_replacement_at_every_iteration"
+  },
+  "comparison_cache_file": "holistic model-based hypervolume comparison quantized.pkl"
+}

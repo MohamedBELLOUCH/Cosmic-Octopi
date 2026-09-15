@@ -1,0 +1,326 @@
+{
+  "schema_version": 1,
+  "description": "Standard Cheetah reductionist comparison of a constant fitness margin against RTS/STR MORBO and qNParEGO.",
+  "configuration_note": "All numerical experiment settings, calibration matrices and optimizer settings are embedded here; the scripts reuse the existing Python simulator.",
+  "seed": 42,
+  "n_independent_runs": 1,
+  "simulated_rewards": true,
+  "torch_num_threads": 1,
+  "gravity_mean": 9.81,
+  "ou_substeps": 5,
+  "system_dynamics_parameters": {
+    "n_octopi": 40,
+    "n_classes": 4,
+    "gamma_learn": 20,
+    "gamma_break": 10,
+    "gamma_req": 10,
+    "gamma_heter": 1,
+    "gamma_grav": 1,
+    "gamma_sync": 1,
+    "gamma_epis": 1
+  },
+  "hyper_parameters": {
+    "temperature": 0.001,
+    "scaling_constant": 1
+  },
+  "fitness_margin_bounds": {
+    "Cheetah": [
+      -10,
+      20
+    ],
+    "Ant": [
+      -10,
+      20
+    ],
+    "Leg": [
+      -10,
+      20
+    ],
+    "Humanoid": [
+      -10,
+      20
+    ]
+  },
+  "policy_shapes": {
+    "Cheetah": [
+      17,
+      6,
+      64
+    ],
+    "Ant": [
+      105,
+      8,
+      64
+    ],
+    "Leg": [
+      11,
+      3,
+      64
+    ],
+    "Humanoid": [
+      348,
+      17,
+      256
+    ]
+  },
+  "Xi_matrices": {
+    "Cheetah": [
+      [
+        0.9,
+        0,
+        0,
+        0
+      ],
+      [
+        0.2,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0.01,
+        0.01,
+        0.01
+      ],
+      [
+        20,
+        -9.210340371976184,
+        5.298317366548036,
+        -2.3025850929940455
+      ]
+    ],
+    "Ant": [
+      [
+        0.9,
+        0,
+        0,
+        0
+      ],
+      [
+        0.2,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0.01,
+        0.01,
+        0.01
+      ],
+      [
+        20,
+        -9.210340371976184,
+        5.298317366548036,
+        -2.3025850929940455
+      ]
+    ],
+    "Leg": [
+      [
+        0.9,
+        0,
+        0,
+        0
+      ],
+      [
+        0.2,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0.01,
+        0.01,
+        0.01
+      ],
+      [
+        20,
+        -9.210340371976184,
+        5.298317366548036,
+        -2.3025850929940455
+      ]
+    ],
+    "Humanoid": [
+      [
+        0.9,
+        0,
+        0,
+        0
+      ],
+      [
+        0.2,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0.01,
+        0.01,
+        0.01
+      ],
+      [
+        20,
+        -9.210340371976184,
+        5.298317366548036,
+        -2.3025850929940455
+      ]
+    ]
+  },
+  "objective_names": [
+    "total_overhead",
+    "total_instability"
+  ],
+  "objective_units": [
+    "KiB",
+    "dimensionless"
+  ],
+  "objective_senses": [
+    "minimize",
+    "minimize"
+  ],
+  "reference_costs": [
+    90497.578125,
+    85
+  ],
+  "objective_normalization": "divide_each_cost_by_its_reference_cost",
+  "formulations": [
+    "RTS",
+    "STR"
+  ],
+  "n_realizations_per_candidate": 2,
+  "baseline": {
+    "n_grid_points": 10,
+    "grid": "linspace_inclusive",
+    "n_realizations_per_margin": 1,
+    "margin_parameterization": "one_physical_margin_for_all_selected_class_requests",
+    "scenario_seed_policy": "distinct_seed_per_grid_point_from_setup_seed",
+    "smoothing": {
+      "method": "nadaraya_watson_gaussian",
+      "bandwidth": 40,
+      "bandwidth_units": "physical_fitness_margin",
+      "kernel_formula": "weight(x, x_i) = exp(-0.5 * ((x - x_i) / bandwidth)^2)",
+      "prediction_formula": "predicted_cost(x) = sum_i weight(x, x_i) * observed_cost_i / sum_i weight(x, x_i)",
+      "note": "Smooth overhead and instability separately as functions of physical margin. Do not apply the bandwidth to objective values, grid indices, or unit-normalized margins."
+    },
+    "nsga2": {
+      "implementation": "pymoo.algorithms.moo.nsga2.NSGA2",
+      "pymoo_version": "0.6.2",
+      "pop_size": 100,
+      "n_offsprings": 100,
+      "n_generations": 200,
+      "initial_sampling": "linspace_inclusive",
+      "tournament_type": "comp_by_rank_and_crowding",
+      "crowding_function": "cd",
+      "crossover_probability": 0.9,
+      "crossover_probability_per_variable": 0.5,
+      "crossover_eta": 15,
+      "mutation_probability": 1,
+      "mutation_probability_per_variable": 1,
+      "mutation_eta": 20,
+      "eliminate_duplicates": true,
+      "seed": 42,
+      "note": "NSGA-II evaluates only the two kernel regressions. Its generations do not call the simulator. The returned set approximates the surrogate Pareto set."
+    }
+  },
+  "hyperparameters": {
+    "MORBO": {
+      "implementation": "single-trust-region adaptation of MORBO_success.ipynb",
+      "dimension": 50,
+      "dtype": "float64",
+      "device": "cpu",
+      "initial_design": "scrambled_sobol",
+      "n_initial_points": 8,
+      "batch_size": 4,
+      "n_iterations": 20,
+      "surrogate": "SingleTaskGP",
+      "surrogate_fit": "ExactMarginalLogLikelihood",
+      "toy_notebook_acquisition": "qLogNoisyExpectedHypervolumeImprovement",
+      "rts_str_acquisition": "qLogNoisyExpectedImprovement",
+      "mc_samples": 128,
+      "prune_baseline": true,
+      "acquisition_num_restarts": 8,
+      "acquisition_raw_samples": 256,
+      "acquisition_batch_limit": 5,
+      "acquisition_maxiter": 100,
+      "trust_region_length_initial": 0.8,
+      "trust_region_length_minimum": 0.01,
+      "trust_region_length_maximum": 1.6,
+      "trust_region_success_multiplier": 1.5,
+      "trust_region_failure_multiplier": 0.7,
+      "trust_region_center_old_weight": 0.7,
+      "trust_region_center_new_weight": 0.3,
+      "hypervolume_directions": 128,
+      "hypervolume_direction_rule": "uniform_angle_midpoint_quadrature",
+      "reference_point_policy": "fixed_reference_costs_from_setup",
+      "direction_endpoint_epsilon": 0.001,
+      "hypervolume_checkpoint_every": 2
+    },
+    "qNParEGO": {
+      "implementation": "global sequential-batch RTS/STR adaptation of qLogParEGO_success.ipynb",
+      "dimension": 50,
+      "dtype": "float64",
+      "device": "cpu",
+      "initial_design": "scrambled_sobol",
+      "n_initial_points": 8,
+      "batch_size": 4,
+      "n_iterations": 20,
+      "surrogate": "SingleTaskGP",
+      "surrogate_fit": "ExactMarginalLogLikelihood",
+      "toy_notebook_acquisition": "qLogNParEGO",
+      "rts_str_acquisition": "qLogNoisyExpectedImprovement",
+      "mc_samples": 128,
+      "prune_baseline": true,
+      "acquisition_num_restarts": 8,
+      "acquisition_raw_samples": 256,
+      "acquisition_batch_limit": 5,
+      "acquisition_maxiter": 100,
+      "hypervolume_directions": 128,
+      "hypervolume_direction_rule": "uniform_angle_midpoint_quadrature",
+      "reference_point_policy": "fixed_reference_costs_from_setup",
+      "direction_endpoint_epsilon": 0.001,
+      "toy_n_initial_points": 128,
+      "search_domain": "global_unit_cube",
+      "batch_optimization": "optimize_acqf_list",
+      "direction_policy": "one shared direction per batch, paired with MORBO",
+      "budget_note": "8 initial points instead of the toy 128, matching MORBO; 20 steps of 4 candidates",
+      "toy_scalarization": "augmented Chebyshev inside qLogNParEGO",
+      "rts_str_scalarization": "reference-normalized length, shared with MORBO",
+      "surrogate_targets": "empirical RTS or STR scores for the current direction",
+      "hypervolume_checkpoint_every": 2
+    }
+  },
+  "held_out_evaluation": {
+    "seed": 20260915,
+    "n_realizations_per_solution": 10,
+    "scenario_seed_policy": "same_seed_list_for_every_solution_and_algorithm",
+    "horizon_source": "reductionist.horizon",
+    "reference_costs_source": "reference_costs",
+    "hypervolume_directions": 128,
+    "hypervolume_direction_rule": "uniform_angle_midpoint_quadrature",
+    "direction_endpoint_epsilon": 0.001,
+    "baseline_hypervolume_formulation": "both",
+    "note": "Score the same constant-margin Pareto set under RTS and STR using identical held-out cost realizations."
+  },
+  "output_file": "reductionist single fitness margin Pareto set.pkl",
+  "comparison_output_files": {
+    "MORBO": {
+      "RTS": "reductionist RTS MORBO Pareto set.pkl",
+      "STR": "reductionist STR MORBO Pareto set.pkl"
+    },
+    "qNParEGO": {
+      "RTS": "reductionist RTS qNParEGO Pareto set.pkl",
+      "STR": "reductionist STR qNParEGO Pareto set.pkl"
+    }
+  },
+  "output_note": "Baseline and optimizer files store search results; a separate reductionist hypervolume comparison.pkl stores held-out evaluations for both RTS and STR.",
+  "reductionist": {
+    "class_name": "Cheetah",
+    "horizon": 50,
+    "margin_parameterization": "normalized_sequence",
+    "margin_parameterization_note": "Optimizers search unit sequences. Before simulation each value is mapped to the selected class's physical fitness-margin bounds."
+  },
+  "reference_costs_note": "Same fixed Cheetah reference as the existing reductionist MORBO/qNParEGO experiments: 1.01 x 40 octopi x 50 requests x 44.80078125 KiB, and instability 85."
+}

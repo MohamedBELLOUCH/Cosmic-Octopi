@@ -1,0 +1,18 @@
+{
+  "n_sequences": 20,
+  "sampling": "independent_uniform_with_replacement_at_every_iteration",
+  "interpretation": "hypervolume_of_the_sampled_sequence_set",
+  "realizations": "reuse_the_10_shared_held_out_seeds_per_sequence",
+  "cases": {
+    "holistic": {
+      "sampling_seed": 20260916,
+      "comparison_cache": "holistic hypervolume comparison.pkl",
+      "output_file": "holistic random threshold baseline.pkl"
+    },
+    "reductionist": {
+      "sampling_seed": 20260917,
+      "comparison_cache": "reductionist hypervolume comparison.pkl",
+      "output_file": "reductionist random threshold baseline.pkl"
+    }
+  }
+}

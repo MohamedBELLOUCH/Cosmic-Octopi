@@ -1,0 +1,529 @@
+{
+  "old_directory": "Baselines",
+  "new_directory": "Model-based baseline",
+  "files": {
+    ".gitkeep": {
+      "before_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "after_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    "evaluate_holistic_comparison.py": {
+      "before_sha256": "357dd5cd7aaef1f6f9e67b1f7c823f64681a43fe3368dd879aef9280cc16a773",
+      "after_sha256": "357dd5cd7aaef1f6f9e67b1f7c823f64681a43fe3368dd879aef9280cc16a773"
+    },
+    "evaluate_random_threshold_baseline.py": {
+      "before_sha256": "db01834231445898ecb1f4b460fffd723084e271f7f9f088ff3ec747b6a55e36",
+      "after_sha256": "db01834231445898ecb1f4b460fffd723084e271f7f9f088ff3ec747b6a55e36"
+    },
+    "evaluate_reductionist_comparison.py": {
+      "before_sha256": "a29f2a273cd9a027bffbdb4385de1c707e6dc178b67ead22359630e7d4a7b422",
+      "after_sha256": "a29f2a273cd9a027bffbdb4385de1c707e6dc178b67ead22359630e7d4a7b422"
+    },
+    "holistic hypervolume comparison.pkl": {
+      "before_sha256": "a5f4a9bbd8b1f2b6e3f70f16ca6342a26f25141f8df044fa8c8759ba9f582eee",
+      "original_provenance": {
+        "input_sha256": {
+          "holistic RTS MORBO Pareto set.pkl": "7ee8e41cb46959ec7efc2d6959be9517a2e3369148f059af308443b03c0198e5",
+          "holistic RTS qNParEGO Pareto set.pkl": "510a1d652c019c2c8cf127d926bd8ffa140a4c38ba0e1624026818994977562c",
+          "holistic STR MORBO Pareto set.pkl": "d5d86e9fc35e727f00284cdcd06e175e29a9659dab517cbd8184e5a88b19d22e",
+          "holistic STR qNParEGO Pareto set.pkl": "7f249d5ee01d7aa470371b0f8ed87be79f1883b41826bd65a03c2e3f2092defa",
+          "single fitness margin Pareto set.pkl": "52d871ffa7e2f73ed787885c2d148cf05f8810bb6a11a531f656fbbffe664205"
+        },
+        "setup_sha256": "1b281515041af08d9cc53c8b9a144d095e47fc66e9cc76bb37fa569a426a67f6",
+        "evaluation_source_sha256": {
+          "Baselines\\evaluate_holistic_comparison.py": "357dd5cd7aaef1f6f9e67b1f7c823f64681a43fe3368dd879aef9280cc16a773",
+          "Baselines\\holistic_model_based_runner.py": "6067d7052f4574211c20bd0e905b5f88b915db0a3f7b39efefde41a847df7625",
+          "Pareto fronts\\script.py": "3900da19aecebcc0ccf5df407a79e42b7e1c043c7fd27a839e59a1138c1e9829",
+          "Cosmic Octopi\\utils.py": "941553d6a7f25914be594a2d319f50ae55e27aeb10ce9ef4bbb810622ad161ab",
+          "Cosmic Octopi\\simulated_reward_experiment.py": "b5e2b93991beeb19a10c7398b50498f7acd79a2047d0afda81e3f2f34effc113",
+          "Cosmic Octopi\\front_utils.py": "61db12c9b7412d6aa604111a7aa92c7d5e1734f617934f310405ac1ec4adc9a2",
+          "MORBO\\script_holistic_gravity.py": "eab0ae115fd98d4065357cad61a41658fae7559711a4c42ec8c68b8ccfc7f09d"
+        }
+      },
+      "numerical_and_nonprovenance_payload_sha256": "66c545aa4a45a9219905175344a3078b4add018f368ad2043b06829636f5872c",
+      "relocated_provenance": {
+        "input_sha256": {
+          "holistic RTS MORBO Pareto set.pkl": "76ad3230c9602fbc519b7b7ad98f66b62363949dcdc4b9d0a1aa6306efc417b8",
+          "holistic RTS qNParEGO Pareto set.pkl": "152bec8596387c779dbd30fe55b84c1a126c684f8438457fb3e644b2ad52bd6b",
+          "holistic STR MORBO Pareto set.pkl": "04e6e25dc362a4158c87367fd4e0a5afe7bda7a33967a998ac732e749d0c9666",
+          "holistic STR qNParEGO Pareto set.pkl": "c85dcb61d8761bd02e38e87535e6de308ff973d95f5a714d6cd46b2bd6e3ef40",
+          "single fitness margin Pareto set.pkl": "2928a0b8bde0560c1403bd80af4e42c27212b106e88107f5c1dbef9a539a3a2f"
+        },
+        "setup_sha256": "1b281515041af08d9cc53c8b9a144d095e47fc66e9cc76bb37fa569a426a67f6",
+        "evaluation_source_sha256": {
+          "Model-based baseline\\evaluate_holistic_comparison.py": "357dd5cd7aaef1f6f9e67b1f7c823f64681a43fe3368dd879aef9280cc16a773",
+          "Model-based baseline\\holistic_model_based_runner.py": "6067d7052f4574211c20bd0e905b5f88b915db0a3f7b39efefde41a847df7625",
+          "Pareto fronts\\script.py": "3900da19aecebcc0ccf5df407a79e42b7e1c043c7fd27a839e59a1138c1e9829",
+          "Cosmic Octopi\\utils.py": "941553d6a7f25914be594a2d319f50ae55e27aeb10ce9ef4bbb810622ad161ab",
+          "Cosmic Octopi\\simulated_reward_experiment.py": "b5e2b93991beeb19a10c7398b50498f7acd79a2047d0afda81e3f2f34effc113",
+          "Cosmic Octopi\\front_utils.py": "61db12c9b7412d6aa604111a7aa92c7d5e1734f617934f310405ac1ec4adc9a2",
+          "MORBO\\script_holistic_gravity.py": "eab0ae115fd98d4065357cad61a41658fae7559711a4c42ec8c68b8ccfc7f09d"
+        }
+      },
+      "after_sha256": "57604632766ef53429e4654582e4bbdb891837066348750fe85b93e1d6fd14c8"
+    },
+    "holistic MORBO.py": {
+      "before_sha256": "45b7c06b472d20facfba119bae214c5cad92b0dc7b8d66edb7a2e738ac91c6d0",
+      "after_sha256": "45b7c06b472d20facfba119bae214c5cad92b0dc7b8d66edb7a2e738ac91c6d0"
+    },
+    "holistic qNParEGO.py": {
+      "before_sha256": "fb8d9ae37591f807b735d22535884d6b9d7af3347e164a9102c7b63c1efe2a0e",
+      "after_sha256": "fb8d9ae37591f807b735d22535884d6b9d7af3347e164a9102c7b63c1efe2a0e"
+    },
+    "holistic random threshold baseline.pkl": {
+      "before_sha256": "af6834743b5342ffaf8e0706d060973e9c9b1e71b4d2ba54bb4eaada27a10245",
+      "original_provenance": {
+        "source_sha256": {
+          "Baselines\\evaluate_holistic_comparison.py": "357dd5cd7aaef1f6f9e67b1f7c823f64681a43fe3368dd879aef9280cc16a773",
+          "Baselines\\holistic_model_based_runner.py": "6067d7052f4574211c20bd0e905b5f88b915db0a3f7b39efefde41a847df7625",
+          "Pareto fronts\\script.py": "3900da19aecebcc0ccf5df407a79e42b7e1c043c7fd27a839e59a1138c1e9829",
+          "Cosmic Octopi\\utils.py": "941553d6a7f25914be594a2d319f50ae55e27aeb10ce9ef4bbb810622ad161ab",
+          "Cosmic Octopi\\simulated_reward_experiment.py": "b5e2b93991beeb19a10c7398b50498f7acd79a2047d0afda81e3f2f34effc113",
+          "Cosmic Octopi\\front_utils.py": "61db12c9b7412d6aa604111a7aa92c7d5e1734f617934f310405ac1ec4adc9a2",
+          "MORBO\\script_holistic_gravity.py": "eab0ae115fd98d4065357cad61a41658fae7559711a4c42ec8c68b8ccfc7f09d",
+          "Baselines\\holistic hypervolume comparison.pkl": "a5f4a9bbd8b1f2b6e3f70f16ca6342a26f25141f8df044fa8c8759ba9f582eee",
+          "Baselines\\single fitness margin Pareto set.pkl": "52d871ffa7e2f73ed787885c2d148cf05f8810bb6a11a531f656fbbffe664205",
+          "Baselines\\setup_random_threshold_evaluation.json": "4c204663471b7b39a05fce17eeeee96dcf1d479c9929a718558c2a2c4fbe3e47",
+          "Baselines\\evaluate_random_threshold_baseline.py": "db01834231445898ecb1f4b460fffd723084e271f7f9f088ff3ec747b6a55e36"
+        }
+      },
+      "numerical_and_nonprovenance_payload_sha256": "b846b58a03064955dadce7c004edb3e40470547d4cb8d7dd9b97b2caefa75783",
+      "relocated_provenance": {
+        "source_sha256": {
+          "Model-based baseline\\evaluate_holistic_comparison.py": "357dd5cd7aaef1f6f9e67b1f7c823f64681a43fe3368dd879aef9280cc16a773",
+          "Model-based baseline\\holistic_model_based_runner.py": "6067d7052f4574211c20bd0e905b5f88b915db0a3f7b39efefde41a847df7625",
+          "Pareto fronts\\script.py": "3900da19aecebcc0ccf5df407a79e42b7e1c043c7fd27a839e59a1138c1e9829",
+          "Cosmic Octopi\\utils.py": "941553d6a7f25914be594a2d319f50ae55e27aeb10ce9ef4bbb810622ad161ab",
+          "Cosmic Octopi\\simulated_reward_experiment.py": "b5e2b93991beeb19a10c7398b50498f7acd79a2047d0afda81e3f2f34effc113",
+          "Cosmic Octopi\\front_utils.py": "61db12c9b7412d6aa604111a7aa92c7d5e1734f617934f310405ac1ec4adc9a2",
+          "MORBO\\script_holistic_gravity.py": "eab0ae115fd98d4065357cad61a41658fae7559711a4c42ec8c68b8ccfc7f09d",
+          "Model-based baseline\\holistic hypervolume comparison.pkl": "57604632766ef53429e4654582e4bbdb891837066348750fe85b93e1d6fd14c8",
+          "Model-based baseline\\single fitness margin Pareto set.pkl": "2928a0b8bde0560c1403bd80af4e42c27212b106e88107f5c1dbef9a539a3a2f",
+          "Model-based baseline\\setup_random_threshold_evaluation.json": "4c204663471b7b39a05fce17eeeee96dcf1d479c9929a718558c2a2c4fbe3e47",
+          "Model-based baseline\\evaluate_random_threshold_baseline.py": "db01834231445898ecb1f4b460fffd723084e271f7f9f088ff3ec747b6a55e36"
+        }
+      },
+      "after_sha256": "c815a93d5197b80b6b2c58c1f8f7a12861a9f3f4a47b589af4605ba279d549a3"
+    },
+    "holistic RTS MORBO Pareto set.pkl": {
+      "before_sha256": "7ee8e41cb46959ec7efc2d6959be9517a2e3369148f059af308443b03c0198e5",
+      "original_provenance": {
+        "source_sha256": {
+          "Baselines\\holistic_model_based_runner.py": "6067d7052f4574211c20bd0e905b5f88b915db0a3f7b39efefde41a847df7625",
+          "Baselines\\holistic MORBO.py": "45b7c06b472d20facfba119bae214c5cad92b0dc7b8d66edb7a2e738ac91c6d0",
+          "MORBO\\script_holistic_gravity.py": "eab0ae115fd98d4065357cad61a41658fae7559711a4c42ec8c68b8ccfc7f09d",
+          "Pareto fronts\\script.py": "3900da19aecebcc0ccf5df407a79e42b7e1c043c7fd27a839e59a1138c1e9829",
+          "Cosmic Octopi\\utils.py": "941553d6a7f25914be594a2d319f50ae55e27aeb10ce9ef4bbb810622ad161ab",
+          "Cosmic Octopi\\simulated_reward_experiment.py": "b5e2b93991beeb19a10c7398b50498f7acd79a2047d0afda81e3f2f34effc113",
+          "Cosmic Octopi\\front_utils.py": "61db12c9b7412d6aa604111a7aa92c7d5e1734f617934f310405ac1ec4adc9a2"
+        }
+      },
+      "numerical_and_nonprovenance_payload_sha256": "b484e93b923c2a3657b05e15c1471ca78910097f0910c6b9f9381448018c74f4",
+      "relocated_provenance": {
+        "source_sha256": {
+          "Model-based baseline\\holistic_model_based_runner.py": "6067d7052f4574211c20bd0e905b5f88b915db0a3f7b39efefde41a847df7625",
+          "Model-based baseline\\holistic MORBO.py": "45b7c06b472d20facfba119bae214c5cad92b0dc7b8d66edb7a2e738ac91c6d0",
+          "MORBO\\script_holistic_gravity.py": "eab0ae115fd98d4065357cad61a41658fae7559711a4c42ec8c68b8ccfc7f09d",
+          "Pareto fronts\\script.py": "3900da19aecebcc0ccf5df407a79e42b7e1c043c7fd27a839e59a1138c1e9829",
+          "Cosmic Octopi\\utils.py": "941553d6a7f25914be594a2d319f50ae55e27aeb10ce9ef4bbb810622ad161ab",
+          "Cosmic Octopi\\simulated_reward_experiment.py": "b5e2b93991beeb19a10c7398b50498f7acd79a2047d0afda81e3f2f34effc113",
+          "Cosmic Octopi\\front_utils.py": "61db12c9b7412d6aa604111a7aa92c7d5e1734f617934f310405ac1ec4adc9a2"
+        }
+      },
+      "after_sha256": "76ad3230c9602fbc519b7b7ad98f66b62363949dcdc4b9d0a1aa6306efc417b8"
+    },
+    "holistic RTS qNParEGO Pareto set.pkl": {
+      "before_sha256": "510a1d652c019c2c8cf127d926bd8ffa140a4c38ba0e1624026818994977562c",
+      "original_provenance": {
+        "source_sha256": {
+          "Baselines\\holistic_model_based_runner.py": "6067d7052f4574211c20bd0e905b5f88b915db0a3f7b39efefde41a847df7625",
+          "Baselines\\holistic qNParEGO.py": "fb8d9ae37591f807b735d22535884d6b9d7af3347e164a9102c7b63c1efe2a0e",
+          "MORBO\\script_holistic_gravity.py": "eab0ae115fd98d4065357cad61a41658fae7559711a4c42ec8c68b8ccfc7f09d",
+          "Pareto fronts\\script.py": "3900da19aecebcc0ccf5df407a79e42b7e1c043c7fd27a839e59a1138c1e9829",
+          "Cosmic Octopi\\utils.py": "941553d6a7f25914be594a2d319f50ae55e27aeb10ce9ef4bbb810622ad161ab",
+          "Cosmic Octopi\\simulated_reward_experiment.py": "b5e2b93991beeb19a10c7398b50498f7acd79a2047d0afda81e3f2f34effc113",
+          "Cosmic Octopi\\front_utils.py": "61db12c9b7412d6aa604111a7aa92c7d5e1734f617934f310405ac1ec4adc9a2",
+          "qNParEGO\\runner.py": "c1a8485f23c877fef0b05066d03bd87a50f456ee913589e6d0d9314d200a11db",
+          "MORBO\\script_reductionist_gravity.py": "9cfc98c97ff284ec01c11a330790bcf27194f09c986f03975d96a2acac5765da"
+        }
+      },
+      "numerical_and_nonprovenance_payload_sha256": "92cbb9b8d942de39aa6a5e3e5ff6afd67669cf471ace88daaf45ef526169ca0d",
+      "relocated_provenance": {
+        "source_sha256": {
+          "Model-based baseline\\holistic_model_based_runner.py": "6067d7052f4574211c20bd0e905b5f88b915db0a3f7b39efefde41a847df7625",
+          "Model-based baseline\\holistic qNParEGO.py": "fb8d9ae37591f807b735d22535884d6b9d7af3347e164a9102c7b63c1efe2a0e",
+          "MORBO\\script_holistic_gravity.py": "eab0ae115fd98d4065357cad61a41658fae7559711a4c42ec8c68b8ccfc7f09d",
+          "Pareto fronts\\script.py": "3900da19aecebcc0ccf5df407a79e42b7e1c043c7fd27a839e59a1138c1e9829",
+          "Cosmic Octopi\\utils.py": "941553d6a7f25914be594a2d319f50ae55e27aeb10ce9ef4bbb810622ad161ab",
+          "Cosmic Octopi\\simulated_reward_experiment.py": "b5e2b93991beeb19a10c7398b50498f7acd79a2047d0afda81e3f2f34effc113",
+          "Cosmic Octopi\\front_utils.py": "61db12c9b7412d6aa604111a7aa92c7d5e1734f617934f310405ac1ec4adc9a2",
+          "qNParEGO\\runner.py": "c1a8485f23c877fef0b05066d03bd87a50f456ee913589e6d0d9314d200a11db",
+          "MORBO\\script_reductionist_gravity.py": "9cfc98c97ff284ec01c11a330790bcf27194f09c986f03975d96a2acac5765da"
+        }
+      },
+      "after_sha256": "152bec8596387c779dbd30fe55b84c1a126c684f8438457fb3e644b2ad52bd6b"
+    },
+    "holistic single fintess margin baseline.py": {
+      "before_sha256": "db0aeef47c80fcbacaa0fcd50c035d89b8a13b4db1e8bea130da54d4438e674b",
+      "after_sha256": "34d1d261e5881336911aea412da4dfc4bb2d5dbed6c111666a2d630e0f3d8d16"
+    },
+    "holistic STR MORBO Pareto set.pkl": {
+      "before_sha256": "d5d86e9fc35e727f00284cdcd06e175e29a9659dab517cbd8184e5a88b19d22e",
+      "original_provenance": {
+        "source_sha256": {
+          "Baselines\\holistic_model_based_runner.py": "6067d7052f4574211c20bd0e905b5f88b915db0a3f7b39efefde41a847df7625",
+          "Baselines\\holistic MORBO.py": "45b7c06b472d20facfba119bae214c5cad92b0dc7b8d66edb7a2e738ac91c6d0",
+          "MORBO\\script_holistic_gravity.py": "eab0ae115fd98d4065357cad61a41658fae7559711a4c42ec8c68b8ccfc7f09d",
+          "Pareto fronts\\script.py": "3900da19aecebcc0ccf5df407a79e42b7e1c043c7fd27a839e59a1138c1e9829",
+          "Cosmic Octopi\\utils.py": "941553d6a7f25914be594a2d319f50ae55e27aeb10ce9ef4bbb810622ad161ab",
+          "Cosmic Octopi\\simulated_reward_experiment.py": "b5e2b93991beeb19a10c7398b50498f7acd79a2047d0afda81e3f2f34effc113",
+          "Cosmic Octopi\\front_utils.py": "61db12c9b7412d6aa604111a7aa92c7d5e1734f617934f310405ac1ec4adc9a2"
+        }
+      },
+      "numerical_and_nonprovenance_payload_sha256": "838440bd0986608c112823b939fe83a878570fd17494b59435e15f124d9fd617",
+      "relocated_provenance": {
+        "source_sha256": {
+          "Model-based baseline\\holistic_model_based_runner.py": "6067d7052f4574211c20bd0e905b5f88b915db0a3f7b39efefde41a847df7625",
+          "Model-based baseline\\holistic MORBO.py": "45b7c06b472d20facfba119bae214c5cad92b0dc7b8d66edb7a2e738ac91c6d0",
+          "MORBO\\script_holistic_gravity.py": "eab0ae115fd98d4065357cad61a41658fae7559711a4c42ec8c68b8ccfc7f09d",
+          "Pareto fronts\\script.py": "3900da19aecebcc0ccf5df407a79e42b7e1c043c7fd27a839e59a1138c1e9829",
+          "Cosmic Octopi\\utils.py": "941553d6a7f25914be594a2d319f50ae55e27aeb10ce9ef4bbb810622ad161ab",
+          "Cosmic Octopi\\simulated_reward_experiment.py": "b5e2b93991beeb19a10c7398b50498f7acd79a2047d0afda81e3f2f34effc113",
+          "Cosmic Octopi\\front_utils.py": "61db12c9b7412d6aa604111a7aa92c7d5e1734f617934f310405ac1ec4adc9a2"
+        }
+      },
+      "after_sha256": "04e6e25dc362a4158c87367fd4e0a5afe7bda7a33967a998ac732e749d0c9666"
+    },
+    "holistic STR qNParEGO Pareto set.pkl": {
+      "before_sha256": "7f249d5ee01d7aa470371b0f8ed87be79f1883b41826bd65a03c2e3f2092defa",
+      "original_provenance": {
+        "source_sha256": {
+          "Baselines\\holistic_model_based_runner.py": "6067d7052f4574211c20bd0e905b5f88b915db0a3f7b39efefde41a847df7625",
+          "Baselines\\holistic qNParEGO.py": "fb8d9ae37591f807b735d22535884d6b9d7af3347e164a9102c7b63c1efe2a0e",
+          "MORBO\\script_holistic_gravity.py": "eab0ae115fd98d4065357cad61a41658fae7559711a4c42ec8c68b8ccfc7f09d",
+          "Pareto fronts\\script.py": "3900da19aecebcc0ccf5df407a79e42b7e1c043c7fd27a839e59a1138c1e9829",
+          "Cosmic Octopi\\utils.py": "941553d6a7f25914be594a2d319f50ae55e27aeb10ce9ef4bbb810622ad161ab",
+          "Cosmic Octopi\\simulated_reward_experiment.py": "b5e2b93991beeb19a10c7398b50498f7acd79a2047d0afda81e3f2f34effc113",
+          "Cosmic Octopi\\front_utils.py": "61db12c9b7412d6aa604111a7aa92c7d5e1734f617934f310405ac1ec4adc9a2",
+          "qNParEGO\\runner.py": "c1a8485f23c877fef0b05066d03bd87a50f456ee913589e6d0d9314d200a11db",
+          "MORBO\\script_reductionist_gravity.py": "9cfc98c97ff284ec01c11a330790bcf27194f09c986f03975d96a2acac5765da"
+        }
+      },
+      "numerical_and_nonprovenance_payload_sha256": "a25a522b77a4faae3881a0df1dcc3c701761b8048b855660e83fd07357ab9fd4",
+      "relocated_provenance": {
+        "source_sha256": {
+          "Model-based baseline\\holistic_model_based_runner.py": "6067d7052f4574211c20bd0e905b5f88b915db0a3f7b39efefde41a847df7625",
+          "Model-based baseline\\holistic qNParEGO.py": "fb8d9ae37591f807b735d22535884d6b9d7af3347e164a9102c7b63c1efe2a0e",
+          "MORBO\\script_holistic_gravity.py": "eab0ae115fd98d4065357cad61a41658fae7559711a4c42ec8c68b8ccfc7f09d",
+          "Pareto fronts\\script.py": "3900da19aecebcc0ccf5df407a79e42b7e1c043c7fd27a839e59a1138c1e9829",
+          "Cosmic Octopi\\utils.py": "941553d6a7f25914be594a2d319f50ae55e27aeb10ce9ef4bbb810622ad161ab",
+          "Cosmic Octopi\\simulated_reward_experiment.py": "b5e2b93991beeb19a10c7398b50498f7acd79a2047d0afda81e3f2f34effc113",
+          "Cosmic Octopi\\front_utils.py": "61db12c9b7412d6aa604111a7aa92c7d5e1734f617934f310405ac1ec4adc9a2",
+          "qNParEGO\\runner.py": "c1a8485f23c877fef0b05066d03bd87a50f456ee913589e6d0d9314d200a11db",
+          "MORBO\\script_reductionist_gravity.py": "9cfc98c97ff284ec01c11a330790bcf27194f09c986f03975d96a2acac5765da"
+        }
+      },
+      "after_sha256": "c85dcb61d8761bd02e38e87535e6de308ff973d95f5a714d6cd46b2bd6e3ef40"
+    },
+    "holistic_model_based_runner.py": {
+      "before_sha256": "6067d7052f4574211c20bd0e905b5f88b915db0a3f7b39efefde41a847df7625",
+      "after_sha256": "6067d7052f4574211c20bd0e905b5f88b915db0a3f7b39efefde41a847df7625"
+    },
+    "README.md": {
+      "before_sha256": "123ad6c5c9976886df0b4e26284e1ee1901dad68f5202cd1b6c0ed37a6c58f27",
+      "after_sha256": "7fc53ea2199d509083a8c7976ee861cc6d8e4301c921fa4805e76bcf7327cc0d"
+    },
+    "reductionist hypervolume comparison.pkl": {
+      "before_sha256": "13656228ac83121c0e7781b99819f850da01bae6ca096beaaba3028c3997b735",
+      "original_provenance": {
+        "input_sha256": {
+          "reductionist RTS MORBO Pareto set.pkl": "71d569186971febbfa95fc6fa017c1d036625f9f36d4f758f54b27c3b4710590",
+          "reductionist RTS qNParEGO Pareto set.pkl": "0ea74f034a018855e08be0e96c28e53adcb53eacb476b5f64604f95e61d34caf",
+          "reductionist STR MORBO Pareto set.pkl": "4ff10b25da6cb52dd31783e620806bbaec584252fb9cf69f113949c8fc712e42",
+          "reductionist STR qNParEGO Pareto set.pkl": "b2ad7cf24c2727a9c8e2df099196196d32eebea86234420a1c438e1daeecd8ec",
+          "reductionist single fitness margin Pareto set.pkl": "77b0a0b0415e253118b82f552107466b0a4a667cef5e0e1d5e09b82855b1cc2d"
+        },
+        "setup_sha256": "361d130baf0f534d38409e07912517a7b811ceb88b0d029c255dcf54cbae27cc",
+        "evaluation_source_sha256": {
+          "Baselines\\evaluate_reductionist_comparison.py": "a29f2a273cd9a027bffbdb4385de1c707e6dc178b67ead22359630e7d4a7b422",
+          "MORBO\\script_holistic_gravity.py": "eab0ae115fd98d4065357cad61a41658fae7559711a4c42ec8c68b8ccfc7f09d",
+          "Baselines\\reductionist_model_based_runner.py": "1b8e3d8712982b3a2354b5b9b0f33d621e3ec6d6ee1f9139525e91bf03c56e9e",
+          "Pareto fronts\\script.py": "3900da19aecebcc0ccf5df407a79e42b7e1c043c7fd27a839e59a1138c1e9829",
+          "Cosmic Octopi\\utils.py": "941553d6a7f25914be594a2d319f50ae55e27aeb10ce9ef4bbb810622ad161ab",
+          "Cosmic Octopi\\simulated_reward_experiment.py": "b5e2b93991beeb19a10c7398b50498f7acd79a2047d0afda81e3f2f34effc113",
+          "Cosmic Octopi\\front_utils.py": "61db12c9b7412d6aa604111a7aa92c7d5e1734f617934f310405ac1ec4adc9a2",
+          "MORBO\\script_reductionist_gravity.py": "9cfc98c97ff284ec01c11a330790bcf27194f09c986f03975d96a2acac5765da"
+        }
+      },
+      "numerical_and_nonprovenance_payload_sha256": "06c04b2dfac0dd9dbdfc408aa5d38e9c39e9750e49c6f68f82e894f283624601",
+      "relocated_provenance": {
+        "input_sha256": {
+          "reductionist RTS MORBO Pareto set.pkl": "0b626dc01ea0d1a9d34f08760be18c13ba9d668a61b2d08a6c1b72abaca0385b",
+          "reductionist RTS qNParEGO Pareto set.pkl": "b500f31729174d1a9d47d49c44a1a405dd95b9990c2515df3f436d4010559540",
+          "reductionist STR MORBO Pareto set.pkl": "5f20f4aaf6762d114b63e63e0861fdc0cf3909d34a9b744c195a58d15df7e301",
+          "reductionist STR qNParEGO Pareto set.pkl": "9db3d66a9d7d701bb9c72d94bfa83c7479e1339b95a2b9d44920fe4775578865",
+          "reductionist single fitness margin Pareto set.pkl": "1b2535bf30186c6e87d90536784adf4269ee58d770b30f6ce02d94a473a54fd7"
+        },
+        "setup_sha256": "361d130baf0f534d38409e07912517a7b811ceb88b0d029c255dcf54cbae27cc",
+        "evaluation_source_sha256": {
+          "Model-based baseline\\evaluate_reductionist_comparison.py": "a29f2a273cd9a027bffbdb4385de1c707e6dc178b67ead22359630e7d4a7b422",
+          "MORBO\\script_holistic_gravity.py": "eab0ae115fd98d4065357cad61a41658fae7559711a4c42ec8c68b8ccfc7f09d",
+          "Model-based baseline\\reductionist_model_based_runner.py": "1b8e3d8712982b3a2354b5b9b0f33d621e3ec6d6ee1f9139525e91bf03c56e9e",
+          "Pareto fronts\\script.py": "3900da19aecebcc0ccf5df407a79e42b7e1c043c7fd27a839e59a1138c1e9829",
+          "Cosmic Octopi\\utils.py": "941553d6a7f25914be594a2d319f50ae55e27aeb10ce9ef4bbb810622ad161ab",
+          "Cosmic Octopi\\simulated_reward_experiment.py": "b5e2b93991beeb19a10c7398b50498f7acd79a2047d0afda81e3f2f34effc113",
+          "Cosmic Octopi\\front_utils.py": "61db12c9b7412d6aa604111a7aa92c7d5e1734f617934f310405ac1ec4adc9a2",
+          "MORBO\\script_reductionist_gravity.py": "9cfc98c97ff284ec01c11a330790bcf27194f09c986f03975d96a2acac5765da"
+        }
+      },
+      "after_sha256": "37193c7cd8646474e368971f319f28391b5a38f6aff3e64bea74ed5652a8e4e7"
+    },
+    "reductionist MORBO.py": {
+      "before_sha256": "279cd229188b63c5040fdf09f65113f21e9baa9ec040450acb74142c1c0b3489",
+      "after_sha256": "279cd229188b63c5040fdf09f65113f21e9baa9ec040450acb74142c1c0b3489"
+    },
+    "reductionist qNParEGO.py": {
+      "before_sha256": "a90970f3d212a3aa74bbe87f168cf8e7c0183171a8620bc05a5f5b6b828c4c0d",
+      "after_sha256": "a90970f3d212a3aa74bbe87f168cf8e7c0183171a8620bc05a5f5b6b828c4c0d"
+    },
+    "reductionist random threshold baseline.pkl": {
+      "before_sha256": "437d8c62d23a8b370c3a367ee7c979c7c75f0f008b793756d42cbe58d0db5f30",
+      "original_provenance": {
+        "source_sha256": {
+          "Baselines\\evaluate_reductionist_comparison.py": "a29f2a273cd9a027bffbdb4385de1c707e6dc178b67ead22359630e7d4a7b422",
+          "MORBO\\script_holistic_gravity.py": "eab0ae115fd98d4065357cad61a41658fae7559711a4c42ec8c68b8ccfc7f09d",
+          "Baselines\\reductionist_model_based_runner.py": "1b8e3d8712982b3a2354b5b9b0f33d621e3ec6d6ee1f9139525e91bf03c56e9e",
+          "Pareto fronts\\script.py": "3900da19aecebcc0ccf5df407a79e42b7e1c043c7fd27a839e59a1138c1e9829",
+          "Cosmic Octopi\\utils.py": "941553d6a7f25914be594a2d319f50ae55e27aeb10ce9ef4bbb810622ad161ab",
+          "Cosmic Octopi\\simulated_reward_experiment.py": "b5e2b93991beeb19a10c7398b50498f7acd79a2047d0afda81e3f2f34effc113",
+          "Cosmic Octopi\\front_utils.py": "61db12c9b7412d6aa604111a7aa92c7d5e1734f617934f310405ac1ec4adc9a2",
+          "MORBO\\script_reductionist_gravity.py": "9cfc98c97ff284ec01c11a330790bcf27194f09c986f03975d96a2acac5765da",
+          "Baselines\\reductionist hypervolume comparison.pkl": "13656228ac83121c0e7781b99819f850da01bae6ca096beaaba3028c3997b735",
+          "Baselines\\reductionist single fitness margin Pareto set.pkl": "77b0a0b0415e253118b82f552107466b0a4a667cef5e0e1d5e09b82855b1cc2d",
+          "Baselines\\setup_random_threshold_evaluation.json": "4c204663471b7b39a05fce17eeeee96dcf1d479c9929a718558c2a2c4fbe3e47",
+          "Baselines\\evaluate_random_threshold_baseline.py": "db01834231445898ecb1f4b460fffd723084e271f7f9f088ff3ec747b6a55e36"
+        }
+      },
+      "numerical_and_nonprovenance_payload_sha256": "cce5ae4606d1b8f3d8297792a25cf357a9124e52df433ef23a41dfd864e3cfd0",
+      "relocated_provenance": {
+        "source_sha256": {
+          "Model-based baseline\\evaluate_reductionist_comparison.py": "a29f2a273cd9a027bffbdb4385de1c707e6dc178b67ead22359630e7d4a7b422",
+          "MORBO\\script_holistic_gravity.py": "eab0ae115fd98d4065357cad61a41658fae7559711a4c42ec8c68b8ccfc7f09d",
+          "Model-based baseline\\reductionist_model_based_runner.py": "1b8e3d8712982b3a2354b5b9b0f33d621e3ec6d6ee1f9139525e91bf03c56e9e",
+          "Pareto fronts\\script.py": "3900da19aecebcc0ccf5df407a79e42b7e1c043c7fd27a839e59a1138c1e9829",
+          "Cosmic Octopi\\utils.py": "941553d6a7f25914be594a2d319f50ae55e27aeb10ce9ef4bbb810622ad161ab",
+          "Cosmic Octopi\\simulated_reward_experiment.py": "b5e2b93991beeb19a10c7398b50498f7acd79a2047d0afda81e3f2f34effc113",
+          "Cosmic Octopi\\front_utils.py": "61db12c9b7412d6aa604111a7aa92c7d5e1734f617934f310405ac1ec4adc9a2",
+          "MORBO\\script_reductionist_gravity.py": "9cfc98c97ff284ec01c11a330790bcf27194f09c986f03975d96a2acac5765da",
+          "Model-based baseline\\reductionist hypervolume comparison.pkl": "37193c7cd8646474e368971f319f28391b5a38f6aff3e64bea74ed5652a8e4e7",
+          "Model-based baseline\\reductionist single fitness margin Pareto set.pkl": "1b2535bf30186c6e87d90536784adf4269ee58d770b30f6ce02d94a473a54fd7",
+          "Model-based baseline\\setup_random_threshold_evaluation.json": "4c204663471b7b39a05fce17eeeee96dcf1d479c9929a718558c2a2c4fbe3e47",
+          "Model-based baseline\\evaluate_random_threshold_baseline.py": "db01834231445898ecb1f4b460fffd723084e271f7f9f088ff3ec747b6a55e36"
+        }
+      },
+      "after_sha256": "c8ad7bdb045b95748408712788f20a6f2c4a0a035d35b2f4b8747b2d09575a48"
+    },
+    "reductionist RTS MORBO Pareto set.pkl": {
+      "before_sha256": "71d569186971febbfa95fc6fa017c1d036625f9f36d4f758f54b27c3b4710590",
+      "original_provenance": {
+        "source_sha256": {
+          "Baselines\\reductionist_model_based_runner.py": "1b8e3d8712982b3a2354b5b9b0f33d621e3ec6d6ee1f9139525e91bf03c56e9e",
+          "Baselines\\reductionist MORBO.py": "279cd229188b63c5040fdf09f65113f21e9baa9ec040450acb74142c1c0b3489",
+          "MORBO\\script_holistic_gravity.py": "eab0ae115fd98d4065357cad61a41658fae7559711a4c42ec8c68b8ccfc7f09d",
+          "MORBO\\script_reductionist_gravity.py": "9cfc98c97ff284ec01c11a330790bcf27194f09c986f03975d96a2acac5765da",
+          "Pareto fronts\\script.py": "3900da19aecebcc0ccf5df407a79e42b7e1c043c7fd27a839e59a1138c1e9829",
+          "Cosmic Octopi\\utils.py": "941553d6a7f25914be594a2d319f50ae55e27aeb10ce9ef4bbb810622ad161ab",
+          "Cosmic Octopi\\simulated_reward_experiment.py": "b5e2b93991beeb19a10c7398b50498f7acd79a2047d0afda81e3f2f34effc113",
+          "Cosmic Octopi\\front_utils.py": "61db12c9b7412d6aa604111a7aa92c7d5e1734f617934f310405ac1ec4adc9a2"
+        }
+      },
+      "numerical_and_nonprovenance_payload_sha256": "9911af35903fbd87985c6cffd3dcf166ceee3c9e79533d738e4e246c7003a2e5",
+      "relocated_provenance": {
+        "source_sha256": {
+          "Model-based baseline\\reductionist_model_based_runner.py": "1b8e3d8712982b3a2354b5b9b0f33d621e3ec6d6ee1f9139525e91bf03c56e9e",
+          "Model-based baseline\\reductionist MORBO.py": "279cd229188b63c5040fdf09f65113f21e9baa9ec040450acb74142c1c0b3489",
+          "MORBO\\script_holistic_gravity.py": "eab0ae115fd98d4065357cad61a41658fae7559711a4c42ec8c68b8ccfc7f09d",
+          "MORBO\\script_reductionist_gravity.py": "9cfc98c97ff284ec01c11a330790bcf27194f09c986f03975d96a2acac5765da",
+          "Pareto fronts\\script.py": "3900da19aecebcc0ccf5df407a79e42b7e1c043c7fd27a839e59a1138c1e9829",
+          "Cosmic Octopi\\utils.py": "941553d6a7f25914be594a2d319f50ae55e27aeb10ce9ef4bbb810622ad161ab",
+          "Cosmic Octopi\\simulated_reward_experiment.py": "b5e2b93991beeb19a10c7398b50498f7acd79a2047d0afda81e3f2f34effc113",
+          "Cosmic Octopi\\front_utils.py": "61db12c9b7412d6aa604111a7aa92c7d5e1734f617934f310405ac1ec4adc9a2"
+        }
+      },
+      "after_sha256": "0b626dc01ea0d1a9d34f08760be18c13ba9d668a61b2d08a6c1b72abaca0385b"
+    },
+    "reductionist RTS qNParEGO Pareto set.pkl": {
+      "before_sha256": "0ea74f034a018855e08be0e96c28e53adcb53eacb476b5f64604f95e61d34caf",
+      "original_provenance": {
+        "source_sha256": {
+          "Baselines\\reductionist_model_based_runner.py": "1b8e3d8712982b3a2354b5b9b0f33d621e3ec6d6ee1f9139525e91bf03c56e9e",
+          "Baselines\\reductionist qNParEGO.py": "a90970f3d212a3aa74bbe87f168cf8e7c0183171a8620bc05a5f5b6b828c4c0d",
+          "MORBO\\script_holistic_gravity.py": "eab0ae115fd98d4065357cad61a41658fae7559711a4c42ec8c68b8ccfc7f09d",
+          "MORBO\\script_reductionist_gravity.py": "9cfc98c97ff284ec01c11a330790bcf27194f09c986f03975d96a2acac5765da",
+          "Pareto fronts\\script.py": "3900da19aecebcc0ccf5df407a79e42b7e1c043c7fd27a839e59a1138c1e9829",
+          "Cosmic Octopi\\utils.py": "941553d6a7f25914be594a2d319f50ae55e27aeb10ce9ef4bbb810622ad161ab",
+          "Cosmic Octopi\\simulated_reward_experiment.py": "b5e2b93991beeb19a10c7398b50498f7acd79a2047d0afda81e3f2f34effc113",
+          "Cosmic Octopi\\front_utils.py": "61db12c9b7412d6aa604111a7aa92c7d5e1734f617934f310405ac1ec4adc9a2",
+          "qNParEGO\\runner.py": "c1a8485f23c877fef0b05066d03bd87a50f456ee913589e6d0d9314d200a11db"
+        }
+      },
+      "numerical_and_nonprovenance_payload_sha256": "f82da5958ad891d4772f8018aeabed5d4737ab8c0249856a58d6ea8cd7a04c35",
+      "relocated_provenance": {
+        "source_sha256": {
+          "Model-based baseline\\reductionist_model_based_runner.py": "1b8e3d8712982b3a2354b5b9b0f33d621e3ec6d6ee1f9139525e91bf03c56e9e",
+          "Model-based baseline\\reductionist qNParEGO.py": "a90970f3d212a3aa74bbe87f168cf8e7c0183171a8620bc05a5f5b6b828c4c0d",
+          "MORBO\\script_holistic_gravity.py": "eab0ae115fd98d4065357cad61a41658fae7559711a4c42ec8c68b8ccfc7f09d",
+          "MORBO\\script_reductionist_gravity.py": "9cfc98c97ff284ec01c11a330790bcf27194f09c986f03975d96a2acac5765da",
+          "Pareto fronts\\script.py": "3900da19aecebcc0ccf5df407a79e42b7e1c043c7fd27a839e59a1138c1e9829",
+          "Cosmic Octopi\\utils.py": "941553d6a7f25914be594a2d319f50ae55e27aeb10ce9ef4bbb810622ad161ab",
+          "Cosmic Octopi\\simulated_reward_experiment.py": "b5e2b93991beeb19a10c7398b50498f7acd79a2047d0afda81e3f2f34effc113",
+          "Cosmic Octopi\\front_utils.py": "61db12c9b7412d6aa604111a7aa92c7d5e1734f617934f310405ac1ec4adc9a2",
+          "qNParEGO\\runner.py": "c1a8485f23c877fef0b05066d03bd87a50f456ee913589e6d0d9314d200a11db"
+        }
+      },
+      "after_sha256": "b500f31729174d1a9d47d49c44a1a405dd95b9990c2515df3f436d4010559540"
+    },
+    "reductionist single fitness margin baseline.py": {
+      "before_sha256": "ab6563f9baa24dfe34ef42312d5f78fcbd3293be3edee24d5838d3160b24123d",
+      "after_sha256": "ab6563f9baa24dfe34ef42312d5f78fcbd3293be3edee24d5838d3160b24123d"
+    },
+    "reductionist single fitness margin Pareto set.pkl": {
+      "before_sha256": "77b0a0b0415e253118b82f552107466b0a4a667cef5e0e1d5e09b82855b1cc2d",
+      "original_provenance": {
+        "setup_sha256": "361d130baf0f534d38409e07912517a7b811ceb88b0d029c255dcf54cbae27cc",
+        "source_sha256": {
+          "Baselines\\holistic single fintess margin baseline.py": "db0aeef47c80fcbacaa0fcd50c035d89b8a13b4db1e8bea130da54d4438e674b",
+          "Pareto fronts\\script.py": "3900da19aecebcc0ccf5df407a79e42b7e1c043c7fd27a839e59a1138c1e9829",
+          "Cosmic Octopi\\simulated_reward_experiment.py": "b5e2b93991beeb19a10c7398b50498f7acd79a2047d0afda81e3f2f34effc113",
+          "Cosmic Octopi\\utils.py": "941553d6a7f25914be594a2d319f50ae55e27aeb10ce9ef4bbb810622ad161ab",
+          "Cosmic Octopi\\front_utils.py": "61db12c9b7412d6aa604111a7aa92c7d5e1734f617934f310405ac1ec4adc9a2",
+          "Baselines\\reductionist single fitness margin baseline.py": "ab6563f9baa24dfe34ef42312d5f78fcbd3293be3edee24d5838d3160b24123d",
+          "Baselines\\reductionist_model_based_runner.py": "1b8e3d8712982b3a2354b5b9b0f33d621e3ec6d6ee1f9139525e91bf03c56e9e"
+        }
+      },
+      "numerical_and_nonprovenance_payload_sha256": "e81f22bb96d44dc67eef768e3ec013795d6f8e54880b00e1e292e5a8b24af137",
+      "relocated_provenance": {
+        "setup_sha256": "361d130baf0f534d38409e07912517a7b811ceb88b0d029c255dcf54cbae27cc",
+        "source_sha256": {
+          "Model-based baseline\\holistic single fintess margin baseline.py": "34d1d261e5881336911aea412da4dfc4bb2d5dbed6c111666a2d630e0f3d8d16",
+          "Pareto fronts\\script.py": "3900da19aecebcc0ccf5df407a79e42b7e1c043c7fd27a839e59a1138c1e9829",
+          "Cosmic Octopi\\simulated_reward_experiment.py": "b5e2b93991beeb19a10c7398b50498f7acd79a2047d0afda81e3f2f34effc113",
+          "Cosmic Octopi\\utils.py": "941553d6a7f25914be594a2d319f50ae55e27aeb10ce9ef4bbb810622ad161ab",
+          "Cosmic Octopi\\front_utils.py": "61db12c9b7412d6aa604111a7aa92c7d5e1734f617934f310405ac1ec4adc9a2",
+          "Model-based baseline\\reductionist single fitness margin baseline.py": "ab6563f9baa24dfe34ef42312d5f78fcbd3293be3edee24d5838d3160b24123d",
+          "Model-based baseline\\reductionist_model_based_runner.py": "1b8e3d8712982b3a2354b5b9b0f33d621e3ec6d6ee1f9139525e91bf03c56e9e"
+        }
+      },
+      "after_sha256": "1b2535bf30186c6e87d90536784adf4269ee58d770b30f6ce02d94a473a54fd7"
+    },
+    "reductionist STR MORBO Pareto set.pkl": {
+      "before_sha256": "4ff10b25da6cb52dd31783e620806bbaec584252fb9cf69f113949c8fc712e42",
+      "original_provenance": {
+        "source_sha256": {
+          "Baselines\\reductionist_model_based_runner.py": "1b8e3d8712982b3a2354b5b9b0f33d621e3ec6d6ee1f9139525e91bf03c56e9e",
+          "Baselines\\reductionist MORBO.py": "279cd229188b63c5040fdf09f65113f21e9baa9ec040450acb74142c1c0b3489",
+          "MORBO\\script_holistic_gravity.py": "eab0ae115fd98d4065357cad61a41658fae7559711a4c42ec8c68b8ccfc7f09d",
+          "MORBO\\script_reductionist_gravity.py": "9cfc98c97ff284ec01c11a330790bcf27194f09c986f03975d96a2acac5765da",
+          "Pareto fronts\\script.py": "3900da19aecebcc0ccf5df407a79e42b7e1c043c7fd27a839e59a1138c1e9829",
+          "Cosmic Octopi\\utils.py": "941553d6a7f25914be594a2d319f50ae55e27aeb10ce9ef4bbb810622ad161ab",
+          "Cosmic Octopi\\simulated_reward_experiment.py": "b5e2b93991beeb19a10c7398b50498f7acd79a2047d0afda81e3f2f34effc113",
+          "Cosmic Octopi\\front_utils.py": "61db12c9b7412d6aa604111a7aa92c7d5e1734f617934f310405ac1ec4adc9a2"
+        }
+      },
+      "numerical_and_nonprovenance_payload_sha256": "dd173cfdeb1bc0a1d4b6eeb2ef94dd4e83da32009634982dd1b64d78c493da9f",
+      "relocated_provenance": {
+        "source_sha256": {
+          "Model-based baseline\\reductionist_model_based_runner.py": "1b8e3d8712982b3a2354b5b9b0f33d621e3ec6d6ee1f9139525e91bf03c56e9e",
+          "Model-based baseline\\reductionist MORBO.py": "279cd229188b63c5040fdf09f65113f21e9baa9ec040450acb74142c1c0b3489",
+          "MORBO\\script_holistic_gravity.py": "eab0ae115fd98d4065357cad61a41658fae7559711a4c42ec8c68b8ccfc7f09d",
+          "MORBO\\script_reductionist_gravity.py": "9cfc98c97ff284ec01c11a330790bcf27194f09c986f03975d96a2acac5765da",
+          "Pareto fronts\\script.py": "3900da19aecebcc0ccf5df407a79e42b7e1c043c7fd27a839e59a1138c1e9829",
+          "Cosmic Octopi\\utils.py": "941553d6a7f25914be594a2d319f50ae55e27aeb10ce9ef4bbb810622ad161ab",
+          "Cosmic Octopi\\simulated_reward_experiment.py": "b5e2b93991beeb19a10c7398b50498f7acd79a2047d0afda81e3f2f34effc113",
+          "Cosmic Octopi\\front_utils.py": "61db12c9b7412d6aa604111a7aa92c7d5e1734f617934f310405ac1ec4adc9a2"
+        }
+      },
+      "after_sha256": "5f20f4aaf6762d114b63e63e0861fdc0cf3909d34a9b744c195a58d15df7e301"
+    },
+    "reductionist STR qNParEGO Pareto set.pkl": {
+      "before_sha256": "b2ad7cf24c2727a9c8e2df099196196d32eebea86234420a1c438e1daeecd8ec",
+      "original_provenance": {
+        "source_sha256": {
+          "Baselines\\reductionist_model_based_runner.py": "1b8e3d8712982b3a2354b5b9b0f33d621e3ec6d6ee1f9139525e91bf03c56e9e",
+          "Baselines\\reductionist qNParEGO.py": "a90970f3d212a3aa74bbe87f168cf8e7c0183171a8620bc05a5f5b6b828c4c0d",
+          "MORBO\\script_holistic_gravity.py": "eab0ae115fd98d4065357cad61a41658fae7559711a4c42ec8c68b8ccfc7f09d",
+          "MORBO\\script_reductionist_gravity.py": "9cfc98c97ff284ec01c11a330790bcf27194f09c986f03975d96a2acac5765da",
+          "Pareto fronts\\script.py": "3900da19aecebcc0ccf5df407a79e42b7e1c043c7fd27a839e59a1138c1e9829",
+          "Cosmic Octopi\\utils.py": "941553d6a7f25914be594a2d319f50ae55e27aeb10ce9ef4bbb810622ad161ab",
+          "Cosmic Octopi\\simulated_reward_experiment.py": "b5e2b93991beeb19a10c7398b50498f7acd79a2047d0afda81e3f2f34effc113",
+          "Cosmic Octopi\\front_utils.py": "61db12c9b7412d6aa604111a7aa92c7d5e1734f617934f310405ac1ec4adc9a2",
+          "qNParEGO\\runner.py": "c1a8485f23c877fef0b05066d03bd87a50f456ee913589e6d0d9314d200a11db"
+        }
+      },
+      "numerical_and_nonprovenance_payload_sha256": "89f442215fa0fbc5dd091808a734aa1df74899d94de63b7299c9e4c997ca42b9",
+      "relocated_provenance": {
+        "source_sha256": {
+          "Model-based baseline\\reductionist_model_based_runner.py": "1b8e3d8712982b3a2354b5b9b0f33d621e3ec6d6ee1f9139525e91bf03c56e9e",
+          "Model-based baseline\\reductionist qNParEGO.py": "a90970f3d212a3aa74bbe87f168cf8e7c0183171a8620bc05a5f5b6b828c4c0d",
+          "MORBO\\script_holistic_gravity.py": "eab0ae115fd98d4065357cad61a41658fae7559711a4c42ec8c68b8ccfc7f09d",
+          "MORBO\\script_reductionist_gravity.py": "9cfc98c97ff284ec01c11a330790bcf27194f09c986f03975d96a2acac5765da",
+          "Pareto fronts\\script.py": "3900da19aecebcc0ccf5df407a79e42b7e1c043c7fd27a839e59a1138c1e9829",
+          "Cosmic Octopi\\utils.py": "941553d6a7f25914be594a2d319f50ae55e27aeb10ce9ef4bbb810622ad161ab",
+          "Cosmic Octopi\\simulated_reward_experiment.py": "b5e2b93991beeb19a10c7398b50498f7acd79a2047d0afda81e3f2f34effc113",
+          "Cosmic Octopi\\front_utils.py": "61db12c9b7412d6aa604111a7aa92c7d5e1734f617934f310405ac1ec4adc9a2",
+          "qNParEGO\\runner.py": "c1a8485f23c877fef0b05066d03bd87a50f456ee913589e6d0d9314d200a11db"
+        }
+      },
+      "after_sha256": "9db3d66a9d7d701bb9c72d94bfa83c7479e1339b95a2b9d44920fe4775578865"
+    },
+    "reductionist_model_based_runner.py": {
+      "before_sha256": "1b8e3d8712982b3a2354b5b9b0f33d621e3ec6d6ee1f9139525e91bf03c56e9e",
+      "after_sha256": "1b8e3d8712982b3a2354b5b9b0f33d621e3ec6d6ee1f9139525e91bf03c56e9e"
+    },
+    "setup_model_free_holistic.json": {
+      "before_sha256": "1b281515041af08d9cc53c8b9a144d095e47fc66e9cc76bb37fa569a426a67f6",
+      "after_sha256": "1b281515041af08d9cc53c8b9a144d095e47fc66e9cc76bb37fa569a426a67f6"
+    },
+    "setup_model_free_reductionist.json": {
+      "before_sha256": "361d130baf0f534d38409e07912517a7b811ceb88b0d029c255dcf54cbae27cc",
+      "after_sha256": "361d130baf0f534d38409e07912517a7b811ceb88b0d029c255dcf54cbae27cc"
+    },
+    "setup_random_threshold_evaluation.json": {
+      "before_sha256": "4c204663471b7b39a05fce17eeeee96dcf1d479c9929a718558c2a2c4fbe3e47",
+      "after_sha256": "4c204663471b7b39a05fce17eeeee96dcf1d479c9929a718558c2a2c4fbe3e47"
+    },
+    "single fitness margin Pareto set.pkl": {
+      "before_sha256": "52d871ffa7e2f73ed787885c2d148cf05f8810bb6a11a531f656fbbffe664205",
+      "original_provenance": {
+        "setup_sha256": "1b281515041af08d9cc53c8b9a144d095e47fc66e9cc76bb37fa569a426a67f6",
+        "source_sha256": {
+          "Baselines\\holistic single fintess margin baseline.py": "db0aeef47c80fcbacaa0fcd50c035d89b8a13b4db1e8bea130da54d4438e674b",
+          "Pareto fronts\\script.py": "3900da19aecebcc0ccf5df407a79e42b7e1c043c7fd27a839e59a1138c1e9829",
+          "Cosmic Octopi\\simulated_reward_experiment.py": "b5e2b93991beeb19a10c7398b50498f7acd79a2047d0afda81e3f2f34effc113",
+          "Cosmic Octopi\\utils.py": "941553d6a7f25914be594a2d319f50ae55e27aeb10ce9ef4bbb810622ad161ab",
+          "Cosmic Octopi\\front_utils.py": "61db12c9b7412d6aa604111a7aa92c7d5e1734f617934f310405ac1ec4adc9a2"
+        }
+      },
+      "numerical_and_nonprovenance_payload_sha256": "e18527631ea326ef0ffdbdaba90823f532f9ae66b96b49fc53b337b793edae01",
+      "relocated_provenance": {
+        "setup_sha256": "1b281515041af08d9cc53c8b9a144d095e47fc66e9cc76bb37fa569a426a67f6",
+        "source_sha256": {
+          "Model-based baseline\\holistic single fintess margin baseline.py": "34d1d261e5881336911aea412da4dfc4bb2d5dbed6c111666a2d630e0f3d8d16",
+          "Pareto fronts\\script.py": "3900da19aecebcc0ccf5df407a79e42b7e1c043c7fd27a839e59a1138c1e9829",
+          "Cosmic Octopi\\simulated_reward_experiment.py": "b5e2b93991beeb19a10c7398b50498f7acd79a2047d0afda81e3f2f34effc113",
+          "Cosmic Octopi\\utils.py": "941553d6a7f25914be594a2d319f50ae55e27aeb10ce9ef4bbb810622ad161ab",
+          "Cosmic Octopi\\front_utils.py": "61db12c9b7412d6aa604111a7aa92c7d5e1734f617934f310405ac1ec4adc9a2"
+        }
+      },
+      "after_sha256": "2928a0b8bde0560c1403bd80af4e42c27212b106e88107f5c1dbef9a539a3a2f"
+    },
+    "test_holistic_model_based_runner.py": {
+      "before_sha256": "dfc3356ab80a3762a384bface36a94ca91be4fadb6948704ba366081e267cbca",
+      "after_sha256": "dfc3356ab80a3762a384bface36a94ca91be4fadb6948704ba366081e267cbca"
+    },
+    "test_reductionist_model_based_runner.py": {
+      "before_sha256": "83e7fb54fb808758bc8f0d710c7e43e37d1f7fa4f9ea8ec4f236873f77bcbc52",
+      "after_sha256": "83e7fb54fb808758bc8f0d710c7e43e37d1f7fa4f9ea8ec4f236873f77bcbc52"
+    }
+  },
+  "operation": "Folder relocation and path-only documentation update. Experimental settings, sequences, costs, optimizer state and hypervolumes are unchanged."
+}
