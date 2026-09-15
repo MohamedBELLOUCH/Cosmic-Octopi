@@ -10,13 +10,15 @@
 ![PyTorch](https://img.shields.io/badge/PyTorch-PPO-EE4C2C?logo=pytorch&logoColor=white)
 ![MuJoCo](https://img.shields.io/badge/Environments-MuJoCo-8250df)
 
-[Paper abstract and contributions](#paper-abstract-and-contributions) · [Cosmic Octopi](#cosmic-octopi-case-study) · [Repository structure](#repository-structure) · [Installation](#installation) · [Run experiments](#run-experiments)
+[About the paper](#about-the-paper) · [Cosmic Octopi](#cosmic-octopi-case-study) · [Repository structure](#repository-structure) · [Installation](#installation) · [Run experiments](#run-experiments)
 
 </div>
 
 ---
 
-## Paper abstract and contributions
+## About the paper
+
+### Abstract
 
 Federated Deep Reinforcement Learning (FDRL) enables agents to collaboratively learn shared global policies without exchanging sensitive or costly raw trajectory data. However, it can still incur significant uplink overhead due to (1) a large number of agents, (2) large exchanged updates, i.e., model parameters or gradient vectors, (3) limited aggregator-agent communication capacity, or (4) frequent transmission of updates. In response, existing work mainly relies on update compression and agent selection across aggregation rounds. In this work, we introduce a complementary paradigm termed Selective Pressure Allocation. To highlight its adaptivity, we formalize the paradigm within a framework in which (1) agents interact with multiple heterogeneous environment classes, (2) the number of agents fluctuates, and (3) aggregator-agent communication is not necessarily synchronized. In a nutshell, the paradigm relies on two quantities: fitness and freshness. Fitness measures the relevance of updates, while freshness measures how up-to-date local updates are. At each global iteration, a local update is uploaded only if its fitness exceeds that of the corresponding global update by a selected fitness margin. To trade off communication overhead against learning performance, we formulate the selection of optimal fitness margins as a stochastic multi-objective Bayesian optimization problem. We then propose several reformulations to address the resulting challenges, together with two classes of solution approaches: model-based and model-free. We conduct several experiments on a hand-crafted MuJoCo case study that matches the formalized framework. The results demonstrate the effectiveness of the proposed paradigm and highlight the relative strengths of the reformulations and solution approaches across different scenarios.
 
@@ -32,14 +34,18 @@ Federated Deep Reinforcement Learning (FDRL) enables agents to collaboratively l
 
 ## Cosmic Octopi
 
-Consider $M > 0$ octopi, each living on a distinct planet. The surface gravities of the planets (in m/s$^2$) are i.i.d. and sampled from the Gamma distribution
+Consider $M > 0$ octopi, each living on a distinct planet and manipulates four marionettes: a **Humanoid**, an **Ant**, a **Leg**, and a **Cheetah**. The octopus alternates between learning and break periods, which are exponentially distributed with means $\gamma_{\text{learn}} > 0$ and $\gamma_{\text{break}} > 0$, respectively. During the learning periods, through trial and error, it learns to make the cheetah run, the ant and humanoid walk, and the leg jump.
+
+### Planet gravity
+The surface gravities of the planets (in m/s$^2$) are i.i.d. and sampled from the Gamma distribution
 
 $$
 \text{Gamma}\left(\frac{g^2}{\gamma_{\text{grav}}}, \frac{\gamma_{\text{grav}}}{g}\right),
 $$
 
-where $g = 9.81$ m/s$^2$ is the gravity of Earth, and $\gamma_{\text{grav}} > 0$ is a constant. The distribution is centered at $g$ and its variance is $\gamma_{\text{grav}}$. Each octopus manipulates four marionettes: a **Humanoid**, an **Ant**, a **Leg**, and a **Cheetah**. The octopus alternates between learning and break periods, which are exponentially distributed with means $\gamma_{\text{learn}} > 0$ and $\gamma_{\text{break}} > 0$, respectively. During the learning periods, through trial and error, it learns to make the cheetah run, the ant and humanoid walk, and the leg jump.
+where $g = 9.81$ m/s$^2$ is the gravity of Earth, and $\gamma_{\text{grav}} > 0$ is a constant. The distribution is centered at $g$ and its variance is $\gamma_{\text{grav}}$.
 
+### Request rates
 To cooperate, the octopi exchange learning "knowledge" with a Galactic Oracle. Specifically, the Galactic Oracle regularly broadcasts requests to the octopi to gather their local "knowledge", construct a global one, and return it to them. These requests follow a marked Poisson point process (PPP). The request instants form a standard PPP with intensity $\gamma_{\text{req}} > 0$, and each request carries a mark indicating the corresponding marionette type.
 
 At a given request instant, the probability that the request is associated with the marionette $`\mathcal{M} \in \mathscr{M} \triangleq \left\lbrace\text{"Humanoid", "Ant", "Cheetah", "Leg"}\right\rbrace`$ is
@@ -50,9 +56,10 @@ $$
 
 Here, $\gamma_{\text{heter}} \geq 0$ is a parameter, and for any $\mathcal{M}' \in \mathscr{M}$, $w_{\mathcal{M}'} > 0$ is a constant chosen arbitrarily subject to the ordering constraint $w_{\text{"Leg"}} \leq w_{\text{"Cheetah"}} \leq w_{\text{"Ant"}} \leq w_{\text{"Humanoid"}}$.
 
-A smaller $\gamma_{\text{heter}}$ yields a more uniform distribution of request inter-arrival times across marionettes. As $\gamma_{\text{heter}}$ increases, the distribution becomes more heterogeneous, with requests concentrating progressively on the humanoid marionette, followed by the leg, the ant, and finally the cheetah.
+### Synchronization
+Upon receiving a request, an octopus responds with probability $\gamma_{\text{sync}} \in (0,1]$. Sending its local "knowledge" to the Galactic Oracle requires opening a wormhole, which consumes immense energy.
 
-Finally, upon receiving a request, an octopus responds with probability $\gamma_{\text{sync}} \in (0,1]$. Sending its local "knowledge" to the Galactic Oracle requires opening a wormhole, which consumes immense energy.
+### Objective
 
 The objective is to apply Selective Pressure Allocation to minimize wormhole openings without hindering the octopi's exchange of "knowledge" for cooperation.
 
