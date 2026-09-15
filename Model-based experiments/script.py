@@ -142,7 +142,7 @@ def validate_setup(config):
         if experiment == "synchronization" and not all(0 < value <= 1 for value in levels):
             raise ValueError("Synchronization values must be in (0, 1]")
     for algorithm, hp in config["hyperparameters"].items():
-        for name in ("n_initial_points", "batch_size", "n_iterations", "mc_samples",
+        for name in ("n_initial_points", "batch_size", "n_iterations", "hypervolume_checkpoint_every", "mc_samples",
                      "hypervolume_directions", "acquisition_num_restarts",
                      "acquisition_raw_samples", "acquisition_batch_limit", "acquisition_maxiter"):
             positive_integer(hp[name], f"{algorithm}.{name}")
@@ -158,7 +158,7 @@ def validate_setup(config):
                 or hp["reference_point_policy"] != "fixed_reference_costs_from_setup"):
             raise ValueError("Algorithm choices must match the referenced Python implementations")
     morbo, qnparego = (config["hyperparameters"][name] for name in ("MORBO", "qNParEGO"))
-    for name in ("n_initial_points", "batch_size", "n_iterations", "hypervolume_directions",
+    for name in ("n_initial_points", "batch_size", "n_iterations", "hypervolume_checkpoint_every", "hypervolume_directions",
                  "direction_endpoint_epsilon"):
         if morbo[name] != qnparego[name]:
             raise ValueError(f"Keep {name} matched across algorithms for comparison")

@@ -47,6 +47,7 @@ class StubBackend:
         assert key == f"{formulation}/{parameter}={level:g}"
         assert hp["dimension"] == setup[approach]["horizon"]
         assert hp["n_iterations"] == 20
+        assert hp["hypervolume_checkpoint_every"] == 2
         previous = result["runs"].get(key)
         if previous and len(previous["direction_angle_history"]) == hp["n_iterations"]:
             return
@@ -59,8 +60,8 @@ class StubBackend:
             raise KeyboardInterrupt
         run["X_unit"] = np.zeros((88, hp["dimension"]))
         run["direction_angle_history"] = [0.5] * 20
-        run["hypervolume_history"] = list(np.linspace(0.1, 0.8, 21))
-        run["evaluation_counts"] = list(range(8, 89, 4))
+        run["hypervolume_history"] = list(np.linspace(0.1, 0.8, 11))
+        run["evaluation_counts"] = [8, *range(16, 89, 8)]
         self.save_result(output, result)
 
 

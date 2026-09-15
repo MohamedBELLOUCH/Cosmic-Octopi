@@ -204,10 +204,14 @@ def finish_iteration(run, formulation, angle, hp, directions, reference_costs):
         )
     run["trust_region_length_history"].append(run["trust_region_length"])
     run["direction_angle_history"].append(angle)
-    run["hypervolume_history"].append(estimated_hypervolume(
-        run["cost_realizations"], formulation, directions, reference_costs
-    ))
-    run["evaluation_counts"].append(len(run["X_unit"]))
+    completed_steps = len(run["direction_angle_history"])
+    checkpoint_every = hp.get("hypervolume_checkpoint_every", 1)
+    if (completed_steps % checkpoint_every == 0
+            or completed_steps == hp["n_iterations"]):
+        run["hypervolume_history"].append(estimated_hypervolume(
+            run["cost_realizations"], formulation, directions, reference_costs
+        ))
+        run["evaluation_counts"].append(len(run["X_unit"]))
     run["pending_X"] = None
     run["pending_angle"] = None
 

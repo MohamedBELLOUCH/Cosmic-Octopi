@@ -46,7 +46,7 @@ There are two held-out realizations per sequence and 128 angular directions for
 the shared RTS/STR polar hypervolume. Evaluation never updates UCB. Seeds and
 designs are paired across algorithms, formulations, and sweep levels.
 
-The notebook `Paper plots/Model-free hypervolume results.ipynb` has twelve
+The notebook `Paper plots/Single run model-free hypervolume.ipynb` has twelve
 UCB/KG comparison figures with all 150 checkpoints and the initialization
 boundaries (49 for UCB, 98 for KG). Curves can decrease as recommendations
 change. These single-run estimates and small evaluation sets are not definitive
@@ -62,7 +62,9 @@ Run an individual experiment using the project interpreter, for example:
 Scripts use four held-out workers, resume compatible checkpoints, and skip
 complete results. Changing code/setup/calibration requires a new output filename
 or archiving the old result. Inline `Xi_matrices` support the self-contained
-10-run suite in `Model-free experiments`, which has not been run.
+10-run suite in `Model-free experiments`, which is now complete. Its mean curves
+and bands of one sample standard deviation appear in
+`Paper plots/Multiple run model-free hypervolume.ipynb`.
 
 Earlier code, setups, results, and documentation are preserved under
 `archive/before_7_arms_7_directions_*`. The previous plotting notebook and hash

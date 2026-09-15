@@ -72,7 +72,7 @@ Results save all 150 checkpoints and the 52 pre-observation adaptive diagnostics
 (standard errors, KG indices, bonuses, scores, remaining budget), plus final
 statistics and raw observations.
 
-The notebook overlays UCB and KG in twelve RTS/STR comparison figures and
+`Paper plots/Single run model-free hypervolume.ipynb` overlays UCB and KG in twelve RTS/STR comparison figures and
 reports KG exploration/tie counts. These are single-run empirical results under
 placeholder Xi calibration and a small held-out evaluation budget. They do not
 prove an algorithm fails generally. The simulator is history-dependent; the
@@ -84,6 +84,8 @@ stationarity assumption is inherited from the paper.
 
 All entrypoints use four evaluation workers, resume compatible checkpoints, and
 skip complete results. Inline Xi matrices support the deferred self-contained
-10-run suite in `Model-free experiments`; that script has not run. Prior pilot
+10-run suite in `Model-free experiments`; that batch is complete. Its means and
+shaded bands of one sample standard deviation are in
+`Paper plots/Multiple run model-free hypervolume.ipynb`. Prior pilot
 code, settings, results, and documentation are archived under
 `archive/before_7_arms_7_directions_*`; the prior notebook is also archived.

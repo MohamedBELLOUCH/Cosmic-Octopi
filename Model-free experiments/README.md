@@ -1,7 +1,8 @@
-# Deferred model-free suite
+# Model-free suite
 
-`setup.json` and `script.py` are ready for the final batch stage. **The script
-has not been run and no batch results have been generated.**
+The ten-run batch is complete. `model_free_results.pkl` contains all 120
+experiment records and 480 trajectories. The original setup and script remain
+the reproducible configuration of this result.
 
 The JSON is self-contained: it embeds the simulation settings, UCB/KG options,
 Xi matrices, arms, directions, budgets, evaluation horizons, sweep levels, and
@@ -83,5 +84,7 @@ held-out evaluation cache, and RTS/STR hypervolume histories. Group matching
 algorithm/approach/experiment/condition entries across the ten independent runs
 to calculate the mean and shaded variability band later.
 
-The notebook currently shows one run per condition. Repeated-run aggregation
-and uncertainty intervals can be added after the deferred batch finishes.
+`Paper plots/Single run model-free hypervolume.ipynb` preserves the original
+one-run figures. `Paper plots/Multiple run model-free hypervolume.ipynb` shows
+the completed ten-run means and shaded bands of one sample standard deviation
+for all six settings, with separate RTS and STR figures.

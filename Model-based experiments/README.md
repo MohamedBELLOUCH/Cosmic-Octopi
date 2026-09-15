@@ -21,7 +21,9 @@ RTS and STR at two sweep values, for 480 optimization trajectories.
 
 The existing numerical budgets are preserved: 8 initial candidates, 20 BO steps,
 batches of 4, and 2 simulated realizations per candidate. Each trajectory has 88
-candidates and 21 hypervolume checkpoints, including initialization at step 0.
+candidates and 11 hypervolume checkpoints: initialization at step 0, then BO
+steps 2, 4, ..., 20. All 20 BO steps run; only the intervening hypervolume
+calculations are skipped.
 Holistic and reductionist evaluation horizons remain 100 and 50 respectively,
 with their existing fixed reference points. The optimizer adaptations and
 simulator are reused from MORBO and qNParEGO without changing their files.
