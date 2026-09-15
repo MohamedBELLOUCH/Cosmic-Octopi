@@ -32,7 +32,7 @@ Federated Deep Reinforcement Learning (FDRL) enables agents to collaboratively l
 
 ## Cosmic Octopi
 
-Consider $M > 0$ octopi, each living on a distinct planet. Each octopus manipulates four marionettes: a **Humanoid**, an **Ant**, a **Leg**, and a **Cheetah**. The octopus alternates between learning and break periods, which are exponentially distributed with means $\gamma_{\text{learn}} > 0$ and $\gamma_{\text{break}} > 0$, respectively. During the learning periods, through trial and error, it learns to make the cheetah run, the ant and humanoid walk, and the leg jump.
+Consider $M > 0$ octopi, each living on a distinct planet and manipulates four marionettes: a **Humanoid**, an **Ant**, a **Leg**, and a **Cheetah**. The octopus alternates between learning and break periods, which are exponentially distributed with means $\gamma_{\text{learn}} > 0$ and $\gamma_{\text{break}} > 0$, respectively. During the learning periods, through trial and error, it learns to make the cheetah run, the ant and humanoid walk, and the leg jump.
 
 ### Planet gravity
 The surface gravities of the planets (in m/s$^2$) are i.i.d. and sampled from the Gamma distribution
