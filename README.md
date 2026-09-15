@@ -42,7 +42,7 @@ where $g = 9.81$ m/s$^2$ is the gravity of Earth, and $\gamma_{\text{grav}} > 0$
 
 To cooperate, the octopi exchange learning "knowledge" with a Galactic Oracle. Specifically, the Galactic Oracle regularly broadcasts requests to the octopi to gather their local "knowledge", construct a global one, and return it to them. These requests follow a marked Poisson point process (PPP). The request instants form a standard PPP with intensity $\gamma_{\text{req}} > 0$, and each request carries a mark indicating the corresponding marionette type.
 
-At a given request instant, the probability that the request is associated with the marionette $\mathcal{M} \in \mathscr{M} \triangleq \left\{\text{"Humanoid", "Ant", "Cheetah", "Leg"}\right\}$ is
+At a given request instant, the probability that the request is associated with the marionette $`\mathcal{M} \in \mathscr{M} \triangleq \left\lbrace\text{"Humanoid", "Ant", "Cheetah", "Leg"}\right\rbrace`$ is
 
 $$
 \frac{\exp\left(\frac{w_\mathcal{M}}{\gamma_{\text{heter}}}\right)}{\sum\limits_{\mathcal{M}' \in \mathscr{M}} \exp\left(\frac{w_{\mathcal{M}'}}{\gamma_{\text{heter}}}\right)}.
