@@ -72,14 +72,57 @@ Use the `.venv` interpreter for the notebooks. CUDA dependencies are provided in
 
 ## Run experiments
 
-From the repository root:
+The mapping follows the subsections of **Section 7: Experiments: Cosmic Octopi**. Run the linked Python files from the repository root, using their corresponding setup JSON files. For example:
+
+```bat
+.venv\Scripts\python.exe -B "Temperature\script.py"
+```
+
+**7.1 Cosmic Octopi** and **7.2 Implementation details** describe the shared simulator implemented in [octopus.py](Cosmic%20Octopi/octopus.py) and [oracle.py](Cosmic%20Octopi/oracle.py); they have no standalone experiment runners.
+
+### 7.3 Preliminaries and ablations
+
+| Paper subsection | Experiment runner |
+|---|---|
+| 7.3.1 Synchronization and request heterogeneity | [Synchronization and request rates/script.py](Synchronization%20and%20request%20rates/script.py) |
+| 7.3.2 Planet gravity and number of octopi | [Planet gravity/script.py](Planet%20gravity/script.py) and [Octopi count/script.py](Octopi%20count/script.py) |
+| 7.3.3 Fitness margins | [Fitness margins/script.py](Fitness%20margins/script.py) |
+| 7.3.4 Temperature | [Temperature/script.py](Temperature/script.py) |
+| 7.3.5 Robust Pareto fronts | [Pareto fronts/script.py](Pareto%20fronts/script.py) |
+| 7.3.6 Model calibration | [Model calibration/script.py](Model%20calibration/script.py) |
+
+### 7.4 Model-based approach
+
+Each algorithm link opens the corresponding runner for both RTS and STR.
+
+| Paper subsection | Holistic runners | Reductionist runners |
+|---|---|---|
+| 7.4.1 Gravity | [MORBO](MORBO/script_holistic_gravity.py), [qNParEGO](qNParEGO/script_holistic_gravity.py) | [MORBO](MORBO/script_reductionist_gravity.py), [qNParEGO](qNParEGO/script_reductionist_gravity.py) |
+| 7.4.2 Synchronization | [MORBO](MORBO/script_holistic_synchronization.py), [qNParEGO](qNParEGO/script_holistic_synchronization.py) | [MORBO](MORBO/script_reductionist_synchronization.py), [qNParEGO](qNParEGO/script_reductionist_synchronization.py) |
+| 7.4.3 Request rates | [MORBO](MORBO/script_holistic_heterogeneity.py), [qNParEGO](qNParEGO/script_holistic_heterogeneity.py) | [MORBO](MORBO/script_reductionist_heterogeneity.py), [qNParEGO](qNParEGO/script_reductionist_heterogeneity.py) |
+
+### 7.5 Model-free approach
+
+Each algorithm link opens the corresponding runner for both RTS and STR.
+
+| Paper subsection | Holistic runners | Reductionist runners |
+|---|---|---|
+| 7.5.1 Gravity | [Scalarized UCB](Scalarized%20UCB/script_holistic_gravity.py), [Scalarized Knowledge Gradient](Scalarized%20Knowledge%20Gradient/script_holistic_gravity.py) | [Scalarized UCB](Scalarized%20UCB/script_reductionist_gravity.py), [Scalarized Knowledge Gradient](Scalarized%20Knowledge%20Gradient/script_reductionist_gravity.py) |
+| 7.5.2 Synchronization | [Scalarized UCB](Scalarized%20UCB/script_holistic_synchronization.py), [Scalarized Knowledge Gradient](Scalarized%20Knowledge%20Gradient/script_holistic_synchronization.py) | [Scalarized UCB](Scalarized%20UCB/script_reductionist_synchronization.py), [Scalarized Knowledge Gradient](Scalarized%20Knowledge%20Gradient/script_reductionist_synchronization.py) |
+| 7.5.3 Request rates | [Scalarized UCB](Scalarized%20UCB/script_holistic_heterogeneity.py), [Scalarized Knowledge Gradient](Scalarized%20Knowledge%20Gradient/script_holistic_heterogeneity.py) | [Scalarized UCB](Scalarized%20UCB/script_reductionist_heterogeneity.py), [Scalarized Knowledge Gradient](Scalarized%20Knowledge%20Gradient/script_reductionist_heterogeneity.py) |
+
+### 7.6 Summary of hypervolume results
+
+This subsection summarizes the experiments in Sections 7.4 and 7.5 and requires no separate simulation. The corresponding results can be inspected in [Model-based hypervolume results](Paper%20plots/Model-based%20hypervolume%20results.ipynb) and [Multiple run model-free hypervolume](Paper%20plots/Multiple%20run%20model-free%20hypervolume.ipynb).
+
+### Batch runners
+
+The [model-based suite](Model-based%20experiments/script.py) runs all Section 7.4 experiments, and the [model-free suite](Model-free%20experiments/script.py) runs all Section 7.5 experiments. Each uses its self-contained `setup.json`, configured for 10 independent runs.
 
 ```bat
 .venv\Scripts\python.exe -B "Model-based experiments\script.py"
 .venv\Scripts\python.exe -B "Model-free experiments\script.py"
 ```
-
-Each suite uses its `setup.json`. Individual experiments provide setup files, scripts, and saved results.
 
 ## Repository structure
 
