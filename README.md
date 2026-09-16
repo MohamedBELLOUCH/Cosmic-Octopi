@@ -16,7 +16,6 @@
 
 ---
 
-![Cosmic Octopi illustration: octopi on distinct planets manipulating marionettes](Image/Illustration.png)
 
 
 
