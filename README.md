@@ -29,8 +29,8 @@ Federated Deep Reinforcement Learning (FDRL) enables agents to collaboratively l
 
 ### Contributions
 
-- A complementary paradigm termed **Selective Pressure Allocation** is introduced. Fitness margins are dynamically adjusted across global iterations to account for the framework's stochastic and time-varying nature. Regulation is restricted to the agents' uploading phase, enabling coexistence with other communication-efficiency techniques.
-- Two metrics are defined to quantify **overhead and learning-performance instability**, and two problem formulations are provided: **reductionist and holistic**. Each class is considered in the reductionist formulation, while all classes are considered in the holistic formulation.
+- The fitness margins are dynamically adjusted across global iterations to account for the framework's stochastic and time-varying nature. The paradigm intervenes in the agents' uploading phase, enabling coexistence with other communication-efficiency techniques (e.g., compression).
+- Two metrics are defined to quantify **overhead and learning-performance instability**, and two problem formulations are provided: **reductionist and holistic**.
 - Two solution approaches are proposed: **model-based and model-free**. The formulations are cast as multi-objective Bayesian optimization problems in the model-based approach, and as multi-objective multi-armed bandit (MOMAB) problems in the model-free approach.
 - Several experiments are conducted on a **hand-crafted MuJoCo case study** that matches the formalized framework. The effectiveness of the proposed paradigm is demonstrated, and the relative strengths of the reformulations and solution approaches across different scenarios are highlighted.
 
