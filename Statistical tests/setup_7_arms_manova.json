@@ -1,0 +1,242 @@
+{
+  "experiment": "Humanoid cost-vector stationarity diagnostics",
+  "simulated_rewards": true,
+  "n_independent_runs": 350,
+  "seed": 20260916,
+  "workers": 2,
+  "output_file": "result_7_arms_manova.pkl",
+  "reductionist": {
+    "class_name": "Humanoid",
+    "horizon": 150
+  },
+  "arms": {
+    "n_arms": 7,
+    "interval": [
+      -10,
+      20
+    ],
+    "randomization": "independent_uniform",
+    "note": "Independent uniform arm draws across runs and iterations; expected 50 observations per arm per iteration. Exact cross-run balancing is avoided to preserve independent trajectories."
+  },
+  "statistics": {
+    "horizons": [
+      20,
+      30,
+      40,
+      50,
+      60,
+      70,
+      80,
+      90,
+      100,
+      110,
+      120,
+      130,
+      140,
+      150
+    ],
+    "alpha": 0.001,
+    "significance_levels": [
+      0.001,
+      0.005,
+      0.01
+    ],
+    "confidence_level": 0.95,
+    "seed": 20260917,
+    "ljung_box": {
+      "max_lag": 5,
+      "n_permutations": 4999,
+      "calibration": "joint_row_permutation",
+      "note": "Fixed lag 5; 4999 joint-row permutations resolve the 0.1%, 0.5%, and 1% significance levels.",
+      "significance_levels": [
+        0.001,
+        0.005,
+        0.01
+      ]
+    },
+    "scaling": "fixed maximum overhead increment and unit instability bound",
+    "include_initial_iterations": true,
+    "horizon_inference": "Pointwise diagnostics; no simultaneous guarantee or estimated valid horizon.",
+    "second_test": "manova",
+    "input_result_file": "result.pkl",
+    "manova": {
+      "statistic": "pillai_trace",
+      "calibration": "trajectory_wild_bootstrap_hc2",
+      "n_bootstrap": 4999,
+      "min_group_size": 5,
+      "significance_levels": [
+        0.01,
+        0.02,
+        0.03
+      ],
+      "correction": "holm_within_horizon",
+      "note": "Tests equality of the bivariate mean cost across iteration groups, conditional on arm. Whole-trajectory Rademacher multipliers preserve within-trajectory dependence; HC2 full-model residuals impose equal null means. Calibration is approximate. Classical independent-observation F p-values are stored but not plotted."
+    }
+  },
+  "gravity_mean": 9.81,
+  "ou_substeps": 5,
+  "system_dynamics_parameters": {
+    "n_octopi": 40,
+    "n_classes": 4,
+    "gamma_learn": 20,
+    "gamma_break": 10,
+    "gamma_req": 10,
+    "gamma_heter": 1,
+    "gamma_grav": 1,
+    "gamma_sync": 1,
+    "gamma_epis": 1
+  },
+  "hyper_parameters": {
+    "temperature": 0.001,
+    "scaling_constant": 1
+  },
+  "fitness_margin_bounds": {
+    "Cheetah": [
+      -10,
+      20
+    ],
+    "Ant": [
+      -10,
+      20
+    ],
+    "Leg": [
+      -10,
+      20
+    ],
+    "Humanoid": [
+      -10,
+      20
+    ]
+  },
+  "policy_shapes": {
+    "Cheetah": [
+      17,
+      6,
+      64
+    ],
+    "Ant": [
+      105,
+      8,
+      64
+    ],
+    "Leg": [
+      11,
+      3,
+      64
+    ],
+    "Humanoid": [
+      348,
+      17,
+      256
+    ]
+  },
+  "Xi_matrices": {
+    "Cheetah": [
+      [
+        0.9,
+        0,
+        0,
+        0
+      ],
+      [
+        0.2,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0.01,
+        0.01,
+        0.01
+      ],
+      [
+        20,
+        -9.210340371976184,
+        5.298317366548036,
+        -2.3025850929940455
+      ]
+    ],
+    "Ant": [
+      [
+        0.9,
+        0,
+        0,
+        0
+      ],
+      [
+        0.2,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0.01,
+        0.01,
+        0.01
+      ],
+      [
+        20,
+        -9.210340371976184,
+        5.298317366548036,
+        -2.3025850929940455
+      ]
+    ],
+    "Leg": [
+      [
+        0.9,
+        0,
+        0,
+        0
+      ],
+      [
+        0.2,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0.01,
+        0.01,
+        0.01
+      ],
+      [
+        20,
+        -9.210340371976184,
+        5.298317366548036,
+        -2.3025850929940455
+      ]
+    ],
+    "Humanoid": [
+      [
+        0.9,
+        0,
+        0,
+        0
+      ],
+      [
+        0.2,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0.01,
+        0.01,
+        0.01
+      ],
+      [
+        20,
+        -9.210340371976184,
+        5.298317366548036,
+        -2.3025850929940455
+      ]
+    ]
+  },
+  "calibration_source": "../Model calibration/Xi_matrix.json",
+  "observation_definition": "Current-iteration overhead increment (KiB) and current-iteration instability increment, as in the existing Scalarized UCB/KG simulator. No delayed Pareto UCB feedback.",
+  "simulation_note": "Reuses the reductionist run_online simulator without training or constructing Gymnasium environments. All 150 Humanoid iterations, including initialization, are retained."
+}

@@ -1,0 +1,252 @@
+{
+  "experiment": "Humanoid cost-vector stationarity diagnostics",
+  "simulated_rewards": true,
+  "n_independent_runs": 600,
+  "seed": 20260916,
+  "workers": 2,
+  "output_file": "result_20_arms_30_evaluations_quantiles.pkl",
+  "reductionist": {
+    "class_name": "Humanoid",
+    "horizon": 150
+  },
+  "arms": {
+    "n_arms": 20,
+    "interval": [
+      -10,
+      20
+    ],
+    "randomization": "independent_uniform",
+    "note": "Independent uniform arm draws: 600 trajectories give an expected 30 observations per arm per iteration. The 50/50 calibration split leaves about 15 evaluated vectors per arm/horizon for quantile coverage."
+  },
+  "statistics": {
+    "horizons": [
+      20,
+      30,
+      40,
+      50,
+      60,
+      70,
+      80,
+      90,
+      100,
+      110,
+      120,
+      130,
+      140,
+      150
+    ],
+    "alpha": 0.01,
+    "significance_levels": [
+      0.01
+    ],
+    "confidence_level": 0.8,
+    "seed": 20260917,
+    "ljung_box": {
+      "max_lag": 5,
+      "n_permutations": 4999,
+      "calibration": "joint_row_permutation",
+      "note": "Lag 5 and 4999 joint-row permutations per trajectory prefix; significance 1%.",
+      "significance_levels": [
+        0.01
+      ]
+    },
+    "scaling": "fixed maximum overhead increment and unit instability bound",
+    "include_initial_iterations": true,
+    "horizon_inference": "Pointwise diagnostics; no simultaneous guarantee or estimated valid horizon.",
+    "second_test": "quantile_coverage",
+    "quantile_coverage": {
+      "alpha": 0.01,
+      "minimum_coverage": 0.8,
+      "calibration_fraction": 0.5,
+      "calibration_horizon": 150,
+      "split_seed": 20260919,
+      "evaluation_seed": 20260920,
+      "sampling": "one_uniform_iteration_per_evaluation_trajectory",
+      "correction": "holm_within_band_and_horizon",
+      "bands": [
+        {
+          "name": "q = 5%",
+          "lower": 0.05,
+          "upper": 0.95
+        },
+        {
+          "name": "q = 10%",
+          "lower": 0.1,
+          "upper": 0.9
+        },
+        {
+          "name": "q = 20%",
+          "lower": 0.2,
+          "upper": 0.8
+        }
+      ],
+      "note": "Pooled quantiles use calibration trajectories only. One random time per held-out trajectory per horizon yields independent Bernoulli membership observations. Test H0 coverage >= 0.8 against H1 coverage < 0.8. Holm correction is across arms separately per band/horizon; 80% descriptive confidence intervals do not determine 1% test decisions."
+    }
+  },
+  "gravity_mean": 9.81,
+  "ou_substeps": 5,
+  "system_dynamics_parameters": {
+    "n_octopi": 40,
+    "n_classes": 4,
+    "gamma_learn": 20,
+    "gamma_break": 10,
+    "gamma_req": 10,
+    "gamma_heter": 1,
+    "gamma_grav": 1,
+    "gamma_sync": 1,
+    "gamma_epis": 1
+  },
+  "hyper_parameters": {
+    "temperature": 0.001,
+    "scaling_constant": 1
+  },
+  "fitness_margin_bounds": {
+    "Cheetah": [
+      -10,
+      20
+    ],
+    "Ant": [
+      -10,
+      20
+    ],
+    "Leg": [
+      -10,
+      20
+    ],
+    "Humanoid": [
+      -10,
+      20
+    ]
+  },
+  "policy_shapes": {
+    "Cheetah": [
+      17,
+      6,
+      64
+    ],
+    "Ant": [
+      105,
+      8,
+      64
+    ],
+    "Leg": [
+      11,
+      3,
+      64
+    ],
+    "Humanoid": [
+      348,
+      17,
+      256
+    ]
+  },
+  "Xi_matrices": {
+    "Cheetah": [
+      [
+        0.9,
+        0,
+        0,
+        0
+      ],
+      [
+        0.2,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0.01,
+        0.01,
+        0.01
+      ],
+      [
+        20,
+        -9.210340371976184,
+        5.298317366548036,
+        -2.3025850929940455
+      ]
+    ],
+    "Ant": [
+      [
+        0.9,
+        0,
+        0,
+        0
+      ],
+      [
+        0.2,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0.01,
+        0.01,
+        0.01
+      ],
+      [
+        20,
+        -9.210340371976184,
+        5.298317366548036,
+        -2.3025850929940455
+      ]
+    ],
+    "Leg": [
+      [
+        0.9,
+        0,
+        0,
+        0
+      ],
+      [
+        0.2,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0.01,
+        0.01,
+        0.01
+      ],
+      [
+        20,
+        -9.210340371976184,
+        5.298317366548036,
+        -2.3025850929940455
+      ]
+    ],
+    "Humanoid": [
+      [
+        0.9,
+        0,
+        0,
+        0
+      ],
+      [
+        0.2,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0.01,
+        0.01,
+        0.01
+      ],
+      [
+        20,
+        -9.210340371976184,
+        5.298317366548036,
+        -2.3025850929940455
+      ]
+    ]
+  },
+  "calibration_source": "../Model calibration/Xi_matrix.json",
+  "observation_definition": "Current-iteration overhead increment (KiB) and current-iteration instability increment, as in the existing Scalarized UCB/KG simulator. No delayed Pareto UCB feedback.",
+  "simulation_note": "Reuses the reductionist run_online simulator without training or constructing Gymnasium environments. All 150 Humanoid iterations, including initialization, are retained."
+}

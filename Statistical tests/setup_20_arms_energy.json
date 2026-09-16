@@ -1,0 +1,229 @@
+{
+  "experiment": "Humanoid cost-vector stationarity diagnostics",
+  "simulated_rewards": true,
+  "n_independent_runs": 600,
+  "seed": 20260916,
+  "workers": 2,
+  "output_file": "result_20_arms_30_observations.pkl",
+  "reductionist": {
+    "class_name": "Humanoid",
+    "horizon": 150
+  },
+  "arms": {
+    "n_arms": 20,
+    "interval": [
+      -10,
+      20
+    ],
+    "randomization": "independent_uniform",
+    "note": "Independent uniform arm draws across runs and iterations; expected 30 observations per arm per iteration. Exact cross-run balancing is avoided to preserve independent trajectories."
+  },
+  "statistics": {
+    "horizons": [
+      20,
+      30,
+      40,
+      50,
+      60,
+      70,
+      80,
+      90,
+      100,
+      110,
+      120,
+      130,
+      140,
+      150
+    ],
+    "alpha": 0.01,
+    "significance_levels": [
+      0.01,
+      0.02,
+      0.03
+    ],
+    "confidence_level": 0.95,
+    "seed": 20260917,
+    "ljung_box": {
+      "max_lag": 5,
+      "n_permutations": 499,
+      "calibration": "joint_row_permutation",
+      "note": "Multivariate Ljung-Box statistic with a fixed lag of 5; Monte Carlo permutation p-values calibrate short prefixes under the iid null. Asymptotic chi-square p-values are also retained."
+    },
+    "energy": {
+      "statistic": "disco_between",
+      "n_permutations": 4999,
+      "min_group_size": 5,
+      "correction": "holm_within_horizon",
+      "note": "K-sample energy test with Euclidean distance (exponent 1), DISCO between-sample statistic, and pooled-label permutations within each arm. Its p-values require exchangeability under the joint iid-by-arm null; temporal dependence prevents a standalone identical-distribution interpretation."
+    },
+    "scaling": "fixed maximum overhead increment and unit instability bound",
+    "include_initial_iterations": true,
+    "horizon_inference": "Pointwise diagnostics; no simultaneous guarantee or estimated valid horizon."
+  },
+  "gravity_mean": 9.81,
+  "ou_substeps": 5,
+  "system_dynamics_parameters": {
+    "n_octopi": 40,
+    "n_classes": 4,
+    "gamma_learn": 20,
+    "gamma_break": 10,
+    "gamma_req": 10,
+    "gamma_heter": 1,
+    "gamma_grav": 1,
+    "gamma_sync": 1,
+    "gamma_epis": 1
+  },
+  "hyper_parameters": {
+    "temperature": 0.001,
+    "scaling_constant": 1
+  },
+  "fitness_margin_bounds": {
+    "Cheetah": [
+      -10,
+      20
+    ],
+    "Ant": [
+      -10,
+      20
+    ],
+    "Leg": [
+      -10,
+      20
+    ],
+    "Humanoid": [
+      -10,
+      20
+    ]
+  },
+  "policy_shapes": {
+    "Cheetah": [
+      17,
+      6,
+      64
+    ],
+    "Ant": [
+      105,
+      8,
+      64
+    ],
+    "Leg": [
+      11,
+      3,
+      64
+    ],
+    "Humanoid": [
+      348,
+      17,
+      256
+    ]
+  },
+  "Xi_matrices": {
+    "Cheetah": [
+      [
+        0.9,
+        0,
+        0,
+        0
+      ],
+      [
+        0.2,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0.01,
+        0.01,
+        0.01
+      ],
+      [
+        20,
+        -9.210340371976184,
+        5.298317366548036,
+        -2.3025850929940455
+      ]
+    ],
+    "Ant": [
+      [
+        0.9,
+        0,
+        0,
+        0
+      ],
+      [
+        0.2,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0.01,
+        0.01,
+        0.01
+      ],
+      [
+        20,
+        -9.210340371976184,
+        5.298317366548036,
+        -2.3025850929940455
+      ]
+    ],
+    "Leg": [
+      [
+        0.9,
+        0,
+        0,
+        0
+      ],
+      [
+        0.2,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0.01,
+        0.01,
+        0.01
+      ],
+      [
+        20,
+        -9.210340371976184,
+        5.298317366548036,
+        -2.3025850929940455
+      ]
+    ],
+    "Humanoid": [
+      [
+        0.9,
+        0,
+        0,
+        0
+      ],
+      [
+        0.2,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0.01,
+        0.01,
+        0.01
+      ],
+      [
+        20,
+        -9.210340371976184,
+        5.298317366548036,
+        -2.3025850929940455
+      ]
+    ]
+  },
+  "calibration_source": "../Model calibration/Xi_matrix.json",
+  "observation_definition": "Current-iteration overhead increment (KiB) and current-iteration instability increment, as in the existing Scalarized UCB/KG simulator. No delayed Pareto UCB feedback.",
+  "simulation_note": "Reuses the reductionist run_online simulator without training or constructing Gymnasium environments. All 150 Humanoid iterations, including initialization, are retained."
+}
