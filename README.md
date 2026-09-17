@@ -11,6 +11,7 @@
 ![Python](https://img.shields.io/badge/Python-3.14-3776AB?logo=python&logoColor=white)
 ![PyTorch](https://img.shields.io/badge/PyTorch-PPO-EE4C2C?logo=pytorch&logoColor=white)
 ![MuJoCo](https://img.shields.io/badge/Environments-MuJoCo-8250df)
+![Copyright: Mohamed Bellouch](https://img.shields.io/badge/Environments-MuJoCo-8250df)
 
 [About the paper](#about-the-paper) · [Cosmic Octopi](#cosmic-octopi-case-study) · [Repository structure](#repository-structure) · [Installation](#installation) · [Run experiments](#run-experiments)
 
