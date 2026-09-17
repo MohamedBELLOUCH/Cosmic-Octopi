@@ -3,6 +3,7 @@
 # 🐙 Cosmic Octopi
 
 ### Selective Pressure Allocation
+**A Paradigm for Communication Efficiency in Federated Deep Reinforcement Learning**
 **© Mohamed Bellouch**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-2ea44f.svg)](LICENSE)
