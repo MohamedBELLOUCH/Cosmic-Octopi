@@ -1,0 +1,57 @@
+{
+  "experiment": "Independence diagnostics after a cutoff horizon",
+  "input_result_file": "result_20_arms_30_evaluations_quantiles.pkl",
+  "output_file": "result_independence_cutoff.pkl",
+  "workers": 4,
+  "seed": 20260919,
+  "alpha": 0.01,
+  "scaling": "saved_objective_scale",
+  "ljung_box": {
+    "max_lag": 5,
+    "n_permutations": 4999,
+    "seed": 20260917,
+    "calibration": "joint_row_permutation"
+  },
+  "autohsic": {
+    "max_lag": 5,
+    "kernel": "gaussian",
+    "bandwidth": "median_pairwise_distance_per_window",
+    "zero_median_fallback": "median_positive_distance_or_one",
+    "statistic": "sum_u_centered_hsic",
+    "calibration": "independent_rademacher_weights_per_lag",
+    "n_bootstrap": 4999
+  },
+  "bds": {
+    "embedding_dimension": 2,
+    "distance_multiplier": 1.5,
+    "calibration": "joint_row_permutation_two_sided",
+    "n_permutations": 4999,
+    "coordinate_correction": "bonferroni"
+  },
+  "notes": [
+    "Reuses all 600 saved Humanoid trajectories, without simulation or training.",
+    "For each cutoff p, apply the original three test functions to observations at iterations p+1,...,150.",
+    "Same fixed lag 5, 4999 resamples per test, 1% significance, and BDS coordinate Bonferroni correction as the original prefix comparison.",
+    "The Gaussian bandwidth and BDS epsilon are recomputed within each retained window using the original rules.",
+    "These pointwise iid-null diagnostics can reject because of serial dependence or changing marginal distributions. Later cutoffs shorten the sample and reduce power.",
+    "No correction across trajectories or overlapping cutoffs; the output is the descriptive proportion of rejected trajectories."
+  ],
+  "references": [
+    "https://arxiv.org/html/2605.22025v1",
+    "https://www.statsmodels.org/stable/generated/statsmodels.tsa.stattools.bds.html"
+  ],
+  "cutoff_horizons": [
+    20,
+    30,
+    40,
+    50,
+    60,
+    70,
+    80,
+    90,
+    100,
+    110,
+    120
+  ],
+  "window": "global iterations cutoff+1 through the final saved iteration"
+}
