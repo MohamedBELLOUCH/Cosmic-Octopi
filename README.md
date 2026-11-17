@@ -38,7 +38,7 @@ Federated Deep Reinforcement Learning (FDRL) enables agents to collaboratively l
 
 ## Cosmic Octopi
 
-Consider $M > 0$ octopi, each living on a distinct planet and manipulates four marionettes: a **Humanoid**, an **Ant**, a **Leg**, and a **Cheetah**. The octopus alternates between learning and break periods, which are exponentially distributed with means $\gamma_{\text{learn}} > 0$ and $\gamma_{\text{break}} > 0$, respectively. During the learning periods, through trial and error, it learns to make the cheetah run, the ant and humanoid walk, and the leg jump.
+Consider $M > 0$ octopi, each living on a distinct planet and manipulates four marionettes: a **Humanoid**, an **Ant**, a **Leg**, and a **Cheetah**. Each octopus alternates between learning and break periods, which are exponentially distributed with means $\gamma_{\text{learn}} > 0$ and $\gamma_{\text{break}} > 0$, respectively. During the learning periods, through trial and error, it learns to make the cheetah run, the ant and humanoid walk, and the leg jump.
 
 ### Planet gravity
 The surface gravities of the planets (in m/s$^2$) are i.i.d. and sampled from the Gamma distribution
@@ -52,13 +52,13 @@ where $g = 9.81$ m/s$^2$ is the gravity of Earth, and $\gamma_{\text{grav}} > 0$
 ### Request rates
 To cooperate, the octopi exchange learning "knowledge" with a Galactic Oracle. Specifically, the Galactic Oracle regularly broadcasts requests to the octopi to gather their local "knowledge", construct a global one, and return it to them. These requests follow a marked Poisson point process (PPP). The request instants form a standard PPP with intensity $\gamma_{\text{req}} > 0$, and each request carries a mark indicating the corresponding marionette type.
 
-At a given request instant, the probability that the request is associated with the marionette $`\mathcal{M} \in \mathscr{M} \triangleq \left\lbrace\text{"Humanoid", "Ant", "Cheetah", "Leg"}\right\rbrace`$ is
+At a given request instant, the probability that the request is associated with the marionette $`m \in \mathscr{M} \triangleq \left\lbrace\text{"Humanoid", "Ant", "Cheetah", "Leg"}\right\rbrace`$ is
 
 $$
-\frac{\exp\left(\frac{w_\mathcal{M}}{\gamma_{\text{heter}}}\right)}{\sum\limits_{\mathcal{M}' \in \mathscr{M}} \exp\left(\frac{w_{\mathcal{M}'}}{\gamma_{\text{heter}}}\right)}.
+\frac{\exp\left(\frac{w_m}{\gamma_{\text{heter}}}\right)}{\sum\limits_{m' \in \mathscr{M}} \exp\left(\frac{w_{m'}}{\gamma_{\text{heter}}}\right)}.
 $$
 
-Here, $\gamma_{\text{heter}} \geq 0$ is a parameter, and for any $\mathcal{M}' \in \mathscr{M}$, $w_{\mathcal{M}'} > 0$ is a constant chosen arbitrarily subject to the ordering constraint $w_{\text{"Leg"}} \leq w_{\text{"Cheetah"}} \leq w_{\text{"Ant"}} \leq w_{\text{"Humanoid"}}$.
+Here, $\gamma_{\text{heter}} \geq 0$ is a parameter, and for any $m' \in \mathscr{M}$, $w_{m'} > 0$ is a constant chosen arbitrarily subject to the ordering constraint $w_{\text{"Leg"}} \leq w_{\text{"Cheetah"}} \leq w_{\text{"Ant"}} \leq w_{\text{"Humanoid"}}$.
 
 ### Synchronization
 Upon receiving a request, an octopus responds with probability $\gamma_{\text{sync}} \in (0,1]$. Sending its local "knowledge" to the Galactic Oracle requires opening a wormhole, which consumes immense energy.
